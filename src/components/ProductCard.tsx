@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingBag, Star } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { getDiscountPercent } from "@/lib/products";
+import { getSubcategoryLabel } from "@/lib/subcategories";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -95,6 +96,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         <h3 className="mb-1 font-medium text-white transition-colors group-hover:text-accent-light line-clamp-1">
           {product.name}
         </h3>
+        {product.subcategory && (
+          <span className="mb-2 inline-block rounded-full border border-white/5 bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-obsidian-500">
+            {getSubcategoryLabel(product.subcategory)}
+          </span>
+        )}
         <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-obsidian-400">
           {product.description}
         </p>

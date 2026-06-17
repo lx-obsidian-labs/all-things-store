@@ -30,6 +30,7 @@ export interface Product {
   price: number;
   compareAtPrice?: number;
   category: string;
+  subcategory?: string;
   tags: string[];
   image: string;
   images?: string[];

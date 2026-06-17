@@ -2,10 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Grid3X3, List, ListOrdered } from "lucide-react";
+import { Grid3X3, List, ListOrdered, X } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { CategoryPills } from "@/components/CategoryPills";
 import { categories, products, sortProducts } from "@/lib/products";
+import { subcategories, getSubcategoryLabel } from "@/lib/subcategories";
 import type { SortOption } from "@/lib/products";
 
 interface ShopClientProps {
@@ -16,6 +17,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
   const searchParams = useSearchParams();
   const [sort, setSort] = useState<SortOption>("default");
   const [view, setView] = useState<"grid" | "list">("grid");
+  const [activeSubcategory, setActiveSubcategory] = useState<string>("");
 
   const activeCategory = searchParams.get("category") ?? initialCategory;
 
@@ -27,7 +29,23 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
     [activeCategory]
   );
 
-  const sorted = useMemo(() => sortProducts(filtered, sort), [filtered, sort]);
+  const availableSubcategories = useMemo(() => {
+    const set = new Set<string>();
+    for (const p of filtered) {
+      if (p.subcategory) set.add(p.subcategory);
+    }
+    return subcategories.filter((s) => set.has(s.id));
+  }, [filtered]);
+
+  const subcategoryFiltered = useMemo(
+    () =>
+      activeSubcategory
+        ? filtered.filter((p) => p.subcategory === activeSubcategory)
+        : filtered,
+    [filtered, activeSubcategory]
+  );
+
+  const sorted = useMemo(() => sortProducts(subcategoryFiltered, sort), [subcategoryFiltered, sort]);
 
   const categoryInfo = categories.find((c) => c.id === activeCategory);
 
@@ -49,10 +67,52 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
         </p>
       </div>
 
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-4">
         <CategoryPills active={activeCategory} />
+      </div>
 
-        <div className="flex items-center gap-3">
+      {availableSubcategories.length > 0 && (
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveSubcategory("")}
+            className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
+              !activeSubcategory
+                ? "border-accent/50 bg-accent/10 text-accent-light"
+                : "border-white/5 bg-white/[0.02] text-obsidian-400 hover:border-white/10 hover:text-white"
+            }`}
+          >
+            All
+          </button>
+          {availableSubcategories.map((sub) => (
+            <button
+              key={sub.id}
+              type="button"
+              onClick={() => setActiveSubcategory(sub.id)}
+              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
+                activeSubcategory === sub.id
+                  ? "border-accent/50 bg-accent/10 text-accent-light"
+                  : "border-white/5 bg-white/[0.02] text-obsidian-400 hover:border-white/10 hover:text-white"
+              }`}
+            >
+              {sub.label}
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        {activeSubcategory && (
+          <button
+            type="button"
+            onClick={() => setActiveSubcategory("")}
+            className="flex items-center gap-1.5 text-xs text-obsidian-500 transition-colors hover:text-white"
+          >
+            <X className="h-3 w-3" />
+            Clear filter
+          </button>
+        )}
+        <div className="ml-auto flex items-center gap-3">
           <div className="relative">
             <ListOrdered className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-obsidian-500" />
             <select
