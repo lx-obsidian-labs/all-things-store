@@ -1,4 +1,5 @@
 import type { Category, Product } from "./types";
+import { cheapProducts } from "./cheap-products";
 
 export const categories: Category[] = [
   {
@@ -1070,6 +1071,7 @@ export const products: Product[] = [
       processingTime: "3-5 days",
     },
   },
+  ...cheapProducts,
 ];
 
 export function getProductBySlug(slug: string): Product | undefined {
