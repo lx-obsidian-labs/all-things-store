@@ -1,46 +1,104 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp, Clock, Zap } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
-import { categories, getFeaturedProducts } from "@/lib/products";
+import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, formatPrice } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
 
 export default function HomePage() {
-  const featured = getFeaturedProducts();
+  const bestSellers = getBestSellingProducts(6);
+  const deals = getDealProducts(4);
+  const newArrivals = getNewArrivals(4);
+  const winning = getWinningProducts(3);
 
   return (
     <>
       <Hero />
 
+      {/* Winning Products — highest-rated, best-margin */}
       <section className="section-padding mx-auto max-w-7xl">
-        <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+        <div className="mb-8 flex items-center gap-3">
+          <Zap className="h-5 w-5 text-accent-light" />
+          <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+            Top Picks
+          </p>
+        </div>
+        <h2 className="mb-10 font-display text-3xl text-white sm:text-4xl">
+          Our winning products
+        </h2>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {winning.map((product, i) => (
+            <ProductCard key={product.id} product={product} index={i} />
+          ))}
+        </div>
+      </section>
+
+      {/* Best Sellers */}
+      <section className="section-padding border-t border-white/5 bg-obsidian-900/30">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <div className="mb-2 flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-accent-light" />
+                <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+                  Best Sellers
+                </p>
+              </div>
+              <h2 className="font-display text-3xl text-white sm:text-4xl">
+                Most loved products
+              </h2>
+            </div>
+            <Link
+              href="/shop?sort=bestselling"
+              className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
+            >
+              Shop all best sellers
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {bestSellers.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Deals / On Sale */}
+      <section className="section-padding mx-auto max-w-7xl">
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
-            <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent-light">
-              Featured
-            </p>
+            <div className="mb-2 flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-emerald-400" />
+              <p className="text-sm font-medium uppercase tracking-wider text-emerald-400">
+                On Sale
+              </p>
+            </div>
             <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Trending picks
+              Best deals & discounts
             </h2>
           </div>
           <Link
             href="/shop"
             className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
           >
-            View all products
+            View all deals
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featured.map((product, i) => (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {deals.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
       </section>
 
+      {/* Categories */}
       <section className="section-padding border-t border-white/5 bg-obsidian-900/30">
         <div className="mx-auto max-w-7xl">
           <div className="mb-12 text-center">
@@ -57,7 +115,7 @@ export default function HomePage() {
               <Link
                 key={cat.id}
                 href={`/shop?category=${cat.id}`}
-                className="glass-card group p-6 transition-all hover:border-accent/30 hover:bg-accent/5"
+                className="glass-card group p-6 transition-all hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-0.5"
               >
                 <h3 className="mb-2 font-display text-xl text-white transition-colors group-hover:text-accent-light">
                   {cat.name}
@@ -69,6 +127,37 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* New Arrivals */}
+      <section className="section-padding mx-auto max-w-7xl">
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <Clock className="h-4 w-4 text-accent-light" />
+              <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+                New Arrivals
+              </p>
+            </div>
+            <h2 className="font-display text-3xl text-white sm:text-4xl">
+              Fresh from the catalog
+            </h2>
+          </div>
+          <Link
+            href="/shop?sort=newest"
+            className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
+          >
+            View newest
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {newArrivals.map((product, i) => (
+            <ProductCard key={product.id} product={product} index={i} />
+          ))}
+        </div>
+      </section>
+
+      {/* Brand Story */}
       <section className="section-padding mx-auto max-w-7xl">
         <div className="glass-card relative overflow-hidden p-8 sm:p-12 lg:p-16">
           <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
@@ -91,6 +180,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Blog */}
       <section className="section-padding mx-auto max-w-7xl">
         <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
@@ -115,7 +205,7 @@ export default function HomePage() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="group glass-card overflow-hidden transition-all hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5"
+              className="group glass-card overflow-hidden transition-all duration-500 hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-0.5"
             >
               <div className="relative aspect-[16/9] overflow-hidden bg-obsidian-800">
                 <Image

@@ -63,17 +63,23 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
               <option value="default" className="bg-obsidian-900">
                 Default
               </option>
+              <option value="bestselling" className="bg-obsidian-900">
+                Best Selling
+              </option>
+              <option value="rating" className="bg-obsidian-900">
+                Top Rated
+              </option>
               <option value="price-asc" className="bg-obsidian-900">
                 Price: Low to High
               </option>
               <option value="price-desc" className="bg-obsidian-900">
                 Price: High to Low
               </option>
-              <option value="name" className="bg-obsidian-900">
-                Name
-              </option>
               <option value="newest" className="bg-obsidian-900">
                 Newest
+              </option>
+              <option value="name" className="bg-obsidian-900">
+                Name
               </option>
             </select>
           </div>

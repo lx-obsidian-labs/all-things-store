@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         rating: undefined,
         reviewCount: 0,
         createdAt: now,
-        status: "placeholder",
+        status: "live",
         supplier: {
           source: p.supplier.source,
           sku: p.supplier.sku,

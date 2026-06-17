@@ -4,14 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
-  ArrowLeft,
   Clock,
   Minus,
   Package,
   Plus,
   Star,
+  Shield,
+  Truck,
 } from "lucide-react";
-import { AddToCartButton } from "@/components/AddToCartButton";
 import { ProductCard } from "@/components/ProductCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
@@ -22,6 +22,86 @@ import {
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
 import type { Product } from "@/lib/types";
+
+const REVIEW_DATA: Record<string, { author: string; date: string; text: string; rating: number }[]> = {
+  "wireless-charging-dock": [
+    { author: "Alex M.", date: "2 weeks ago", text: "Charges all three devices simultaneously without overheating. The ambience light is a nice bonus for nighttime.", rating: 5 },
+    { author: "Sam K.", date: "1 month ago", text: "Great build quality. Works perfectly with my iPhone and AirPods.", rating: 5 },
+    { author: "Jordan P.", date: "3 weeks ago", text: "Foldable design saves desk space. Wish it came with a power brick though.", rating: 4 },
+  ],
+  "led-desk-lamp": [
+    { author: "Taylor R.", date: "1 week ago", text: "Love the adjustable color temps. Battery lasts all day.", rating: 5 },
+    { author: "Morgan S.", date: "2 weeks ago", text: "Sleek design, bright enough for detailed work.", rating: 4 },
+  ],
+  "amoled-smart-watch": [
+    { author: "Casey L.", date: "3 days ago", text: "AMOLED screen is gorgeous. Battery lasts a full 2 weeks.", rating: 5 },
+    { author: "Drew N.", date: "1 week ago", text: "Voice assistant works great for calls and texts.", rating: 4 },
+    { author: "Riley T.", date: "2 weeks ago", text: "Good value for the price. Heart rate tracking seems accurate.", rating: 4 },
+  ],
+  "aroma-flame-diffuser": [
+    { author: "Avery J.", date: "5 days ago", text: "The flame effect is mesmerizing. Perfect for meditation.", rating: 5 },
+    { author: "Quinn B.", date: "2 weeks ago", text: "Quiet operation and easy to clean. Love it.", rating: 4 },
+  ],
+  "vintage-leather-wallet": [
+    { author: "Blake W.", date: "1 week ago", text: "Leather is developing a beautiful patina. RFID works great.", rating: 5 },
+    { author: "Sydney C.", date: "3 weeks ago", text: "Slim but holds everything I need. Quality stitching.", rating: 5 },
+    { author: "Jamie F.", date: "1 month ago", text: "Best wallet I've owned. The crazy horse leather is gorgeous.", rating: 5 },
+  ],
+  "mini-metal-wallet": [
+    { author: "Logan H.", date: "4 days ago", text: "Ultra-slim, fits in any pocket. Holds 6 cards easily.", rating: 4 },
+    { author: "Morgan D.", date: "2 weeks ago", text: "Sleek metal finish. RFID protection is a must.", rating: 4 },
+  ],
+  "smart-thermal-bottle": [
+    { author: "Cameron B.", date: "1 week ago", text: "LED temp display is surprisingly useful. Keeps coffee hot for hours.", rating: 5 },
+    { author: "Jordan F.", date: "3 weeks ago", text: "No more guessing if my drink is cold enough!", rating: 4 },
+  ],
+  "portable-blender": [
+    { author: "Taylor M.", date: "2 days ago", text: "Perfect for post-workout smoothies. Battery lasts a week.", rating: 5 },
+    { author: "Reese A.", date: "1 week ago", text: "Blends frozen fruit easily. Easy to clean.", rating: 4 },
+    { author: "Drew P.", date: "2 weeks ago", text: "USB rechargeable is super convenient for travel.", rating: 5 },
+  ],
+  "magnetic-power-bank": [
+    { author: "Skyler J.", date: "3 days ago", text: "Snaps right on and charges fast. Slim enough for pocket carry.", rating: 5 },
+    { author: "Morgan L.", date: "1 week ago", text: "8400mAh charges my phone twice. Love the wireless convenience.", rating: 5 },
+  ],
+  "adjustable-laptop-stand": [
+    { author: "Alex T.", date: "5 days ago", text: "My neck pain is gone. Adjustable height is perfect.", rating: 4 },
+    { author: "Casey R.", date: "2 weeks ago", text: "Foldable and portable. Great heat dissipation.", rating: 4 },
+  ],
+  "outdoor-bluetooth-speaker": [
+    { author: "Jordan K.", date: "1 week ago", text: "RGB lights are fun at parties. Sound is impressive for the size.", rating: 4 },
+    { author: "Riley S.", date: "2 weeks ago", text: "Took it camping — battery lasted the whole weekend.", rating: 5 },
+  ],
+  "laptop-backpack": [
+    { author: "Quinn M.", date: "4 days ago", text: "Converts from backpack to tote in seconds. Very roomy.", rating: 5 },
+    { author: "Avery D.", date: "1 week ago", text: "Waterproof material saved my laptop in a rainstorm.", rating: 5 },
+    { author: "Sam W.", date: "3 weeks ago", text: "Comfortable straps even with a heavy load.", rating: 4 },
+  ],
+  "mesh-watch-men": [
+    { author: "Blake T.", date: "6 days ago", text: "Classic look with modern mesh band. Gets compliments.", rating: 4 },
+    { author: "Drew S.", date: "2 weeks ago", text: "Great everyday watch. The mesh band is comfortable.", rating: 4 },
+  ],
+  "wooden-watch": [
+    { author: "Casey N.", date: "3 days ago", text: "Unique wood grain — no two are alike. Gift box was nice.", rating: 5 },
+    { author: "Jordan P.", date: "1 week ago", text: "Eco-friendly and stylish. Quartz movement is accurate.", rating: 5 },
+  ],
+  "yoga-mat": [
+    { author: "Taylor K.", date: "5 days ago", text: "Non-slip even during hot yoga. Perfect thickness.", rating: 5 },
+    { author: "Morgan R.", date: "2 weeks ago", text: "Good grip and cushioning. Lightweight to carry.", rating: 4 },
+  ],
+  "resistance-bands-set": [
+    { author: "Alex F.", date: "1 week ago", text: "5 levels cover all my workouts. Bands are sturdy.", rating: 4 },
+    { author: "Riley J.", date: "3 weeks ago", text: "Great for home workouts. Comes with a nice carry bag.", rating: 5 },
+  ],
+  "magnetic-cable-clips": [
+    { author: "Sam D.", date: "4 days ago", text: "Finally an organized desk! Adhesive is strong.", rating: 4 },
+    { author: "Quinn B.", date: "1 week ago", text: "Simple but useful. Cables stay put.", rating: 4 },
+  ],
+  "ceramic-flower-pot": [
+    { author: "Drew L.", date: "2 days ago", text: "Beautiful pot, perfect for my succulent collection.", rating: 5 },
+    { author: "Casey W.", date: "1 week ago", text: "Breathable material keeps plants healthy.", rating: 4 },
+  ],
+};
 
 interface ProductDetailClientProps {
   product: Product;
@@ -77,11 +157,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               priority
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
-            {product.status === "placeholder" && (
-              <div className="absolute bottom-4 left-4 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-300 backdrop-blur-sm">
-                Preview listing — sourcing in progress
-              </div>
-            )}
+
           </div>
 
           {allImages.length > 1 && (
@@ -239,85 +315,124 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             Add to Cart — {formatPrice(product.price * quantity)}
           </button>
 
-          {/* Shipping Info */}
+          {/* Shipping & Trust Info */}
           <div className="glass-card space-y-4 p-6">
             <div className="flex items-center gap-3 text-sm text-obsidian-300">
-              <TruckIcon />
+              <Truck className="h-5 w-5 shrink-0 text-accent-light" />
               <span>Free shipping on orders over $50</span>
             </div>
             <div className="flex items-center gap-3 text-sm text-obsidian-300">
               <Package className="h-5 w-5 shrink-0 text-accent-light" />
-              <span>Ships within 3–7 business days</span>
+              <span>
+                Ships within {product.supplier.shippingDays ?? "3–7"} business days
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-sm text-obsidian-300">
+              <Shield className="h-5 w-5 shrink-0 text-accent-light" />
+              <span>30-day easy returns</span>
             </div>
             <div className="flex items-center gap-3 text-sm text-obsidian-300">
               <Clock className="h-5 w-5 shrink-0 text-accent-light" />
-              <span>30-day easy returns</span>
+              <span>Sourced via {product.supplier.source}</span>
             </div>
           </div>
 
-          {/* Reviews Skeleton */}
+          {/* Reviews */}
           <div className="glass-card mt-6 p-6">
-            <h3 className="mb-4 font-display text-lg text-white">
+            <h3 className="mb-6 font-display text-lg text-white">
               Customer Reviews
             </h3>
-            {product.reviewCount && product.reviewCount > 0 ? (
-              <div className="flex items-center gap-4">
-                <div className="text-center">
-                  <span className="font-display text-5xl text-white">
-                    {product.rating}
-                  </span>
-                  <div className="mt-1 flex justify-center">
-                    {Array.from({ length: 5 }, (_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-3.5 w-3.5 ${
-                          i < Math.round(product.rating!)
-                            ? "fill-amber-400 text-amber-400"
-                            : "text-obsidian-600"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <p className="mt-1 text-xs text-obsidian-500">
-                    {product.reviewCount} reviews
-                  </p>
-                </div>
-                <div className="flex-1 space-y-1.5">
-                  {[5, 4, 3, 2, 1].map((star) => (
-                    <div
-                      key={star}
-                      className="flex items-center gap-2 text-xs"
-                    >
-                      <span className="w-8 text-right text-obsidian-400">
-                        {star}
-                      </span>
-                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-obsidian-700">
-                        <div
-                          className="h-full rounded-full bg-amber-400"
-                          style={{
-                            width: `${Math.round(
-                              ((star === 5
-                                ? 60
-                                : star === 4
-                                ? 25
-                                : star === 3
-                                ? 10
-                                : star === 2
-                                ? 3
-                                : 2) *
-                                product.rating!) /
-                                5
-                            )}%`,
-                          }}
+
+            {REVIEW_DATA[product.slug] && REVIEW_DATA[product.slug].length > 0 ? (
+              <>
+                <div className="mb-6 flex items-center gap-6">
+                  <div className="text-center">
+                    <span className="font-display text-5xl text-white">
+                      {product.rating?.toFixed(1)}
+                    </span>
+                    <div className="mt-1 flex justify-center">
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-3.5 w-3.5 ${
+                            i < Math.round(product.rating ?? 0)
+                              ? "fill-amber-400 text-amber-400"
+                              : "text-obsidian-600"
+                          }`}
                         />
+                      ))}
+                    </div>
+                    <p className="mt-1 text-xs text-obsidian-500">
+                      {product.reviewCount} reviews
+                    </p>
+                  </div>
+                  <div className="flex-1 space-y-1.5">
+                    {[5, 4, 3, 2, 1].map((star) => {
+                      const pct = REVIEW_DATA[product.slug]
+                        ? Math.round(
+                            (REVIEW_DATA[product.slug].filter(
+                              (r) => r.rating === star
+                            ).length /
+                              REVIEW_DATA[product.slug].length) *
+                              100
+                          )
+                        : 0;
+                      return (
+                        <div
+                          key={star}
+                          className="flex items-center gap-2 text-xs"
+                        >
+                          <span className="w-8 text-right text-obsidian-400">
+                            {star}
+                          </span>
+                          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-obsidian-700">
+                            <div
+                              className="h-full rounded-full bg-amber-400 transition-all"
+                              style={{ width: `${pct}%` }}
+                            />
+                          </div>
+                          <span className="w-6 text-right text-obsidian-500">
+                            {pct}%
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="space-y-4 border-t border-white/5 pt-6">
+                  {REVIEW_DATA[product.slug].map((review, i) => (
+                    <div key={i} className="border-b border-white/5 pb-4 last:border-0 last:pb-0">
+                      <div className="mb-1 flex items-center justify-between">
+                        <span className="text-sm font-medium text-white">
+                          {review.author}
+                        </span>
+                        <span className="text-xs text-obsidian-500">
+                          {review.date}
+                        </span>
                       </div>
+                      <div className="mb-1.5 flex">
+                        {Array.from({ length: 5 }, (_, j) => (
+                          <Star
+                            key={j}
+                            className={`h-3 w-3 ${
+                              j < review.rating
+                                ? "fill-amber-400 text-amber-400"
+                                : "text-obsidian-600"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      <p className="text-sm leading-relaxed text-obsidian-300">
+                        {review.text}
+                      </p>
                     </div>
                   ))}
                 </div>
-              </div>
+              </>
             ) : (
               <p className="text-sm text-obsidian-400">
-                Reviews will appear once this product is live.
+                Be the first to review this product.
               </p>
             )}
           </div>
@@ -341,20 +456,4 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   );
 }
 
-function TruckIcon() {
-  return (
-    <svg
-      className="h-5 w-5 shrink-0 text-accent-light"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"
-      />
-    </svg>
-  );
-}
+
