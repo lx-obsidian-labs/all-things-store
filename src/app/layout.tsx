@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
@@ -12,7 +11,6 @@ import { ToastContainer } from "@/components/ToastContainer";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CookieConsent } from "@/components/CookieConsent";
-import { Analytics } from "@/components/Analytics";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
@@ -69,7 +67,6 @@ export default function RootLayout({
                 <OnboardingModal />
                 <WhatsAppButton />
                 <CookieConsent />
-                <Suspense fallback={null}><Analytics /></Suspense>
               </div>
             </ToastProvider>
           </WishlistProvider>
