@@ -216,14 +216,17 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
         {/* Product Info */}
         <div>
-          <div className="mb-2 flex items-center gap-2">
-            <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+          <div className="mb-3 flex items-center gap-3">
+            <p className="text-sm font-medium tracking-wide text-accent-light/80">
               {getCategoryName(product.category)}
             </p>
             {product.subcategory && (
-              <span className="rounded-full border border-white/5 bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-obsidian-500">
-                {getSubcategoryLabel(product.subcategory)}
-              </span>
+              <>
+                <span className="h-3 w-px bg-white/10" />
+                <span className="text-xs font-medium tracking-wide text-obsidian-500">
+                  {getSubcategoryLabel(product.subcategory)}
+                </span>
+              </>
             )}
           </div>
           <h1 className="mb-4 font-display text-4xl text-white">

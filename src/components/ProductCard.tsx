@@ -40,11 +40,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       style={{ animationDelay: `${index * 80}ms` }}
     >
       <div className="relative aspect-square overflow-hidden bg-obsidian-800">
+        <div className="absolute inset-0 animate-pulse bg-obsidian-800" />
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="relative object-cover transition-transform duration-700 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
@@ -93,11 +94,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       </div>
 
       <div className="p-5">
-        <h3 className="mb-1 font-medium text-white transition-colors group-hover:text-accent-light line-clamp-1">
+        <h3 className="mb-0.5 font-medium text-white transition-colors group-hover:text-accent-light line-clamp-1">
           {product.name}
         </h3>
         {product.subcategory && (
-          <span className="mb-2 inline-block rounded-full border border-white/5 bg-white/[0.03] px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-obsidian-500">
+          <span className="mb-2 inline-block rounded-md border border-white/[0.06] bg-white/[0.04] px-1.5 py-[1px] text-[9px] font-medium uppercase tracking-[0.08em] text-obsidian-500">
             {getSubcategoryLabel(product.subcategory)}
           </span>
         )}

@@ -72,47 +72,65 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
       </div>
 
       {availableSubcategories.length > 0 && (
-        <div className="mb-4 flex flex-wrap items-center gap-2">
+        <div className="mb-6 flex flex-wrap items-center gap-1.5">
           <button
             type="button"
             onClick={() => setActiveSubcategory("")}
-            className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
+            className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
               !activeSubcategory
-                ? "border-accent/50 bg-accent/10 text-accent-light"
-                : "border-white/5 bg-white/[0.02] text-obsidian-400 hover:border-white/10 hover:text-white"
+                ? "border-accent/40 bg-accent/10 text-accent-light shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]"
+                : "border-white/[0.06] bg-white/[0.02] text-obsidian-500 hover:border-white/20 hover:text-obsidian-300"
             }`}
           >
             All
+            <span className={`ml-1.5 tabular-nums ${
+              !activeSubcategory ? "text-accent-light/60" : "text-obsidian-600"
+            }`}>
+              {sorted.length}
+            </span>
           </button>
-          {availableSubcategories.map((sub) => (
-            <button
-              key={sub.id}
-              type="button"
-              onClick={() => setActiveSubcategory(sub.id)}
-              className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
-                activeSubcategory === sub.id
-                  ? "border-accent/50 bg-accent/10 text-accent-light"
-                  : "border-white/5 bg-white/[0.02] text-obsidian-400 hover:border-white/10 hover:text-white"
-              }`}
-            >
-              {sub.label}
-            </button>
-          ))}
+          {availableSubcategories.map((sub) => {
+            const count = filtered.filter((p) => p.subcategory === sub.id).length;
+            return (
+              <button
+                key={sub.id}
+                type="button"
+                onClick={() => setActiveSubcategory(sub.id)}
+                className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
+                  activeSubcategory === sub.id
+                    ? "border-accent/40 bg-accent/10 text-accent-light shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]"
+                    : "border-white/[0.06] bg-white/[0.02] text-obsidian-500 hover:border-white/20 hover:text-obsidian-300"
+                }`}
+              >
+                {sub.label}
+                <span className={`ml-1.5 tabular-nums ${
+                  activeSubcategory === sub.id ? "text-accent-light/60" : "text-obsidian-600"
+                }`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
       )}
 
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        {activeSubcategory && (
-          <button
-            type="button"
-            onClick={() => setActiveSubcategory("")}
-            className="flex items-center gap-1.5 text-xs text-obsidian-500 transition-colors hover:text-white"
-          >
-            <X className="h-3 w-3" />
-            Clear filter
-          </button>
-        )}
-        <div className="ml-auto flex items-center gap-3">
+        <div className="flex items-center gap-3">
+          {activeSubcategory && (
+            <button
+              type="button"
+              onClick={() => setActiveSubcategory("")}
+              className="flex items-center gap-1.5 text-xs text-obsidian-500 transition-colors hover:text-white"
+            >
+              <X className="h-3 w-3" />
+              Clear
+            </button>
+          )}
+          <p className="text-xs tabular-nums text-obsidian-500">
+            {sorted.length} product{sorted.length !== 1 ? "s" : ""}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
           <div className="relative">
             <ListOrdered className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-obsidian-500" />
             <select
