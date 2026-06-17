@@ -4,7 +4,16 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, Lock, Shield, Truck } from "lucide-react";
+import {
+  ChevronLeft,
+  Lock,
+  Minus,
+  Plus,
+  Shield,
+  Trash2,
+  Truck,
+  Zap,
+} from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 
@@ -14,22 +23,56 @@ const COUNTRIES = [
   "India", "China", "Japan", "Australia", "Canada", "Brazil",
 ];
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+interface FieldErrors {
+  email?: string;
+  name?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+}
+
+type ShippingMethod = "standard" | "express";
+
+const SHIPPING_OPTIONS: Record<
+  ShippingMethod,
+  { label: string; fee: number; days: string }
+> = {
+  standard: { label: "Standard Shipping", fee: 0, days: "10-15 business days" },
+  express: {
+    label: "Express Shipping",
+    fee: 12.99,
+    days: "5-7 business days",
+  },
+};
+
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items, subtotal, clearCart } = useCart();
+  const { items, subtotal, clearCart, updateQuantity, removeItem } = useCart();
   const { format: fmt } = useCurrency();
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("delivery");
+  const [shippingMethod, setShippingMethod] = useState<ShippingMethod>("standard");
   const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
-  const shipping = subtotal >= 50 ? 0 : subtotal > 0 ? 5.99 : 0;
-  const total = subtotal + shipping;
+  const shippingFee = subtotal >= 50 ? SHIPPING_OPTIONS[shippingMethod].fee : 4.99;
+  const displayShipping =
+    subtotal >= 50
+      ? shippingFee
+      : Math.max(4.99, shippingFee);
+  const total = subtotal + displayShipping;
 
   if (items.length === 0) {
     return (
@@ -43,9 +86,31 @@ export default function CheckoutPage() {
     );
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  function validate(): FieldErrors {
+    const e: FieldErrors = {};
+    if (!email) e.email = "Email is required";
+    else if (!EMAIL_RE.test(email)) e.email = "Invalid email address";
+    if (!name) e.name = "Full name is required";
+    if (!address) e.address = "Address is required";
+    if (!city) e.city = "City is required";
+    if (!country) e.country = "Select your country";
+    if (phone && !/^\+?[\d\s\-()]{7,20}$/.test(phone))
+      e.phone = "Invalid phone number";
+    return e;
+  }
+
+  function handleBlur(field: string) {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    setErrors(validate());
+  }
+
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || !name || !address || !city || !country) return;
+    const fieldErrors = validate();
+    setErrors(fieldErrors);
+    setTouched({ email: true, name: true, address: true, city: true, country: true });
+    if (Object.keys(fieldErrors).length > 0) return;
+
     setSubmitting(true);
 
     const order = {
@@ -58,22 +123,38 @@ export default function CheckoutPage() {
         image: i.product.image,
       })),
       subtotal,
-      shipping,
+      shipping: displayShipping,
+      shippingMethod: SHIPPING_OPTIONS[shippingMethod].label,
       total,
       email,
-      shippingAddress: { name, address, city, country, postalCode },
+      shippingAddress: { name, phone, address, address2, city, country, postalCode },
       paymentMethod,
       createdAt: new Date().toISOString(),
     };
 
+    const history = JSON.parse(localStorage.getItem("all-things-order-history") || "[]");
+    history.unshift(order);
+    localStorage.setItem("all-things-order-history", JSON.stringify(history.slice(0, 50)));
+
     localStorage.setItem("all-things-last-order", JSON.stringify(order));
     clearCart();
 
-    await new Promise((r) => setTimeout(r, 800));
-    router.push("/checkout/confirmation");
-  };
+    setTimeout(() => router.push("/checkout/confirmation"), 800);
+  }
 
-  const valid = email && name && address && city && country;
+  const fieldError = (field: string) =>
+    touched[field] && errors[field as keyof FieldErrors]
+      ? errors[field as keyof FieldErrors]
+      : null;
+
+  function inputCls(field: string) {
+    const err = fieldError(field);
+    return `w-full rounded-xl border px-4 py-3 text-sm text-white placeholder-obsidian-500 outline-none transition-colors focus:border-accent/50 ${
+      err
+        ? "border-red-500/60 bg-red-500/5"
+        : "border-white/10 bg-white/5"
+    }`;
+  }
 
   return (
     <div className="section-padding mx-auto max-w-7xl">
@@ -99,14 +180,19 @@ export default function CheckoutPage() {
             {/* Contact */}
             <div className="glass-card p-6">
               <h2 className="mb-4 font-display text-lg text-white">Contact</h2>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email address"
-                required
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-obsidian-500 outline-none transition-colors focus:border-accent/50"
-              />
+              <div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onBlur={() => handleBlur("email")}
+                  placeholder="Email address *"
+                  className={inputCls("email")}
+                />
+                {fieldError("email") && (
+                  <p className="mt-1.5 text-xs text-red-400">{fieldError("email")}</p>
+                )}
+              </div>
             </div>
 
             {/* Shipping */}
@@ -117,42 +203,86 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-4">
+                <div>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    onBlur={() => handleBlur("name")}
+                    placeholder="Full name *"
+                    className={inputCls("name")}
+                  />
+                  {fieldError("name") && (
+                    <p className="mt-1.5 text-xs text-red-400">{fieldError("name")}</p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    onBlur={() => handleBlur("phone")}
+                    placeholder="Phone number (optional)"
+                    className={inputCls("phone")}
+                  />
+                  {fieldError("phone") && (
+                    <p className="mt-1.5 text-xs text-red-400">{fieldError("phone")}</p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    onBlur={() => handleBlur("address")}
+                    placeholder="Address *"
+                    className={inputCls("address")}
+                  />
+                  {fieldError("address") && (
+                    <p className="mt-1.5 text-xs text-red-400">{fieldError("address")}</p>
+                  )}
+                </div>
                 <input
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Full name"
-                  required
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-obsidian-500 outline-none transition-colors focus:border-accent/50"
-                />
-                <input
-                  type="text"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  placeholder="Address"
-                  required
+                  value={address2}
+                  onChange={(e) => setAddress2(e.target.value)}
+                  placeholder="Apartment, suite, etc. (optional)"
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-obsidian-500 outline-none transition-colors focus:border-accent/50"
                 />
                 <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    placeholder="City"
-                    required
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-obsidian-500 outline-none transition-colors focus:border-accent/50"
-                  />
-                  <select
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    required
-                    className="w-full appearance-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-colors focus:border-accent/50"
-                  >
-                    <option value="" disabled className="bg-obsidian-900">Country</option>
-                    {COUNTRIES.map((c) => (
-                      <option key={c} value={c} className="bg-obsidian-900">{c}</option>
-                    ))}
-                  </select>
+                  <div>
+                    <input
+                      type="text"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      onBlur={() => handleBlur("city")}
+                      placeholder="City *"
+                      className={inputCls("city")}
+                    />
+                    {fieldError("city") && (
+                      <p className="mt-1.5 text-xs text-red-400">{fieldError("city")}</p>
+                    )}
+                  </div>
+                  <div>
+                    <select
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                      onBlur={() => handleBlur("country")}
+                      className={inputCls("country") + " appearance-none"}
+                    >
+                      <option value="" disabled className="bg-obsidian-900">
+                        Country *
+                      </option>
+                      {COUNTRIES.map((c) => (
+                        <option key={c} value={c} className="bg-obsidian-900">
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                    {fieldError("country") && (
+                      <p className="mt-1.5 text-xs text-red-400">{fieldError("country")}</p>
+                    )}
+                  </div>
                 </div>
                 <input
                   type="text"
@@ -164,6 +294,63 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            {/* Shipping Method */}
+            <div className="glass-card p-6">
+              <div className="mb-4 flex items-center gap-2">
+                <Zap className="h-4 w-4 text-accent-light" />
+                <h2 className="font-display text-lg text-white">Delivery Method</h2>
+              </div>
+
+              <div className="space-y-3">
+                {(Object.entries(SHIPPING_OPTIONS) as [ShippingMethod, typeof SHIPPING_OPTIONS[ShippingMethod]][]).map(
+                  ([key, opt]) => {
+                    const fee =
+                      subtotal >= 50 ? opt.fee : Math.max(4.99, opt.fee);
+                    const disabled = key === "express" && subtotal < 50;
+
+                    return (
+                      <label
+                        key={key}
+                        className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-colors ${
+                          disabled
+                            ? "cursor-not-allowed border-white/5 bg-white/[0.02] opacity-40"
+                            : shippingMethod === key
+                              ? "border-accent/30 bg-accent/5"
+                              : "border-white/10 bg-white/5 hover:border-accent/30"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="shipping"
+                          value={key}
+                          checked={shippingMethod === key}
+                          onChange={() => setShippingMethod(key)}
+                          disabled={disabled}
+                          className="h-4 w-4 accent-accent"
+                        />
+                        <div className="flex-1">
+                          <p className="text-sm font-medium text-white">{opt.label}</p>
+                          <p className="text-xs text-obsidian-500">{opt.days}</p>
+                        </div>
+                        <span className="text-sm font-medium text-white">
+                          {fee === 0 ? (
+                            <span className="text-emerald-400">Free</span>
+                          ) : (
+                            fmt(fee)
+                          )}
+                        </span>
+                      </label>
+                    );
+                  }
+                )}
+              </div>
+              {subtotal < 50 && (
+                <p className="mt-3 text-xs text-obsidian-500">
+                  Add {fmt(50 - subtotal)} more for free standard shipping
+                </p>
+              )}
+            </div>
+
             {/* Payment */}
             <div className="glass-card p-6">
               <div className="mb-4 flex items-center gap-2">
@@ -172,7 +359,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3">
-                <label className="flex cursor-pointer items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 transition-colors hover:border-accent/30">
+                <label className="flex cursor-pointer items-center gap-4 rounded-xl border border-accent/30 bg-accent/5 p-4 transition-colors">
                   <input
                     type="radio"
                     name="payment"
@@ -183,17 +370,15 @@ export default function CheckoutPage() {
                   />
                   <div>
                     <p className="text-sm font-medium text-white">Pay on Delivery</p>
-                    <p className="text-xs text-obsidian-500">Pay when you receive your order</p>
+                    <p className="text-xs text-obsidian-500">
+                      Pay when you receive your order
+                    </p>
                   </div>
                 </label>
 
                 <div className="cursor-not-allowed rounded-xl border border-white/5 bg-white/[0.01] p-4 opacity-40">
                   <div className="flex items-center gap-4">
-                    <input
-                      type="radio"
-                      disabled
-                      className="h-4 w-4 accent-accent"
-                    />
+                    <input type="radio" disabled className="h-4 w-4 accent-accent" />
                     <div>
                       <p className="text-sm font-medium text-white">Credit Card</p>
                       <p className="text-xs text-obsidian-500">Coming soon</p>
@@ -207,7 +392,15 @@ export default function CheckoutPage() {
           {/* Right — Summary */}
           <div className="lg:col-span-2">
             <div className="glass-card sticky top-24 space-y-6 p-6">
-              <h2 className="font-display text-lg text-white">Order Summary</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="font-display text-lg text-white">Order Summary</h2>
+                <Link
+                  href="/cart"
+                  className="text-xs text-accent-light transition-colors hover:text-accent"
+                >
+                  Edit cart
+                </Link>
+              </div>
 
               <div className="space-y-4">
                 {items.map(({ product, quantity }) => (
@@ -225,10 +418,37 @@ export default function CheckoutPage() {
                       <p className="truncate text-sm font-medium text-white">
                         {product.name}
                       </p>
-                      <p className="text-xs text-obsidian-500">Qty: {quantity}</p>
-                      <p className="text-sm font-medium text-white">
-                        {fmt(product.price * quantity)}
-                      </p>
+                      <div className="mt-1 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(product.id, quantity - 1)}
+                          className="flex h-6 w-6 items-center justify-center rounded-md border border-white/10 text-obsidian-400 transition-colors hover:border-accent/30 hover:text-white"
+                        >
+                          <Minus className="h-3 w-3" />
+                        </button>
+                        <span className="min-w-[1.5ch] text-center text-xs text-white">
+                          {quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateQuantity(product.id, quantity + 1)}
+                          className="flex h-6 w-6 items-center justify-center rounded-md border border-white/10 text-obsidian-400 transition-colors hover:border-accent/30 hover:text-white"
+                        >
+                          <Plus className="h-3 w-3" />
+                        </button>
+                      </div>
+                      <div className="mt-1 flex items-center justify-between">
+                        <p className="text-sm font-medium text-white">
+                          {fmt(product.price * quantity)}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => removeItem(product.id)}
+                          className="text-obsidian-600 transition-colors hover:text-red-400"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -241,13 +461,14 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-obsidian-300">
                   <span>Shipping</span>
-                  <span>{shipping === 0 ? <span className="text-emerald-400">Free</span> : fmt(shipping)}</span>
+                  <span>
+                    {displayShipping === 0 ? (
+                      <span className="text-emerald-400">Free</span>
+                    ) : (
+                      fmt(displayShipping)
+                    )}
+                  </span>
                 </div>
-                {subtotal > 0 && subtotal < 50 && (
-                  <p className="text-xs text-obsidian-500">
-                    Add {fmt(50 - subtotal)} more for free shipping
-                  </p>
-                )}
                 <div className="flex justify-between border-t border-white/10 pt-3 text-lg font-semibold text-white">
                   <span>Total</span>
                   <span>{fmt(total)}</span>
@@ -256,7 +477,7 @@ export default function CheckoutPage() {
 
               <button
                 type="submit"
-                disabled={!valid || submitting}
+                disabled={submitting}
                 className="btn-primary w-full py-3 text-sm disabled:opacity-50"
               >
                 {submitting ? "Processing..." : `Place Order — ${fmt(total)}`}

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle, Package } from "lucide-react";
+import { CheckCircle, Package, Clock } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 
 interface OrderData {
@@ -11,9 +11,10 @@ interface OrderData {
   items: { id: string; name: string; price: number; quantity: number; image: string }[];
   subtotal: number;
   shipping: number;
+  shippingMethod?: string;
   total: number;
   email: string;
-  shippingAddress: { name: string; address: string; city: string; country: string; postalCode: string };
+  shippingAddress: { name: string; phone?: string; address: string; address2?: string; city: string; country: string; postalCode?: string };
   paymentMethod: string;
   createdAt: string;
 }
@@ -90,6 +91,12 @@ export default function ConfirmationPage() {
               <span>Shipping</span>
               <span>{order.shipping === 0 ? <span className="text-emerald-400">Free</span> : fmt(order.shipping)}</span>
             </div>
+            {order.shippingMethod && (
+              <div className="flex items-center gap-2 text-xs text-obsidian-500">
+                <Clock className="h-3 w-3" />
+                <span>{order.shippingMethod}</span>
+              </div>
+            )}
             <div className="flex justify-between border-t border-white/10 pt-2 text-lg font-semibold text-white">
               <span>Total</span>
               <span>{fmt(order.total)}</span>
@@ -101,12 +108,21 @@ export default function ConfirmationPage() {
           <h3 className="mb-3 font-medium text-white">Shipping Address</h3>
           <div className="text-sm text-obsidian-400 leading-relaxed">
             <p>{order.shippingAddress.name}</p>
+            {order.shippingAddress.phone && <p>{order.shippingAddress.phone}</p>}
             <p>{order.shippingAddress.address}</p>
+            {order.shippingAddress.address2 && <p>{order.shippingAddress.address2}</p>}
             <p>{order.shippingAddress.city}</p>
             <p>{order.shippingAddress.country}</p>
             {order.shippingAddress.postalCode && <p>{order.shippingAddress.postalCode}</p>}
           </div>
         </div>
+
+        <Link
+          href="/account/orders"
+          className="mb-8 block text-center text-sm text-accent-light transition-colors hover:text-accent"
+        >
+          View all orders &rarr;
+        </Link>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
           <Link href="/shop" className="btn-primary">
