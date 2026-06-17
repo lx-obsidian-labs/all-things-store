@@ -64,6 +64,7 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("delivery");
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>("standard");
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
@@ -104,8 +105,9 @@ export default function CheckoutPage() {
     setErrors(validate());
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitError("");
     const fieldErrors = validate();
     setErrors(fieldErrors);
     setTouched({ email: true, name: true, address: true, city: true, country: true });
@@ -113,15 +115,53 @@ export default function CheckoutPage() {
 
     setSubmitting(true);
 
-    const order = {
-      id: `ORD-${Date.now().toString(36).toUpperCase()}`,
-      items: items.map((i) => ({
-        id: i.product.id,
-        name: i.product.name,
-        price: i.product.price,
+    const orderNumber = `ORD-${Date.now().toString(36).toUpperCase()}`;
+    const orderItems = items.map((i) => ({
+      id: i.product.id,
+      name: i.product.name,
+      price: i.product.price,
+      quantity: i.quantity,
+      image: i.product.image,
+    }));
+
+    // Forward order to CJ Dropshipping
+    let cjResult: any = null;
+    try {
+      const cjProducts = items.map((i) => ({
+        sku: i.product.supplier?.sku || "",
         quantity: i.quantity,
-        image: i.product.image,
-      })),
+        unitPrice: i.product.supplier?.costPrice || 0,
+      }));
+
+      const res = await fetch("/api/orders/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderNumber,
+          shippingCountry: country,
+          shippingProvince: city,
+          shippingCity: city,
+          shippingPhone: phone,
+          shippingCustomerName: name,
+          shippingAddress: address,
+          shippingAddress2: address2,
+          shippingZip: postalCode,
+          email,
+          remark: "",
+          shippingMethod,
+          products: cjProducts,
+          isSandbox: false,
+        }),
+      });
+
+      cjResult = await res.json();
+    } catch (err: any) {
+      cjResult = { success: false, message: err.message };
+    }
+
+    const order = {
+      id: orderNumber,
+      items: orderItems,
       subtotal,
       shipping: displayShipping,
       shippingMethod: SHIPPING_OPTIONS[shippingMethod].label,
@@ -130,6 +170,9 @@ export default function CheckoutPage() {
       shippingAddress: { name, phone, address, address2, city, country, postalCode },
       paymentMethod,
       createdAt: new Date().toISOString(),
+      cjStatus: cjResult?.success ? "forwarded" : "failed",
+      cjOrderId: cjResult?.data?.cjOrderId || null,
+      cjError: cjResult?.success ? null : (cjResult?.message || "Order could not be forwarded to CJ"),
     };
 
     const history = JSON.parse(localStorage.getItem("all-things-order-history") || "[]");
@@ -137,9 +180,14 @@ export default function CheckoutPage() {
     localStorage.setItem("all-things-order-history", JSON.stringify(history.slice(0, 50)));
 
     localStorage.setItem("all-things-last-order", JSON.stringify(order));
-    clearCart();
 
-    setTimeout(() => router.push("/checkout/confirmation"), 800);
+    if (!cjResult?.success) {
+      setSubmitError(cjResult?.message || "Order placed locally but CJ forwarding failed. We will process it manually.");
+    }
+
+    clearCart();
+    await new Promise((r) => setTimeout(r, 600));
+    router.push("/checkout/confirmation");
   }
 
   const fieldError = (field: string) =>
@@ -475,12 +523,25 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
+              {submitError && (
+                <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-400">
+                  {submitError}
+                </p>
+              )}
+
               <button
                 type="submit"
                 disabled={submitting}
                 className="btn-primary w-full py-3 text-sm disabled:opacity-50"
               >
-                {submitting ? "Processing..." : `Place Order — ${fmt(total)}`}
+                {submitting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                    Forwarding to CJ...
+                  </span>
+                ) : (
+                  `Place Order — ${fmt(total)}`
+                )}
               </button>
 
               <div className="flex items-center justify-center gap-2 text-xs text-obsidian-500">

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle, Package, Clock } from "lucide-react";
+import { CheckCircle, Package, Clock, AlertTriangle } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 
 interface OrderData {
@@ -17,6 +17,9 @@ interface OrderData {
   shippingAddress: { name: string; phone?: string; address: string; address2?: string; city: string; country: string; postalCode?: string };
   paymentMethod: string;
   createdAt: string;
+  cjStatus?: string;
+  cjOrderId?: string | null;
+  cjError?: string | null;
 }
 
 export default function ConfirmationPage() {
@@ -116,6 +119,43 @@ export default function ConfirmationPage() {
             {order.shippingAddress.postalCode && <p>{order.shippingAddress.postalCode}</p>}
           </div>
         </div>
+
+        {/* CJ Forwarding Status */}
+        {order.cjStatus === "forwarded" && order.cjOrderId && (
+          <div className="mb-8 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-left">
+            <div className="flex items-center gap-2 text-emerald-400">
+              <CheckCircle className="h-4 w-4" />
+              <span className="text-sm font-medium">Forwarded to CJ Dropshipping</span>
+            </div>
+            <p className="mt-1 text-xs text-obsidian-500">
+              CJ Order ID: {order.cjOrderId} &middot; Status: Awaiting processing
+            </p>
+          </div>
+        )}
+
+        {order.cjStatus === "failed" && (
+          <div className="mb-8 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-left">
+            <div className="flex items-center gap-2 text-amber-400">
+              <AlertTriangle className="h-4 w-4" />
+              <span className="text-sm font-medium">Order saved — CJ forwarding pending</span>
+            </div>
+            <p className="mt-1 text-xs text-obsidian-500">
+              {order.cjError || "We will forward this order to our supplier manually."}
+            </p>
+          </div>
+        )}
+
+        {!order.cjStatus && (
+          <div className="mb-8 rounded-xl border border-obsidian-700/30 bg-obsidian-800/30 p-4 text-left">
+            <div className="flex items-center gap-2 text-obsidian-400">
+              <Clock className="h-4 w-4" />
+              <span className="text-sm font-medium">Order received</span>
+            </div>
+            <p className="mt-1 text-xs text-obsidian-500">
+              Your order will be processed shortly.
+            </p>
+          </div>
+        )}
 
         <Link
           href="/account/orders"

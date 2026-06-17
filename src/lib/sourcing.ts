@@ -102,6 +102,144 @@ async function getCJToken(): Promise<string> {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Country code mapping for CJ orders                                  */
+/* ------------------------------------------------------------------ */
+
+const COUNTRY_CODES: Record<string, string> = {
+  "United States": "US",
+  "South Africa": "ZA",
+  "Nigeria": "NG",
+  "United Kingdom": "GB",
+  "Germany": "DE",
+  "France": "FR",
+  "Kenya": "KE",
+  "Ghana": "GH",
+  "Morocco": "MA",
+  "Egypt": "EG",
+  "India": "IN",
+  "China": "CN",
+  "Japan": "JP",
+  "Australia": "AU",
+  "Canada": "CA",
+  "Brazil": "BR",
+};
+
+export function getCountryCode(countryName: string): string {
+  return COUNTRY_CODES[countryName] || "US";
+}
+
+/* ------------------------------------------------------------------ */
+/*  CJ Order Creation                                                   */
+/* ------------------------------------------------------------------ */
+
+export interface CJOrderProduct {
+  sku: string;
+  quantity: number;
+  unitPrice?: number;
+}
+
+export interface CreateCJOrderParams {
+  orderNumber: string;
+  shippingCountry: string;
+  shippingProvince: string;
+  shippingCity: string;
+  shippingPhone: string;
+  shippingCustomerName: string;
+  shippingAddress: string;
+  shippingAddress2?: string;
+  shippingZip?: string;
+  email: string;
+  remark?: string;
+  logisticName: string;
+  products: CJOrderProduct[];
+  isSandbox?: boolean;
+}
+
+export interface CJOrderResult {
+  success: boolean;
+  cjOrderId?: string;
+  cjOrderNumber?: string;
+  orderAmount?: number;
+  postageAmount?: number;
+  productAmount?: number;
+  cjPayUrl?: string;
+  orderStatus?: string;
+  message?: string;
+}
+
+export async function createCJOrder(
+  params: CreateCJOrderParams
+): Promise<CJOrderResult> {
+  try {
+    const token = await getCJToken();
+    const countryCode = getCountryCode(params.shippingCountry);
+
+    const body: Record<string, any> = {
+      orderNumber: params.orderNumber,
+      shippingCountryCode: countryCode,
+      shippingCountry: params.shippingCountry,
+      shippingProvince: params.shippingProvince || params.shippingCity,
+      shippingCity: params.shippingCity,
+      shippingCustomerName: params.shippingCustomerName,
+      shippingAddress: params.shippingAddress,
+      shippingAddress2: params.shippingAddress2 || "",
+      shippingZip: params.shippingZip || "",
+      shippingPhone: params.shippingPhone || "",
+      email: params.email || "",
+      remark: params.remark || "",
+      logisticName: params.logisticName,
+      fromCountryCode: "CN",
+      platform: "api",
+      payType: 3,
+      orderFlow: 1,
+      isSandbox: params.isSandbox ? 1 : 0,
+      products: params.products.map((p) => ({
+        sku: p.sku,
+        quantity: p.quantity,
+        ...(p.unitPrice ? { unitPrice: p.unitPrice } : {}),
+      })),
+    };
+
+    const res = await fetch(
+      `${CJ_BASE}/shopping/order/createOrderV2`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "CJ-Access-Token": token,
+        },
+        body: JSON.stringify(body),
+      }
+    );
+
+    const data = await res.json();
+
+    if (!data.success && data.code !== 200) {
+      return {
+        success: false,
+        message: data.message || "CJ order creation failed",
+      };
+    }
+
+    return {
+      success: true,
+      cjOrderId: data.data?.orderId,
+      cjOrderNumber: data.data?.orderNumber,
+      orderAmount: data.data?.orderAmount,
+      postageAmount: data.data?.postageAmount,
+      productAmount: data.data?.productAmount,
+      cjPayUrl: data.data?.cjPayUrl,
+      orderStatus: data.data?.orderStatus,
+    };
+  } catch (err: any) {
+    return {
+      success: false,
+      message: err.message || "CJ order request failed",
+    };
+  }
+}
+
+/* ------------------------------------------------------------------ */
 /*  Extract product data from a URL or search term                      */
 /* ------------------------------------------------------------------ */
 
