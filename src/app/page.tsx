@@ -43,7 +43,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {bestSellers.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
@@ -74,7 +74,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {deals.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
@@ -93,7 +93,7 @@ export default function HomePage() {
           </h2>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {categories.map((cat) => (
             <Link
               key={cat.id}
@@ -132,7 +132,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {cheapest.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
@@ -163,7 +163,7 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {newArrivals.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
@@ -182,7 +182,7 @@ export default function HomePage() {
         <h2 className="mb-10 font-display text-3xl text-white sm:text-4xl">
           Editor&apos;s top picks
         </h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {winning.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
@@ -234,7 +234,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {blogPosts.slice(0, 3).map((post) => (
             <Link
               key={post.slug}

@@ -18,7 +18,7 @@ export function RecentlyViewedSection() {
           Recently Viewed
         </h2>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {recentlyViewed.map((product, i) => (
           <ProductCard key={product.id} product={product} index={i} />
         ))}

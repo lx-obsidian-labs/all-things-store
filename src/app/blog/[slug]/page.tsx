@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <h2 className="mb-6 font-display text-2xl text-white">
             More from {post.category}
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2">
             {related.map((p) => (
               <Link
                 key={p.slug}

@@ -1,5 +1,7 @@
 import type { Category, Product } from "./types";
 import { cheapProducts } from "./cheap-products";
+import { clothingGadgetProducts } from "./clothing-gadgets";
+import { applyExistingImages } from "./existing-images";
 
 export const categories: Category[] = [
   {
@@ -28,7 +30,7 @@ const SHIP_FROM = "China";
 
 const cn = (label: string, color?: string) => ({ label, color });
 
-export const products: Product[] = [
+export const products: Product[] = applyExistingImages([
   {
     id: "1",
     slug: "wireless-charging-dock",
@@ -1072,7 +1074,8 @@ export const products: Product[] = [
     },
   },
   ...cheapProducts,
-];
+  ...clothingGadgetProducts,
+]);
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);

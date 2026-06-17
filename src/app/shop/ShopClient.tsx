@@ -118,7 +118,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
           <p className="text-obsidian-400">No products in this category yet.</p>
         </div>
       ) : view === "grid" ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {sorted.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}

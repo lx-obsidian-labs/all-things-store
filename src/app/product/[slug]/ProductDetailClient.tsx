@@ -587,7 +587,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           <h2 className="mb-8 font-display text-2xl text-white">
             Recently Viewed
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
             {recentlyViewed.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} />
             ))}
@@ -601,7 +601,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           <h2 className="mb-8 font-display text-2xl text-white">
             You may also like
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} />
             ))}

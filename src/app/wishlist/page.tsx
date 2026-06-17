@@ -48,7 +48,7 @@ export default function WishlistPage() {
         </button>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {items.map((product) => (
           <div key={product.id} className="group glass-card overflow-hidden transition-all hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5">
             <div className="relative aspect-square overflow-hidden bg-obsidian-800">

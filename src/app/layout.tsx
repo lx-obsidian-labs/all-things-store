@@ -4,9 +4,11 @@ import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { ToastProvider } from "@/context/ToastContext";
 import { CurrencyProvider } from "@/context/CurrencyContext";
+import { OnboardingProvider } from "@/context/OnboardingContext";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ToastContainer } from "@/components/ToastContainer";
+import { OnboardingModal } from "@/components/OnboardingModal";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
@@ -39,6 +41,7 @@ export default function RootLayout({
     <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
       <body className="min-h-screen font-sans">
         <CurrencyProvider>
+        <OnboardingProvider>
         <CartProvider>
           <WishlistProvider>
             <ToastProvider>
@@ -47,10 +50,12 @@ export default function RootLayout({
                 <main className="flex-1">{children}</main>
                 <Footer />
                 <ToastContainer />
+                <OnboardingModal />
               </div>
             </ToastProvider>
           </WishlistProvider>
         </CartProvider>
+        </OnboardingProvider>
         </CurrencyProvider>
       </body>
     </html>

@@ -115,7 +115,7 @@ export default function SourcingPage() {
       </div>
 
       {/* Dashboard Stats */}
-      <div className="mb-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="glass-card p-5">
           <p className="text-2xl font-bold text-white">{products.length}</p>
           <p className="text-xs text-obsidian-400">Total Products</p>
@@ -200,7 +200,7 @@ export default function SourcingPage() {
       </section>
 
       {/* Workflow Steps */}
-      <div className="mb-12 grid gap-4 sm:grid-cols-2">
+      <div className="mb-12 grid grid-cols-2 gap-4 sm:grid-cols-2">
         {steps.map(({ icon: Icon, title, desc }) => (
           <div key={title} className="glass-card p-6">
             <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10">
