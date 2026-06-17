@@ -5,8 +5,8 @@ export function Footer() {
   return (
     <footer className="border-t border-white/5 bg-obsidian-950">
       <div className="section-padding mx-auto max-w-7xl">
-        <div className="grid gap-12 md:grid-cols-4">
-          <div className="md:col-span-2">
+        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6">
+          <div className="sm:col-span-2 md:col-span-2 lg:col-span-2">
             <div className="mb-4 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-accent-dark">
                 <span className="font-display text-lg text-white">AT</span>
@@ -26,22 +26,78 @@ export function Footer() {
 
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-obsidian-300">
-              Explore
+              Shop
             </h4>
             <ul className="space-y-2 text-sm text-obsidian-400">
               <li>
                 <Link href="/shop" className="transition-colors hover:text-accent-light">
-                  Shop All
+                  All Products
                 </Link>
               </li>
+              <li>
+                <Link href="/wishlist" className="transition-colors hover:text-accent-light">
+                  Wishlist
+                </Link>
+              </li>
+              <li>
+                <Link href="/cart" className="transition-colors hover:text-accent-light">
+                  Cart
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-obsidian-300">
+              Learn
+            </h4>
+            <ul className="space-y-2 text-sm text-obsidian-400">
               <li>
                 <Link href="/about" className="transition-colors hover:text-accent-light">
                   About Us
                 </Link>
               </li>
               <li>
+                <Link href="/blog" className="transition-colors hover:text-accent-light">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="transition-colors hover:text-accent-light">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="transition-colors hover:text-accent-light">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-obsidian-300">
+              Policies
+            </h4>
+            <ul className="space-y-2 text-sm text-obsidian-400">
+              <li>
+                <Link href="/shipping" className="transition-colors hover:text-accent-light">
+                  Shipping & Returns
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="transition-colors hover:text-accent-light">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="transition-colors hover:text-accent-light">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
                 <Link href="/sourcing" className="transition-colors hover:text-accent-light">
-                  Product Sourcing
+                  Sourcing
                 </Link>
               </li>
             </ul>
@@ -52,7 +108,11 @@ export function Footer() {
               Contact
             </h4>
             <ul className="space-y-2 text-sm text-obsidian-400">
-              <li>{BRAND.email}</li>
+              <li>
+                <a href={`mailto:${BRAND.email}`} className="transition-colors hover:text-accent-light">
+                  {BRAND.email}
+                </a>
+              </li>
               <li>
                 <span className="text-obsidian-500">Powered by </span>
                 <span className="text-accent-light">{BRAND.company}</span>

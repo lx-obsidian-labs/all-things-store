@@ -3,6 +3,7 @@
 import { Check, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { useToast } from "@/context/ToastContext";
 import type { Product } from "@/lib/types";
 
 interface AddToCartButtonProps {
@@ -17,6 +18,7 @@ export function AddToCartButton({
   size = "md",
 }: AddToCartButtonProps) {
   const { addItem, isInCart } = useCart();
+  const { addToast } = useToast();
   const [added, setAdded] = useState(false);
   const inCart = isInCart(product.id);
 
@@ -29,6 +31,7 @@ export function AddToCartButton({
   const handleClick = () => {
     addItem(product);
     setAdded(true);
+    addToast(`${product.name} added to cart`, "success");
     setTimeout(() => setAdded(false), 2000);
   };
 

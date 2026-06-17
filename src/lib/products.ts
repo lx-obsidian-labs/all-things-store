@@ -41,7 +41,18 @@ export const products: Product[] = [
     tags: ["bestseller", "new"],
     image:
       "https://images.unsplash.com/photo-1591290619766-25c525d0668d?w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1591290619766-25c525d0668d?w=800&q=80",
+      "https://images.unsplash.com/photo-1622445275576-721d7630cdb0?w=800&q=80",
+      "https://images.unsplash.com/photo-1619410284722-0ea0f106e5f6?w=800&q=80",
+    ],
     featured: true,
+    rating: 4.8,
+    reviewCount: 124,
+    variants: [
+      { name: "Color", options: [{ label: "Obsidian Black" }, { label: "Matte White" }] },
+    ],
+    createdAt: "2026-04-01",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -61,7 +72,14 @@ export const products: Product[] = [
     tags: ["trending"],
     image:
       "https://images.unsplash.com/photo-1507473886343-ef7d2b3b2381?w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1507473886343-ef7d2b3b2381?w=800&q=80",
+      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80",
+    ],
     featured: true,
+    rating: 4.6,
+    reviewCount: 89,
+    createdAt: "2026-04-05",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -81,7 +99,14 @@ export const products: Product[] = [
     tags: ["bestseller"],
     image:
       "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80",
+    images: [
+      "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80",
+      "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=800&q=80",
+    ],
     featured: true,
+    rating: 4.7,
+    reviewCount: 203,
+    createdAt: "2026-04-10",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -100,6 +125,7 @@ export const products: Product[] = [
     tags: ["new"],
     image:
       "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80",
+    createdAt: "2026-04-15",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -118,6 +144,7 @@ export const products: Product[] = [
     tags: ["bestseller"],
     image:
       "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80",
+    createdAt: "2026-04-20",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -135,6 +162,7 @@ export const products: Product[] = [
     tags: ["trending"],
     image:
       "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=800&q=80",
+    createdAt: "2026-05-01",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -153,6 +181,7 @@ export const products: Product[] = [
     tags: ["new"],
     image:
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b90d8?w=800&q=80",
+    createdAt: "2026-05-10",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -170,6 +199,7 @@ export const products: Product[] = [
     tags: [],
     image:
       "https://images.unsplash.com/photo-1594020612200-02f035aa8e77?w=800&q=80",
+    createdAt: "2026-05-20",
     status: "placeholder",
     supplier: {
       source: "pending",
@@ -198,4 +228,25 @@ export function formatPrice(amount: number): string {
     style: "currency",
     currency: "USD",
   }).format(amount);
+}
+
+export type SortOption = "default" | "price-asc" | "price-desc" | "name" | "newest";
+
+export function sortProducts(list: Product[], sort: SortOption): Product[] {
+  const sorted = [...list];
+  switch (sort) {
+    case "price-asc":
+      return sorted.sort((a, b) => a.price - b.price);
+    case "price-desc":
+      return sorted.sort((a, b) => b.price - a.price);
+    case "name":
+      return sorted.sort((a, b) => a.name.localeCompare(b.name));
+    case "newest":
+      return sorted.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+    default:
+      return sorted;
+  }
 }

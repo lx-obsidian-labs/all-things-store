@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
+import { ToastProvider } from "@/context/ToastContext";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { ToastContainer } from "@/components/ToastContainer";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
@@ -35,11 +38,16 @@ export default function RootLayout({
     <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
       <body className="min-h-screen font-sans">
         <CartProvider>
-          <div className="flex min-h-screen flex-col bg-obsidian-gradient">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
+          <WishlistProvider>
+            <ToastProvider>
+              <div className="flex min-h-screen flex-col bg-obsidian-gradient">
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <ToastContainer />
+              </div>
+            </ToastProvider>
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>

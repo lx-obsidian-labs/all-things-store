@@ -8,6 +8,11 @@ export type SupplierSource =
   | "printful"
   | "manual";
 
+export interface ProductVariant {
+  name: string;
+  options: { label: string; color?: string }[];
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -21,6 +26,10 @@ export interface Product {
   image: string;
   images?: string[];
   featured?: boolean;
+  rating?: number;
+  reviewCount?: number;
+  variants?: ProductVariant[];
+  createdAt: string;
   status: ProductStatus;
   supplier: {
     source: SupplierSource;

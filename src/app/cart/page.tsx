@@ -2,21 +2,34 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Tag, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/products";
 
 export default function CartPage() {
   const { items, subtotal, updateQuantity, removeItem, clearCart } = useCart();
+  const [coupon, setCoupon] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
+
   const shipping = subtotal >= 50 ? 0 : subtotal > 0 ? 5.99 : 0;
-  const total = subtotal + shipping;
+  const discount = couponApplied ? subtotal * 0.1 : 0;
+  const total = subtotal + shipping - discount;
+
+  const handleApplyCoupon = () => {
+    if (coupon.trim().toLowerCase() === "welcome10") {
+      setCouponApplied(true);
+    }
+  };
 
   if (items.length === 0) {
     return (
       <div className="section-padding mx-auto max-w-7xl text-center">
         <div className="glass-card mx-auto max-w-md py-16">
           <ShoppingBag className="mx-auto mb-4 h-12 w-12 text-obsidian-500" />
-          <h1 className="mb-2 font-display text-2xl text-white">Your cart is empty</h1>
+          <h1 className="mb-2 font-display text-2xl text-white">
+            Your cart is empty
+          </h1>
           <p className="mb-6 text-obsidian-400">
             Discover something you&apos;ll love in our collection.
           </p>
@@ -30,7 +43,23 @@ export default function CartPage() {
 
   return (
     <div className="section-padding mx-auto max-w-7xl">
-      <h1 className="mb-10 font-display text-4xl text-white">Your Cart</h1>
+      <div className="mb-10 flex items-center justify-between">
+        <div>
+          <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent-light">
+            Your Cart
+          </p>
+          <h1 className="font-display text-4xl text-white">
+            Cart ({items.length} item{items.length !== 1 ? "s" : ""})
+          </h1>
+        </div>
+        <button
+          type="button"
+          onClick={clearCart}
+          className="text-sm text-obsidian-500 transition-colors hover:text-red-400"
+        >
+          Clear cart
+        </button>
+      </div>
 
       <div className="grid gap-10 lg:grid-cols-3">
         <div className="space-y-4 lg:col-span-2">
@@ -64,18 +93,26 @@ export default function CartPage() {
                     <button
                       type="button"
                       onClick={() => updateQuantity(product.id, quantity - 1)}
-                      className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:bg-white/10"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:bg-white/10"
                       aria-label="Decrease quantity"
                     >
                       <Minus className="h-3.5 w-3.5" />
                     </button>
-                    <span className="w-8 text-center text-sm font-medium">
-                      {quantity}
-                    </span>
+                    <input
+                      type="number"
+                      value={quantity}
+                      min={1}
+                      max={99}
+                      onChange={(e) => {
+                        const val = parseInt(e.target.value, 10);
+                        if (val >= 1) updateQuantity(product.id, val);
+                      }}
+                      className="w-12 rounded-lg border border-white/10 bg-white/5 px-2 py-1.5 text-center text-sm font-medium text-white outline-none transition-colors focus:border-accent/50"
+                    />
                     <button
                       type="button"
                       onClick={() => updateQuantity(product.id, quantity + 1)}
-                      className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:bg-white/10"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 transition-colors hover:bg-white/10"
                       aria-label="Increase quantity"
                     >
                       <Plus className="h-3.5 w-3.5" />
@@ -99,25 +136,58 @@ export default function CartPage() {
               </div>
             </div>
           ))}
-
-          <button
-            type="button"
-            onClick={clearCart}
-            className="text-sm text-obsidian-500 transition-colors hover:text-red-400"
-          >
-            Clear cart
-          </button>
         </div>
 
         <div className="lg:col-span-1">
-          <div className="glass-card sticky top-24 p-6">
-            <h2 className="mb-6 font-display text-xl text-white">Order Summary</h2>
+          <div className="glass-card sticky top-24 space-y-6 p-6">
+            <h2 className="font-display text-xl text-white">Order Summary</h2>
+
+            {/* Coupon */}
+            {!couponApplied ? (
+              <div>
+                <label className="mb-2 block text-xs font-medium text-obsidian-400">
+                  Have a coupon?
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={coupon}
+                    onChange={(e) => setCoupon(e.target.value)}
+                    placeholder="Enter code"
+                    className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white placeholder-obsidian-500 outline-none transition-colors focus:border-accent/50"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleApplyCoupon}
+                    disabled={!coupon.trim()}
+                    className="btn-secondary py-2 text-xs disabled:opacity-50"
+                  >
+                    <Tag className="h-3.5 w-3.5" />
+                    Apply
+                  </button>
+                </div>
+                <p className="mt-2 text-xs text-obsidian-500">
+                  Try code <span className="font-mono text-accent-light">WELCOME10</span> for 10% off
+                </p>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-sm font-medium text-emerald-300">
+                <Tag className="h-4 w-4" />
+                Code WELCOME10 applied — 10% off
+              </div>
+            )}
 
             <div className="space-y-3 text-sm">
               <div className="flex justify-between text-obsidian-300">
                 <span>Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
+              {discount > 0 && (
+                <div className="flex justify-between text-emerald-400">
+                  <span>Discount (10%)</span>
+                  <span>-{formatPrice(discount)}</span>
+                </div>
+              )}
               <div className="flex justify-between text-obsidian-300">
                 <span>Shipping</span>
                 <span>
@@ -141,10 +211,10 @@ export default function CartPage() {
               </div>
             </div>
 
-            <button type="button" className="btn-primary mt-6 w-full" disabled>
+            <button type="button" className="btn-primary w-full" disabled>
               Checkout — Coming Soon
             </button>
-            <p className="mt-3 text-center text-xs text-obsidian-500">
+            <p className="text-center text-xs text-obsidian-500">
               Payment integration will be added once products are sourced
             </p>
           </div>
