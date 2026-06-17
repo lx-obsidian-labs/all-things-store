@@ -14,11 +14,7 @@ export function Footer() {
                 className="h-10 w-10 rounded-xl object-cover"
               />
               <div>
-                <img
-                  src="/logo-main.png"
-                  alt={BRAND.storeName}
-                  className="h-7 object-contain brightness-110"
-                />
+                <p className="font-display text-xl text-white">{BRAND.storeName}</p>
                 <p className="text-xs uppercase tracking-[0.15em] text-obsidian-400">
                   A {BRAND.company} brand
                 </p>

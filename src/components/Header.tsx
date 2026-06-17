@@ -35,12 +35,10 @@ export function Header() {
             alt={BRAND.storeName}
             className="h-10 w-10 rounded-xl object-cover transition-transform group-hover:scale-105"
           />
-          <div className="hidden sm:block">
-            <img
-              src="/logo-main.png"
-              alt={BRAND.storeName}
-              className="h-8 object-contain brightness-110"
-            />
+          <div>
+            <span className="font-display text-xl tracking-wide text-white">
+              {BRAND.storeName}
+            </span>
             <span className="block text-[10px] uppercase tracking-[0.2em] text-obsidian-400">
               by {BRAND.companyShort}
             </span>
