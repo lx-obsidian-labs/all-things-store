@@ -15,7 +15,7 @@ export function Hero() {
         <div className="mx-auto max-w-4xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-medium text-accent-light">
             <Package className="h-3.5 w-3.5" />
-            {totalProducts}+ products across 4 collections
+            {totalProducts}+ products across 5 collections
           </div>
 
           <h1 className="mb-6 font-display text-5xl leading-tight tracking-tight sm:text-6xl lg:text-7xl">
@@ -40,7 +40,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {categories.map((cat) => (
             <Link
               key={cat.id}

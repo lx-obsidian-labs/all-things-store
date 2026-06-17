@@ -21,7 +21,12 @@ export const categories: Category[] = [
   {
     id: "style",
     name: "Style & Wear",
-    description: "Minimal accessories and lifestyle wear",
+    description: "Clothing, accessories and lifestyle wear",
+  },
+  {
+    id: "shoes",
+    name: "Shoes & Footwear",
+    description: "Sneakers, boots, sandals and more for the whole family",
   },
   {
     id: "wellness",
@@ -1081,7 +1086,7 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
   ...clothingGadgetProducts,
   ...winterProducts,
   ...clothingMoreProducts,
-  ...shoeProducts,
+  ...shoeProducts.map((p) => ({ ...p, category: "shoes" as const })),
 ]));
 
 export function getProductBySlug(slug: string): Product | undefined {

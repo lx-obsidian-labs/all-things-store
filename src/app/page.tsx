@@ -21,6 +21,29 @@ export default function HomePage() {
     <>
       <Hero />
 
+      {/* Stats Counter — social proof of catalog size */}
+      <section className="border-y border-white/5 bg-obsidian-950/50">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-8 text-center sm:grid-cols-4">
+            {[
+              { value: "634+", label: "Products" },
+              { value: "5", label: "Collections" },
+              { value: "20+", label: "Categories" },
+              { value: "28", label: "Countries" },
+            ].map((s) => (
+              <div key={s.label}>
+                <p className="font-display text-3xl font-bold text-white sm:text-4xl">
+                  {s.value}
+                </p>
+                <p className="mt-1 text-xs uppercase tracking-widest text-obsidian-400">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Best Sellers */}
       <section className="section-padding mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
