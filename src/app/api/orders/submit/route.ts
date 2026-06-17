@@ -56,12 +56,23 @@ export async function POST(req: NextRequest) {
 
     if (!result.success) {
       return NextResponse.json(
-        { success: false, message: result.message },
+        { success: false, message: result.message, data: result },
         { status: 502 }
       );
     }
 
-    return NextResponse.json({ success: true, data: result });
+    return NextResponse.json({
+      success: true,
+      data: {
+        cjOrderId: result.cjOrderId,
+        cjOrderNumber: result.cjOrderNumber,
+        orderAmount: result.orderAmount,
+        postageAmount: result.postageAmount,
+        orderStatus: result.orderStatus,
+        usedBalancePayment: result.usedBalancePayment,
+        message: result.message,
+      },
+    });
   } catch (err: any) {
     return NextResponse.json(
       { success: false, message: err.message || "Internal server error" },

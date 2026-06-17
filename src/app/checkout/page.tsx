@@ -171,8 +171,9 @@ export default function CheckoutPage() {
       paymentMethod,
       createdAt: new Date().toISOString(),
       cjStatus: cjResult?.success ? "forwarded" : "failed",
-      cjOrderId: cjResult?.data?.cjOrderId || null,
-      cjError: cjResult?.success ? null : (cjResult?.message || "Order could not be forwarded to CJ"),
+      cjOrderId: cjResult?.success ? (cjResult?.data?.cjOrderId || orderNumber) : null,
+      usedBalancePayment: cjResult?.data?.usedBalancePayment === true,
+      cjError: cjResult?.success ? null : (cjResult?.message || cjResult?.data?.message || "Order could not be forwarded to CJ"),
     };
 
     const history = JSON.parse(localStorage.getItem("all-things-order-history") || "[]");

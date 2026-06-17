@@ -169,27 +169,45 @@ export interface CJOrderResult {
   message?: string;
 }
 
+function isCJSuccess(resp: any): boolean {
+  return (
+    resp.success === true ||
+    resp.result === true ||
+    resp.code === 200
+  );
+}
+
 async function callCJOrderAPI(
   token: string,
   body: Record<string, any>,
   payType: number
-): Promise<{ data: any; success: boolean; message: string }> {
-  const res = await fetch(`${CJ_BASE}/shopping/order/createOrderV2`, {
+): Promise<{ data: any; success: boolean; message: string; raw?: any }> {
+  const url = `${CJ_BASE}/shopping/order/createOrderV2`;
+  const payload = JSON.stringify({ ...body, payType });
+
+  const res = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "CJ-Access-Token": token,
     },
-    body: JSON.stringify({ ...body, payType }),
+    body: payload,
   });
 
-  const result = await res.json();
-  const ok = result.success === true || result.code === 200;
+  let result: any;
+  try {
+    result = await res.json();
+  } catch {
+    return { success: false, data: null, message: `Non-JSON response (${res.status})`, raw: null };
+  }
+
+  const ok = isCJSuccess(result);
 
   return {
     success: ok,
     data: result.data,
-    message: result.message || "",
+    message: result.message || result.msg || "",
+    raw: result,
   };
 }
 
@@ -260,9 +278,11 @@ export async function createCJOrder(
       };
     }
 
+    const errCode = payResult.raw?.code ?? "?";
+    const fallbackMsg = fallback?.raw?.message ?? "";
     return {
       success: false,
-      message: `CJ create failed: ${payResult.message}`,
+      message: `CJ create failed (code ${errCode}): ${payResult.message}${fallbackMsg ? ` | fallback: ${fallbackMsg}` : ""}`,
     };
   } catch (err: any) {
     return {
@@ -270,6 +290,126 @@ export async function createCJOrder(
       message: err.message || "CJ order request failed",
     };
   }
+}
+
+/* ------------------------------------------------------------------ */
+/*  CJ Diagnostic – test the full connection pipeline                    */
+/* ------------------------------------------------------------------ */
+
+export interface CJDiagnosticResult {
+  success: boolean;
+  tokenOk: boolean;
+  tokenError?: string;
+  orderEndpointOk: boolean;
+  orderEndpointError?: string;
+  rawResponse?: any;
+  message?: string;
+}
+
+export async function diagnoseCJConnection(): Promise<CJDiagnosticResult> {
+  const result: CJDiagnosticResult = {
+    success: false,
+    tokenOk: false,
+    orderEndpointOk: false,
+  };
+
+  // Step 1: test token
+  try {
+    const token = await getCJToken();
+    result.tokenOk = true;
+
+    // Step 2: test order endpoint with minimal payload (payType=3)
+    const testOrderNumber = `TEST-${Date.now().toString(36).toUpperCase()}`;
+    const res = await fetch(
+      `${CJ_BASE}/shopping/order/createOrderV2`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "CJ-Access-Token": token,
+        },
+        body: JSON.stringify({
+          orderNumber: testOrderNumber,
+          shippingCountryCode: "US",
+          shippingCountry: "United States",
+          shippingProvince: "California",
+          shippingCity: "Los Angeles",
+          shippingCustomerName: "Test User",
+          shippingAddress: "123 Test St",
+          shippingPhone: "1234567890",
+          shippingZip: "90001",
+          logisticName: "CJPacket",
+          fromCountryCode: "CN",
+          platform: "api",
+          payType: 3,
+          orderFlow: 1,
+          isSandbox: 1,
+          products: [{ sku: "CJSJ1601466", quantity: 1 }],
+        }),
+      }
+    );
+
+    const data = await res.json();
+    result.rawResponse = data;
+    result.orderEndpointOk = isCJSuccess(data);
+    if (!result.orderEndpointOk) {
+      result.orderEndpointError = data.message || data.msg || `HTTP ${res.status}`;
+    }
+  } catch (err: any) {
+    if (!result.tokenOk) {
+      result.tokenError = err.message;
+    } else {
+      result.orderEndpointError = err.message;
+    }
+  }
+
+  result.success = result.tokenOk && result.orderEndpointOk;
+  return result;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Verify CJ product SKUs exist in CJ's catalog                         */
+/* ------------------------------------------------------------------ */
+
+export interface CJProductLookup {
+  sku: string;
+  found: boolean;
+  name?: string;
+  vid?: string;
+  price?: number;
+  error?: string;
+}
+
+export async function verifyCJProducts(
+  skus: string[]
+): Promise<CJProductLookup[]> {
+  const token = await getCJToken();
+  const results: CJProductLookup[] = [];
+
+  for (const sku of skus) {
+    try {
+      const res = await fetch(
+        `${CJ_BASE}/product/query?productSku=${encodeURIComponent(sku)}`,
+        { headers: { "CJ-Access-Token": token } }
+      );
+      const data = await res.json();
+      if (isCJSuccess(data) && data.data) {
+        results.push({
+          sku,
+          found: true,
+          name: data.data.productNameEn || data.data.productName,
+          vid: data.data.vid || data.data.pid,
+          price: parseFloat(data.data.sellPrice) || 0,
+        });
+      } else {
+        results.push({ sku, found: false, error: data.message || "Not found" });
+      }
+    } catch (err: any) {
+      results.push({ sku, found: false, error: err.message });
+    }
+  }
+
+  return results;
 }
 
 /* ------------------------------------------------------------------ */
