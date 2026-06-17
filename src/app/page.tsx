@@ -1,16 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Sparkles, TrendingUp, Clock, Zap } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp, Clock, Zap, Tag } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
-import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts } from "@/lib/products";
+import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
 
 export default function HomePage() {
   const bestSellers = getBestSellingProducts(6);
   const deals = getDealProducts(4);
+  const cheapest = getCheapestProducts(6);
   const newArrivals = getNewArrivals(4);
   const winning = getWinningProducts(3);
 
@@ -103,6 +104,36 @@ export default function HomePage() {
               </h3>
               <p className="text-sm text-obsidian-400">{cat.description}</p>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Budget Finds — low-commitment entry point for price-sensitive shoppers */}
+      <section className="section-padding mx-auto max-w-7xl">
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <Tag className="h-4 w-4 text-emerald-400" />
+              <p className="text-sm font-medium uppercase tracking-wider text-emerald-400">
+                Budget Finds
+              </p>
+            </div>
+            <h2 className="font-display text-3xl text-white sm:text-4xl">
+              Great quality, tiny prices
+            </h2>
+          </div>
+          <Link
+            href="/shop?sort=price-asc"
+            className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
+          >
+            Shop budget picks
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {cheapest.map((product, i) => (
+            <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
       </section>

@@ -128,6 +128,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               {fmt(product.compareAtPrice)}
             </span>
           )}
+          {product.price < 5 && (
+            <span className="ml-auto rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+              Best Value
+            </span>
+          )}
         </div>
       </div>
     </Link>

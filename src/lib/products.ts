@@ -1148,6 +1148,10 @@ export function getProductsByTag(tag: string): Product[] {
   return products.filter((p) => p.tags.includes(tag));
 }
 
+export function getCheapestProducts(limit = 6): Product[] {
+  return [...products].sort((a, b) => a.price - b.price).slice(0, limit);
+}
+
 export type SortOption = "default" | "price-asc" | "price-desc" | "name" | "newest" | "rating" | "bestselling";
 
 export function sortProducts(list: Product[], sort: SortOption): Product[] {
