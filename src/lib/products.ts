@@ -19,6 +19,7 @@ import { massProducts12 } from "./mass-products-12";
 import { massProducts13 } from "./mass-products-13";
 import { carParts } from "./car-parts";
 import { consumerElectronics } from "./consumer-electronics";
+import { petSupplies } from "./pet-supplies";
 import { applyExistingImages } from "./existing-images";
 import { assignSubcategories } from "./subcategories";
 
@@ -67,6 +68,7 @@ const cn = (label: string, color?: string) => ({ label, color });
 export const products: Product[] = assignSubcategories(applyExistingImages([
   ...consumerElectronics,
   ...carParts,
+  ...petSupplies,
   {
     id: "1",
     slug: "wireless-charging-dock",
