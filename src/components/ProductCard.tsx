@@ -69,6 +69,18 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </span>
         )}
 
+        {product.inventory !== undefined && product.inventory < 100 && (
+          <span className="absolute bottom-3 left-3 rounded-full bg-amber-500/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow-lg">
+            Low Stock
+          </span>
+        )}
+
+        {product.shippingFrom && !(product.inventory !== undefined && product.inventory < 100) && (
+          <span className="absolute bottom-3 left-3 rounded-full bg-obsidian-900/70 px-2 py-0.5 text-[10px] font-medium text-obsidian-300 backdrop-blur-sm">
+            {product.shippingFrom}
+          </span>
+        )}
+
         <button
           type="button"
           onClick={handleQuickAdd}

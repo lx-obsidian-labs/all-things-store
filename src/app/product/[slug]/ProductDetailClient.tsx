@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import {
-  Clock,
   Minus,
   Package,
   Plus,
@@ -324,27 +323,105 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             Add to Cart — {fmt(product.price * quantity)}
           </button>
 
-          {/* Shipping & Trust Info */}
-          <div className="glass-card space-y-4 p-6">
-            <div className="flex items-center gap-3 text-sm text-obsidian-300">
-              <Truck className="h-5 w-5 shrink-0 text-accent-light" />
-              <span>Free shipping on orders over $50</span>
+          {/* CJ-Style Product Details Panel */}
+          <div className="glass-card divide-y divide-white/5">
+            {/* SKU & Basic Info */}
+            <div className="grid grid-cols-2 gap-4 p-5">
+              <div>
+                <p className="mb-0.5 text-xs text-obsidian-500">SKU</p>
+                <p className="text-sm font-medium text-white">{product.supplier.sku ?? "—"}</p>
+              </div>
+              <div>
+                <p className="mb-0.5 text-xs text-obsidian-500">Weight</p>
+                <p className="text-sm font-medium text-white">{product.weight ?? "—"}</p>
+              </div>
+              {product.inventory !== undefined && (
+                <div className="col-span-2">
+                  <p className="mb-0.5 text-xs text-obsidian-500">Inventory</p>
+                  <p className="text-sm font-medium text-emerald-400">
+                    {product.inventory.toLocaleString()} units
+                    {product.inventory < 100 && (
+                      <span className="ml-2 rounded bg-amber-500/20 px-1.5 py-0.5 text-xs text-amber-400">Low stock</span>
+                    )}
+                  </p>
+                </div>
+              )}
             </div>
-            <div className="flex items-center gap-3 text-sm text-obsidian-300">
-              <Package className="h-5 w-5 shrink-0 text-accent-light" />
-              <span>
-                Ships within {product.supplier.shippingDays ?? "3–7"} business days
-              </span>
+
+            {/* Shipping Info */}
+            <div className="p-5">
+              <div className="mb-3 flex items-center gap-2">
+                <Truck className="h-4 w-4 text-accent-light" />
+                <p className="text-sm font-medium text-white">
+                  Shipping from {product.shippingFrom ?? "China"}
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {(product.shippingMethods ?? []).map((method, i) => (
+                  <div
+                    key={i}
+                    className={`rounded-xl border p-4 transition-all ${
+                      i === 0
+                        ? "border-accent/30 bg-accent/5"
+                        : "border-white/5 bg-white/[0.02]"
+                    }`}
+                  >
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="text-sm font-medium text-white">
+                        {method.name}
+                      </span>
+                      <span className="text-sm font-bold text-accent-light">
+                        {fmt(method.fee)}
+                      </span>
+                    </div>
+                    <div className="space-y-1 text-xs text-obsidian-400">
+                      <p>Processing: {method.processingDays}</p>
+                      <p>Delivery: {method.deliveryDays}</p>
+                      <p className="text-obsidian-500">Tracking: {method.tracking}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {product.supplier.processingTime && (
+                <p className="mt-3 text-xs text-obsidian-500">
+                  Estimated processing time: {product.supplier.processingTime}
+                </p>
+              )}
             </div>
-            <div className="flex items-center gap-3 text-sm text-obsidian-300">
-              <Shield className="h-5 w-5 shrink-0 text-accent-light" />
-              <span>30-day easy returns</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm text-obsidian-300">
-              <Clock className="h-5 w-5 shrink-0 text-accent-light" />
-              <span>Sourced via {product.supplier.source}</span>
+
+            {/* Sell & Earn (Total Landed Cost) */}
+            {product.totalLandedCost && (
+              <div className="p-5">
+                <p className="mb-1 text-xs text-obsidian-500">Sell & Earn</p>
+                <p className="font-display text-2xl text-white">
+                  {fmt(product.totalLandedCost)}
+                </p>
+                <p className="text-xs text-obsidian-500">
+                  Product ({fmt(product.price)}) + Shipping ({fmt(product.shippingMethods?.[0]?.fee ?? 0)})
+                </p>
+              </div>
+            )}
+
+            {/* Trust Badges */}
+            <div className="grid grid-cols-2 gap-3 p-5">
+              <div className="flex items-center gap-2 text-xs text-obsidian-400">
+                <Shield className="h-4 w-4 shrink-0 text-accent-light" />
+                <span>30-day returns</span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-obsidian-400">
+                <Package className="h-4 w-4 shrink-0 text-accent-light" />
+                <span>CJ Dropshipping</span>
+              </div>
             </div>
           </div>
+
+          {product.supplier.sku && (
+            <p className="mt-2 text-xs text-obsidian-600">
+              Lists: 30  |  SKU: {product.supplier.sku}
+            </p>
+          )}
 
           {/* Reviews */}
           <div className="glass-card mt-6 p-6">

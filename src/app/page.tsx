@@ -148,7 +148,7 @@ export default function HomePage() {
           </p>
         </div>
         <h2 className="mb-10 font-display text-3xl text-white sm:text-4xl">
-          Editor's top picks
+          Editor&apos;s top picks
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {winning.map((product, i) => (

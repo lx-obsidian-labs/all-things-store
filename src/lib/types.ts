@@ -13,6 +13,14 @@ export interface ProductVariant {
   options: { label: string; color?: string }[];
 }
 
+export interface ShippingMethod {
+  name: string;
+  fee: number;
+  processingDays: string;
+  deliveryDays: string;
+  tracking: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -31,11 +39,18 @@ export interface Product {
   variants?: ProductVariant[];
   createdAt: string;
   status: ProductStatus;
+  weight?: string;
+  inventory?: number;
+  shippingFrom?: string;
+  shippingMethods?: ShippingMethod[];
+  totalLandedCost?: number;
   supplier: {
     source: SupplierSource;
     sku?: string;
     costPrice?: number;
     shippingDays?: string;
+    shippingFee?: number;
+    processingTime?: string;
     notes?: string;
   };
 }
