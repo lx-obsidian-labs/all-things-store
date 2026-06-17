@@ -2,6 +2,8 @@ import type { Category, Product } from "./types";
 import { cheapProducts } from "./cheap-products";
 import { clothingGadgetProducts } from "./clothing-gadgets";
 import { winterProducts } from "./winter-products";
+import { clothingMoreProducts } from "./clothing-more";
+import { shoeProducts } from "./shoe-products";
 import { applyExistingImages } from "./existing-images";
 import { assignSubcategories } from "./subcategories";
 
@@ -1078,6 +1080,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
   ...cheapProducts,
   ...clothingGadgetProducts,
   ...winterProducts,
+  ...clothingMoreProducts,
+  ...shoeProducts,
 ]));
 
 export function getProductBySlug(slug: string): Product | undefined {
@@ -1160,6 +1164,22 @@ export function getCheapestProducts(limit = 6): Product[] {
 
 export function getWinterProducts(limit = 6): Product[] {
   return products.filter((p) => p.tags.includes("winter")).slice(0, limit);
+}
+
+const GENDER_KW: Record<string, string[]> = {
+  men: ["men", "male", "man", "boyfriend", "boxer", "tie "],
+  women: ["women", "woman", "female", "girlfriend"],
+  kids: ["kids", "kid", "child", "children", "baby", "toddler", "girls", "boys"],
+};
+
+export function getProductsByGender(gender: "men" | "women" | "kids"): Product[] {
+  const kws = GENDER_KW[gender];
+  return products.filter((p) => {
+    if (p.tags.includes(gender)) return true;
+    if (p.tags.includes("kids") && gender === "kids") return true;
+    const lower = (p.name + " " + p.description).toLowerCase();
+    return kws.some((kw) => lower.includes(kw));
+  });
 }
 
 export type SortOption = "default" | "price-asc" | "price-desc" | "name" | "newest" | "rating" | "bestselling";

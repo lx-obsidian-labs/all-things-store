@@ -12,10 +12,10 @@ import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
-  { href: "/shop?sort=bestselling", label: "Best Sellers" },
+  { href: "/clothing", label: "Clothing" },
+  { href: "/shoes", label: "Shoes" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
   { href: "/account/orders", label: "Orders" },
 ];
 
