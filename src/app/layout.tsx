@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ToastContainer } from "@/components/ToastContainer";
 import { OnboardingModal } from "@/components/OnboardingModal";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
@@ -55,6 +56,7 @@ export default function RootLayout({
                 <Footer />
                 <ToastContainer />
                 <OnboardingModal />
+                <WhatsAppButton />
               </div>
             </ToastProvider>
           </WishlistProvider>

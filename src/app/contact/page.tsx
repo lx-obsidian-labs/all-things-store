@@ -42,9 +42,16 @@ export default function ContactPage() {
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10">
               <Phone className="h-5 w-5 text-accent-light" />
             </div>
-            <h3 className="mb-1 font-semibold text-white">Phone</h3>
-            <p className="text-sm text-obsidian-400">+1 (555) 000-0000</p>
-            <p className="text-xs text-obsidian-500">Mon–Fri, 9AM–6PM EST</p>
+            <h3 className="mb-1 font-semibold text-white">WhatsApp</h3>
+            <a
+              href="https://wa.me/27694829711"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-accent-light transition-colors hover:text-white"
+            >
+              +27 69 482 9711
+            </a>
+            <p className="text-xs text-obsidian-500">Quick replies via WhatsApp</p>
           </div>
 
           <div className="glass-card p-6">
