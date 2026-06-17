@@ -3,7 +3,16 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Package, ShoppingBag, Truck } from "lucide-react";
+import {
+  Package,
+  RefreshCw,
+  ShoppingBag,
+  Truck,
+  CheckCircle,
+  AlertTriangle,
+  Clock,
+  ExternalLink,
+} from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 
 interface OrderItem {
@@ -30,12 +39,17 @@ interface OrderData {
   };
   paymentMethod: string;
   createdAt: string;
+  cjStatus?: string;
+  cjOrderId?: string | null;
+  cjError?: string | null;
+  usedBalancePayment?: boolean;
 }
 
 export default function OrdersPage() {
   const { format: fmt } = useCurrency();
   const [orders, setOrders] = useState<OrderData[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [retrying, setRetrying] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -44,6 +58,40 @@ export default function OrdersPage() {
     } catch {}
     setLoaded(true);
   }, []);
+
+  function updateOrder(id: string, patch: Partial<OrderData>) {
+    const updated = orders.map((o) => (o.id === id ? { ...o, ...patch } : o));
+    setOrders(updated);
+    localStorage.setItem("all-things-order-history", JSON.stringify(updated));
+  }
+
+  async function handleRetry(orderId: string, orderNumber: string) {
+    setRetrying(orderId);
+    try {
+      const res = await fetch("/api/orders/retry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderNumber }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        updateOrder(orderId, {
+          cjStatus: "forwarded",
+          cjOrderId: data.data.cjOrderId || orderNumber,
+          usedBalancePayment: true,
+          cjError: null,
+        });
+      } else {
+        updateOrder(orderId, {
+          cjError: data.message || "Retry failed",
+        });
+      }
+    } catch {
+      updateOrder(orderId, { cjError: "Network error during retry" });
+    }
+    setRetrying(null);
+  }
 
   if (!loaded) return null;
 
@@ -121,6 +169,43 @@ export default function OrdersPage() {
                 </span>
               </div>
 
+              {/* CJ Status Badge */}
+              {(order.cjStatus || order.cjError) && (
+                <div className="mt-3">
+                  {order.cjStatus === "forwarded" && order.usedBalancePayment && (
+                    <div className="flex items-center gap-1.5 text-xs text-emerald-400">
+                      <CheckCircle className="h-3.5 w-3.5" />
+                      <span>Fulfilled by CJ Dropshipping</span>
+                      {order.cjOrderId && (
+                        <span className="text-obsidian-500">
+                          &middot; CJ ID: {order.cjOrderId}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  {order.cjStatus === "forwarded" && !order.usedBalancePayment && (
+                    <div className="flex items-center gap-1.5 text-xs text-amber-400">
+                      <Clock className="h-3.5 w-3.5" />
+                      <span>Pending CJ payment</span>
+                      {order.cjOrderId && (
+                        <span className="text-obsidian-500">
+                          &middot; CJ ID: {order.cjOrderId}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  {order.cjStatus === "failed" && (
+                    <div className="flex items-center gap-1.5 text-xs text-red-400">
+                      <AlertTriangle className="h-3.5 w-3.5" />
+                      <span>CJ forwarding failed</span>
+                      {order.cjError && (
+                        <span className="text-obsidian-500">: {order.cjError}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
               <details className="mt-4">
                 <summary className="cursor-pointer text-xs text-obsidian-500 transition-colors hover:text-white">
                   View details
@@ -174,6 +259,66 @@ export default function OrdersPage() {
                       {order.shippingAddress.address}, {order.shippingAddress.city},{" "}
                       {order.shippingAddress.country}
                     </p>
+                  </div>
+
+                  {/* CJ section in details */}
+                  <div className="border-t border-white/10 pt-3">
+                    <p className="mb-2 text-xs font-medium text-obsidian-400">
+                      CJ Dropshipping
+                    </p>
+                    {order.cjStatus === "forwarded" && order.usedBalancePayment ? (
+                      <div className="space-y-1 text-xs">
+                        <p className="text-emerald-400">
+                          Paid and processing
+                        </p>
+                        {order.cjOrderId && (
+                          <p className="text-obsidian-500">
+                            CJ Order ID: {order.cjOrderId}
+                          </p>
+                        )}
+                      </div>
+                    ) : order.cjStatus === "forwarded" && !order.usedBalancePayment ? (
+                      <div className="space-y-1 text-xs">
+                        <p className="text-amber-400">
+                          Order created — needs payment on CJ dashboard
+                        </p>
+                        {order.cjOrderId && (
+                          <p className="text-obsidian-500">
+                            CJ Order ID: {order.cjOrderId}
+                          </p>
+                        )}
+                        <a
+                          href="https://www.cjdropshipping.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-1 inline-flex items-center gap-1 text-accent-light hover:text-accent"
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                          Open CJ Dashboard
+                        </a>
+                      </div>
+                    ) : order.cjStatus === "failed" ? (
+                      <div className="space-y-2 text-xs">
+                        <p className="text-red-400">
+                          {order.cjError || "Failed to forward to CJ"}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => handleRetry(order.id, order.id)}
+                          disabled={retrying === order.id}
+                          className="inline-flex items-center gap-1.5 rounded-lg bg-accent/10 px-3 py-1.5 text-accent-light transition-colors hover:bg-accent/20 disabled:opacity-50"
+                        >
+                          <RefreshCw
+                            className={`h-3 w-3 ${retrying === order.id ? "animate-spin" : ""}`}
+                          />
+                          {retrying === order.id ? "Retrying..." : "Retry with CJ"}
+                        </button>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-obsidian-600">
+                        Not yet forwarded
+                      </p>
+                    )}
                   </div>
                 </div>
               </details>

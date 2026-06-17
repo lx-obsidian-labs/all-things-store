@@ -20,6 +20,7 @@ interface OrderData {
   cjStatus?: string;
   cjOrderId?: string | null;
   cjError?: string | null;
+  usedBalancePayment?: boolean;
 }
 
 export default function ConfirmationPage() {
@@ -121,27 +122,45 @@ export default function ConfirmationPage() {
         </div>
 
         {/* CJ Forwarding Status */}
-        {order.cjStatus === "forwarded" && order.cjOrderId && (
+        {order.cjStatus === "forwarded" && order.usedBalancePayment && (
           <div className="mb-8 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-left">
             <div className="flex items-center gap-2 text-emerald-400">
               <CheckCircle className="h-4 w-4" />
-              <span className="text-sm font-medium">Forwarded to CJ Dropshipping</span>
+              <span className="text-sm font-medium">Fulfilled by CJ Dropshipping</span>
             </div>
             <p className="mt-1 text-xs text-obsidian-500">
-              CJ Order ID: {order.cjOrderId} &middot; Status: Awaiting processing
+              CJ Order ID: {order.cjOrderId} &middot; Paid and processing
+            </p>
+          </div>
+        )}
+
+        {order.cjStatus === "forwarded" && !order.usedBalancePayment && (
+          <div className="mb-8 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-left">
+            <div className="flex items-center gap-2 text-amber-400">
+              <Clock className="h-4 w-4" />
+              <span className="text-sm font-medium">Created at CJ — payment required</span>
+            </div>
+            <p className="mt-1 text-xs text-obsidian-500">
+              Order created in CJ but needs payment on their dashboard to start fulfillment.
             </p>
           </div>
         )}
 
         {order.cjStatus === "failed" && (
-          <div className="mb-8 rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 text-left">
-            <div className="flex items-center gap-2 text-amber-400">
+          <div className="mb-8 rounded-xl border border-red-500/20 bg-red-500/5 p-4 text-left">
+            <div className="flex items-center gap-2 text-red-400">
               <AlertTriangle className="h-4 w-4" />
-              <span className="text-sm font-medium">Order saved — CJ forwarding pending</span>
+              <span className="text-sm font-medium">Order saved — CJ forwarding failed</span>
             </div>
             <p className="mt-1 text-xs text-obsidian-500">
               {order.cjError || "We will forward this order to our supplier manually."}
             </p>
+            <Link
+              href="/account/orders"
+              className="mt-2 inline-flex items-center gap-1 text-xs text-accent-light hover:text-accent"
+            >
+              Retry from order history &rarr;
+            </Link>
           </div>
         )}
 

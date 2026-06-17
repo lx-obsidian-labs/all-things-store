@@ -129,7 +129,7 @@ export function getCountryCode(countryName: string): string {
 }
 
 /* ------------------------------------------------------------------ */
-/*  CJ Order Creation                                                   */
+/*  CJ Order Creation – full pipeline                                   */
 /* ------------------------------------------------------------------ */
 
 export interface CJOrderProduct {
@@ -162,9 +162,35 @@ export interface CJOrderResult {
   orderAmount?: number;
   postageAmount?: number;
   productAmount?: number;
+  actualPayment?: number;
   cjPayUrl?: string;
   orderStatus?: string;
+  usedBalancePayment?: boolean;
   message?: string;
+}
+
+async function callCJOrderAPI(
+  token: string,
+  body: Record<string, any>,
+  payType: number
+): Promise<{ data: any; success: boolean; message: string }> {
+  const res = await fetch(`${CJ_BASE}/shopping/order/createOrderV2`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "CJ-Access-Token": token,
+    },
+    body: JSON.stringify({ ...body, payType }),
+  });
+
+  const result = await res.json();
+  const ok = result.success === true || result.code === 200;
+
+  return {
+    success: ok,
+    data: result.data,
+    message: result.message || "",
+  };
 }
 
 export async function createCJOrder(
@@ -174,7 +200,7 @@ export async function createCJOrder(
     const token = await getCJToken();
     const countryCode = getCountryCode(params.shippingCountry);
 
-    const body: Record<string, any> = {
+    const baseBody: Record<string, any> = {
       orderNumber: params.orderNumber,
       shippingCountryCode: countryCode,
       shippingCountry: params.shippingCountry,
@@ -190,7 +216,6 @@ export async function createCJOrder(
       logisticName: params.logisticName,
       fromCountryCode: "CN",
       platform: "api",
-      payType: 3,
       orderFlow: 1,
       isSandbox: params.isSandbox ? 1 : 0,
       products: params.products.map((p) => ({
@@ -200,6 +225,106 @@ export async function createCJOrder(
       })),
     };
 
+    // Try payType=2 (balance payment — auto cart + confirm + pay)
+    const payResult = await callCJOrderAPI(token, baseBody, 2);
+
+    if (payResult.success && payResult.data) {
+      return {
+        success: true,
+        cjOrderId: payResult.data.orderId,
+        cjOrderNumber: payResult.data.orderNumber,
+        orderAmount: payResult.data.orderAmount,
+        postageAmount: payResult.data.postageAmount,
+        productAmount: payResult.data.productAmount,
+        actualPayment: payResult.data.actualPayment,
+        orderStatus: payResult.data.orderStatus,
+        usedBalancePayment: true,
+      };
+    }
+
+    // Fallback: create only (payType=3) so order is at least recorded at CJ
+    const fallback = await callCJOrderAPI(token, baseBody, 3);
+
+    if (fallback.success && fallback.data) {
+      return {
+        success: true,
+        cjOrderId: fallback.data.orderId,
+        cjOrderNumber: fallback.data.orderNumber,
+        orderAmount: fallback.data.orderAmount,
+        postageAmount: fallback.data.postageAmount,
+        productAmount: fallback.data.productAmount,
+        cjPayUrl: fallback.data.cjPayUrl,
+        orderStatus: fallback.data.orderStatus,
+        usedBalancePayment: false,
+        message: `Order created at CJ. Balance payment failed (${payResult.message}). Pay via CJ dashboard to fulfill.`,
+      };
+    }
+
+    return {
+      success: false,
+      message: `CJ create failed: ${payResult.message}`,
+    };
+  } catch (err: any) {
+    return {
+      success: false,
+      message: err.message || "CJ order request failed",
+    };
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  CJ Order Status & Tracking                                          */
+/* ------------------------------------------------------------------ */
+
+export interface CJOrderStatusResult {
+  success: boolean;
+  orderStatus?: string;
+  shippingStatus?: string;
+  trackingNumber?: string;
+  trackingUrl?: string;
+  logisticName?: string;
+  message?: string;
+}
+
+export async function getCJOrderStatus(
+  orderId: string
+): Promise<CJOrderStatusResult> {
+  try {
+    const token = await getCJToken();
+
+    // Query order details
+    const res = await fetch(
+      `${CJ_BASE}/shopping/order/query?orderId=${orderId}`,
+      { headers: { "CJ-Access-Token": token } }
+    );
+
+    const data = await res.json();
+
+    if (!data.success && data.code !== 200) {
+      return { success: false, message: data.message || "Query failed" };
+    }
+
+    const order = data.data;
+    return {
+      success: true,
+      orderStatus: order.orderStatus,
+      shippingStatus: order.shippingStatus,
+      trackingNumber: order.trackingNumber,
+      trackingUrl: order.trackingUrl,
+      logisticName: order.logisticName,
+    };
+  } catch (err: any) {
+    return { success: false, message: err.message };
+  }
+}
+
+export async function retryCJOrderPayment(
+  orderNumber: string
+): Promise<CJOrderResult> {
+  try {
+    const token = await getCJToken();
+
+    // Re-attempt with payType=2
     const res = await fetch(
       `${CJ_BASE}/shopping/order/createOrderV2`,
       {
@@ -208,34 +333,32 @@ export async function createCJOrder(
           "Content-Type": "application/json",
           "CJ-Access-Token": token,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          orderNumber,
+          payType: 2,
+          isSandbox: 0,
+        }),
       }
     );
 
-    const data = await res.json();
+    const result = await res.json();
 
-    if (!data.success && data.code !== 200) {
+    if (!result.success && result.code !== 200) {
       return {
         success: false,
-        message: data.message || "CJ order creation failed",
+        message: result.message || "Payment retry failed",
       };
     }
 
     return {
       success: true,
-      cjOrderId: data.data?.orderId,
-      cjOrderNumber: data.data?.orderNumber,
-      orderAmount: data.data?.orderAmount,
-      postageAmount: data.data?.postageAmount,
-      productAmount: data.data?.productAmount,
-      cjPayUrl: data.data?.cjPayUrl,
-      orderStatus: data.data?.orderStatus,
+      cjOrderId: result.data?.orderId,
+      orderStatus: result.data?.orderStatus,
+      actualPayment: result.data?.actualPayment,
+      usedBalancePayment: true,
     };
   } catch (err: any) {
-    return {
-      success: false,
-      message: err.message || "CJ order request failed",
-    };
+    return { success: false, message: err.message };
   }
 }
 
