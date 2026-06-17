@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Clock,
   Minus,
@@ -15,12 +15,12 @@ import {
 import { ProductCard } from "@/components/ProductCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
-  formatPrice,
   getCategoryName,
   products,
 } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
+import { useCurrency } from "@/context/CurrencyContext";
 import type { Product } from "@/lib/types";
 
 const REVIEW_DATA: Record<string, { author: string; date: string; text: string; rating: number }[]> = {
@@ -111,8 +111,17 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState<Record<string, string>>({});
+  const [showMobileBar, setShowMobileBar] = useState(false);
   const { addItem } = useCart();
   const { addToast } = useToast();
+  const { format: fmt } = useCurrency();
+
+  useEffect(() => {
+    const onScroll = () => setShowMobileBar(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const allImages = product.images?.length ? product.images : [product.image];
   const discount =
@@ -223,12 +232,12 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           {/* Price */}
           <div className="mb-8 flex items-baseline gap-3">
             <span className="text-3xl font-bold text-white">
-              {formatPrice(product.price)}
+              {fmt(product.price)}
             </span>
             {product.compareAtPrice && (
               <>
                 <span className="text-lg text-obsidian-500 line-through">
-                  {formatPrice(product.compareAtPrice)}
+                  {fmt(product.compareAtPrice)}
                 </span>
                 {discount && discount > 0 && (
                   <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-sm font-semibold text-emerald-400">
@@ -309,10 +318,10 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           <button
             type="button"
             onClick={handleAddWithQuantity}
-            className="btn-primary mb-8 w-full sm:w-auto"
+            className="btn-primary mb-6 w-full"
           >
             <Plus className="h-4 w-4" />
-            Add to Cart — {formatPrice(product.price * quantity)}
+            Add to Cart — {fmt(product.price * quantity)}
           </button>
 
           {/* Shipping & Trust Info */}
@@ -452,6 +461,28 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           </div>
         </section>
       )}
+
+      {/* Sticky Mobile Add to Cart Bar */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-obsidian-950/95 p-4 backdrop-blur-xl transition-transform duration-300 sm:hidden ${
+          showMobileBar ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs text-obsidian-400">{product.name}</p>
+            <p className="text-lg font-bold text-white">{fmt(product.price)}</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleAddWithQuantity}
+            className="btn-primary shrink-0"
+          >
+            <Plus className="h-4 w-4" />
+            Add to Cart
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

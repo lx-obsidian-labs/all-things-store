@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, ShoppingBag, Trash2 } from "lucide-react";
 import { useWishlist } from "@/context/WishlistContext";
-import { formatPrice } from "@/lib/products";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export default function WishlistPage() {
   const { items, removeItem, clearWishlist } = useWishlist();
+  const { format: fmt } = useCurrency();
 
   if (items.length === 0) {
     return (
@@ -80,11 +81,11 @@ export default function WishlistPage() {
               </p>
               <div className="mb-4 flex items-baseline gap-2">
                 <span className="text-lg font-semibold text-white">
-                  {formatPrice(product.price)}
+                  {fmt(product.price)}
                 </span>
                 {product.compareAtPrice && (
                   <span className="text-sm text-obsidian-500 line-through">
-                    {formatPrice(product.compareAtPrice)}
+                    {fmt(product.compareAtPrice)}
                   </span>
                 )}
               </div>

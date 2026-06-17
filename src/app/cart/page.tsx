@@ -5,10 +5,11 @@ import Link from "next/link";
 import { Minus, Plus, ShoppingBag, Tag, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { formatPrice } from "@/lib/products";
+import { useCurrency } from "@/context/CurrencyContext";
 
 export default function CartPage() {
   const { items, subtotal, updateQuantity, removeItem, clearCart } = useCart();
+  const { format: fmt } = useCurrency();
   const [coupon, setCoupon] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
 
@@ -84,7 +85,7 @@ export default function CartPage() {
                     {product.name}
                   </Link>
                   <p className="mt-1 text-sm text-obsidian-400">
-                    {formatPrice(product.price)} each
+                    {fmt(product.price)} each
                   </p>
                 </div>
 
@@ -121,7 +122,7 @@ export default function CartPage() {
 
                   <div className="flex items-center gap-4">
                     <span className="font-semibold text-white">
-                      {formatPrice(product.price * quantity)}
+                      {fmt(product.price * quantity)}
                     </span>
                     <button
                       type="button"
@@ -180,12 +181,12 @@ export default function CartPage() {
             <div className="space-y-3 text-sm">
               <div className="flex justify-between text-obsidian-300">
                 <span>Subtotal</span>
-                <span>{formatPrice(subtotal)}</span>
+                <span>{fmt(subtotal)}</span>
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-emerald-400">
                   <span>Discount (10%)</span>
-                  <span>-{formatPrice(discount)}</span>
+                  <span>-{fmt(discount)}</span>
                 </div>
               )}
               <div className="flex justify-between text-obsidian-300">
@@ -194,19 +195,19 @@ export default function CartPage() {
                   {shipping === 0 ? (
                     <span className="text-emerald-400">Free</span>
                   ) : (
-                    formatPrice(shipping)
+                    fmt(shipping)
                   )}
                 </span>
               </div>
               {subtotal > 0 && subtotal < 50 && (
                 <p className="text-xs text-obsidian-500">
-                  Add {formatPrice(50 - subtotal)} more for free shipping
+                  Add {fmt(50 - subtotal)} more for free shipping
                 </p>
               )}
               <div className="border-t border-white/10 pt-3">
                 <div className="flex justify-between text-lg font-semibold text-white">
                   <span>Total</span>
-                  <span>{formatPrice(total)}</span>
+                  <span>{fmt(total)}</span>
                 </div>
               </div>
             </div>

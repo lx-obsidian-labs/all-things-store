@@ -35,6 +35,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/shop?sort=bestselling" className="transition-colors hover:text-accent-light">
+                  Best Sellers
+                </Link>
+              </li>
+              <li>
                 <Link href="/wishlist" className="transition-colors hover:text-accent-light">
                   Wishlist
                 </Link>
@@ -95,11 +100,7 @@ export function Footer() {
                   Terms of Service
                 </Link>
               </li>
-              <li>
-                <Link href="/sourcing" className="transition-colors hover:text-accent-light">
-                  Sourcing
-                </Link>
-              </li>
+
             </ul>
           </div>
 

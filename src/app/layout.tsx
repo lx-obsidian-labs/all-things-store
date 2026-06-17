@@ -3,6 +3,7 @@ import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
 import { ToastProvider } from "@/context/ToastContext";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ToastContainer } from "@/components/ToastContainer";
@@ -37,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
       <body className="min-h-screen font-sans">
+        <CurrencyProvider>
         <CartProvider>
           <WishlistProvider>
             <ToastProvider>
@@ -49,6 +51,7 @@ export default function RootLayout({
             </ToastProvider>
           </WishlistProvider>
         </CartProvider>
+        </CurrencyProvider>
       </body>
     </html>
   );

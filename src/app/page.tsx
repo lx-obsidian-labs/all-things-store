@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles, TrendingUp, Clock, Zap } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
-import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, formatPrice } from "@/lib/products";
+import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
 
@@ -18,140 +18,140 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Winning Products — highest-rated, best-margin */}
+      {/* Best Sellers — social proof, highest conversion priority */}
       <section className="section-padding mx-auto max-w-7xl">
-        <div className="mb-8 flex items-center gap-3">
-          <Zap className="h-5 w-5 text-accent-light" />
-          <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
-            Top Picks
-          </p>
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-accent-light" />
+              <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+                Best Sellers
+              </p>
+            </div>
+            <h2 className="font-display text-3xl text-white sm:text-4xl">
+              Most loved by customers
+            </h2>
+          </div>
+          <Link
+            href="/shop?sort=bestselling"
+            className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
+          >
+            Shop all best sellers
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
-        <h2 className="mb-10 font-display text-3xl text-white sm:text-4xl">
-          Our winning products
-        </h2>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {winning.map((product, i) => (
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {bestSellers.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
       </section>
 
-      {/* Best Sellers */}
+      {/* Deals / On Sale — urgency drives conversion */}
       <section className="section-padding border-t border-white/5 bg-obsidian-900/30">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <div className="mb-2 flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-accent-light" />
-                <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
-                  Best Sellers
+                <Sparkles className="h-4 w-4 text-emerald-400" />
+                <p className="text-sm font-medium uppercase tracking-wider text-emerald-400">
+                  On Sale
                 </p>
               </div>
               <h2 className="font-display text-3xl text-white sm:text-4xl">
-                Most loved products
+                Best deals & discounts
               </h2>
             </div>
             <Link
-              href="/shop?sort=bestselling"
+              href="/shop"
               className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
             >
-              Shop all best sellers
+              View all deals
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-            {bestSellers.map((product, i) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {deals.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Deals / On Sale */}
+      {/* Categories — wayfinding for browsing shoppers */}
       <section className="section-padding mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-emerald-400" />
-              <p className="text-sm font-medium uppercase tracking-wider text-emerald-400">
-                On Sale
-              </p>
-            </div>
-            <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Best deals & discounts
-            </h2>
-          </div>
-          <Link
-            href="/shop"
-            className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
-          >
-            View all deals
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+        <div className="mb-12 text-center">
+          <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent-light">
+            Categories
+          </p>
+          <h2 className="font-display text-3xl text-white sm:text-4xl">
+            Shop by collection
+          </h2>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {deals.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/shop?category=${cat.id}`}
+              className="glass-card group p-6 transition-all hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-0.5"
+            >
+              <h3 className="mb-2 font-display text-xl text-white transition-colors group-hover:text-accent-light">
+                {cat.name}
+              </h3>
+              <p className="text-sm text-obsidian-400">{cat.description}</p>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* Categories */}
+      {/* New Arrivals — freshness signals active catalog */}
       <section className="section-padding border-t border-white/5 bg-obsidian-900/30">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center">
-            <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent-light">
-              Categories
-            </p>
-            <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Shop by collection
-            </h2>
+          <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+            <div>
+              <div className="mb-2 flex items-center gap-2">
+                <Clock className="h-4 w-4 text-accent-light" />
+                <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+                  New Arrivals
+                </p>
+              </div>
+              <h2 className="font-display text-3xl text-white sm:text-4xl">
+                Fresh from the catalog
+              </h2>
+            </div>
+            <Link
+              href="/shop?sort=newest"
+              className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
+            >
+              View newest
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {categories.map((cat) => (
-              <Link
-                key={cat.id}
-                href={`/shop?category=${cat.id}`}
-                className="glass-card group p-6 transition-all hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-0.5"
-              >
-                <h3 className="mb-2 font-display text-xl text-white transition-colors group-hover:text-accent-light">
-                  {cat.name}
-                </h3>
-                <p className="text-sm text-obsidian-400">{cat.description}</p>
-              </Link>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {newArrivals.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* New Arrivals */}
+      {/* Top Picks — curated selection */}
       <section className="section-padding mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <Clock className="h-4 w-4 text-accent-light" />
-              <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
-                New Arrivals
-              </p>
-            </div>
-            <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Fresh from the catalog
-            </h2>
-          </div>
-          <Link
-            href="/shop?sort=newest"
-            className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
-          >
-            View newest
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+        <div className="mb-8 flex items-center gap-3">
+          <Zap className="h-5 w-5 text-accent-light" />
+          <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+            Curated For You
+          </p>
         </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {newArrivals.map((product, i) => (
+        <h2 className="mb-10 font-display text-3xl text-white sm:text-4xl">
+          Editor's top picks
+        </h2>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {winning.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>

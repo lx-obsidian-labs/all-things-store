@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Search, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { products } from "@/lib/products";
-import { formatPrice } from "@/lib/products";
 import type { Product } from "@/lib/types";
+import { useCurrency } from "@/context/CurrencyContext";
 
 interface SearchOverlayProps {
   open: boolean;
@@ -16,6 +16,7 @@ interface SearchOverlayProps {
 export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Product[]>([]);
+  const { format: fmt } = useCurrency();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -130,7 +131,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
                   </p>
                 </div>
                 <span className="shrink-0 font-semibold text-white">
-                  {formatPrice(product.price)}
+                  {fmt(product.price)}
                 </span>
               </Link>
             ))}

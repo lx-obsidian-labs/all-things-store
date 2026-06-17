@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag, Star } from "lucide-react";
 import type { Product } from "@/lib/types";
-import { formatPrice, getDiscountPercent } from "@/lib/products";
+import { getDiscountPercent } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
+import { useCurrency } from "@/context/CurrencyContext";
 
 interface ProductCardProps {
   product: Product;
@@ -16,6 +17,7 @@ interface ProductCardProps {
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const { addItem } = useCart();
   const { addToast } = useToast();
+  const { format: fmt } = useCurrency();
 
   const discount = getDiscountPercent(product);
   const isNew = product.tags.includes("new");
@@ -107,11 +109,11 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
         <div className="flex items-baseline gap-2">
           <span className="text-lg font-bold text-white">
-            {formatPrice(product.price)}
+            {fmt(product.price)}
           </span>
           {product.compareAtPrice && (
             <span className="text-sm text-obsidian-500 line-through">
-              {formatPrice(product.compareAtPrice)}
+              {fmt(product.compareAtPrice)}
             </span>
           )}
         </div>

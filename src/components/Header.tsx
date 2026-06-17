@@ -8,11 +8,13 @@ import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { BRAND } from "@/lib/brand";
 import { SearchOverlay } from "@/components/SearchOverlay";
+import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
-  { href: "/blog", label: "Blog" },
+  { href: "/shop?sort=bestselling", label: "Best Sellers" },
   { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -55,6 +57,9 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="hidden sm:block">
+            <CurrencySwitcher />
+          </div>
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
