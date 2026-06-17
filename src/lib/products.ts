@@ -17,6 +17,8 @@ import { massProducts10 } from "./mass-products-10";
 import { massProducts11 } from "./mass-products-11";
 import { massProducts12 } from "./mass-products-12";
 import { massProducts13 } from "./mass-products-13";
+import { carParts } from "./car-parts";
+import { consumerElectronics } from "./consumer-electronics";
 import { applyExistingImages } from "./existing-images";
 import { assignSubcategories } from "./subcategories";
 
@@ -25,6 +27,11 @@ export const categories: Category[] = [
     id: "tech",
     name: "Tech & Gadgets",
     description: "Smart accessories and everyday tech essentials",
+  },
+  {
+    id: "consumer-electronics",
+    name: "Consumer Electronics",
+    description: "Smart devices, home entertainment, and personal electronics",
   },
   {
     id: "home",
@@ -44,7 +51,12 @@ export const categories: Category[] = [
   {
     id: "wellness",
     name: "Wellness",
-    description: "Products for calm, focus, and daily balance",
+    description: "Products for calm, focus, focus, and daily balance",
+  },
+  {
+    id: "car-parts",
+    name: "Car Parts & Accessories",
+    description: "Auto parts, tools, and vehicle accessories",
   },
 ];
 
@@ -53,6 +65,8 @@ const SHIP_FROM = "China";
 const cn = (label: string, color?: string) => ({ label, color });
 
 export const products: Product[] = assignSubcategories(applyExistingImages([
+  ...consumerElectronics,
+  ...carParts,
   {
     id: "1",
     slug: "wireless-charging-dock",

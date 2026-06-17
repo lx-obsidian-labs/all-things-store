@@ -26,6 +26,13 @@ export const subcategories: SubcategoryDef[] = [
   { id: "personal-care", label: "Personal Care" },
   { id: "relaxation", label: "Relaxation" },
   { id: "electronics", label: "Electronics" },
+  { id: "smart-home", label: "Smart Home" },
+  { id: "tv-streaming", label: "TV & Streaming" },
+  { id: "gaming", label: "Gaming" },
+  { id: "car-interior", label: "Car Interior" },
+  { id: "car-exterior", label: "Car Exterior" },
+  { id: "car-tools", label: "Tools & Maintenance" },
+  { id: "car-electronics", label: "Car Electronics" },
 ];
 
 export function getSubcategoryLabel(id: string): string {
@@ -59,6 +66,17 @@ const SUB_RULES: { sub: string; cat?: string; keywords: string[] }[] = [
   { sub: "fitness-exercise", cat: "wellness", keywords: ["yoga mat", "resistance band", "yoga block", "fitness", "exercise", "gym", "workout", "stretch", "pilates", "massage gun", "massage", "sport"] },
   { sub: "personal-care", cat: "wellness", keywords: ["blender", "portable blender", "bottle", "skincare", "makeup", "brush", "hair", "comb", "mirror", "shaver", "trimmer"] },
   { sub: "relaxation", cat: "wellness", keywords: ["diffuser", "aroma", "aromatherapy", "humidifier", "essential oil", "flame diffuser", "meditation", "candle", "relax"] },
+
+  // Consumer Electronics subcategories
+  { sub: "smart-home", cat: "consumer-electronics", keywords: ["smart home", "smart plug", "smart switch", "smart bulb", "home automation", "alexa", "google home", "hub", "motion sensor", "door sensor", "smart lock"] },
+  { sub: "tv-streaming", cat: "consumer-electronics", keywords: ["tv", "television", "streaming", "firestick", "roku", "chromecast", "android tv", "smart tv", "projector", "hdmi", "tv box"] },
+  { sub: "gaming", cat: "consumer-electronics", keywords: ["gaming", "controller", "headset", "keyboard", "mouse", "gaming chair", "rgb", "mechanical keyboard", "ps5", "xbox", "switch", "steam deck"] },
+
+  // Car Parts subcategories
+  { sub: "car-interior", cat: "car-parts", keywords: ["seat cover", "floor mat", "steering wheel", "car organizer", "phone mount", "sunshade", "cushion", "headrest", "trash can", "interior light", "ambient light"] },
+  { sub: "car-exterior", cat: "car-parts", keywords: ["car cover", "wax", "polish", "brush", "snow brush", "ice scraper", "mud flap", "spoiler", "grille", "emblem", "license plate", "bumper", "mirror"] },
+  { sub: "car-tools", cat: "car-parts", keywords: ["jack", "tire inflator", "jump starter", "multimeter", "obd2", "scanner", "tool kit", "wrench", "socket", "torque", "compressor", "pump"] },
+  { sub: "car-electronics", cat: "car-parts", keywords: ["dash cam", "backup camera", "carplay", "android auto", "car stereo", "bluetooth adapter", "fm transmitter", "usb charger", "cigarette lighter", "voltage monitor"] },
 ];
 
 export function assignSubcategory(product: Product): string {
