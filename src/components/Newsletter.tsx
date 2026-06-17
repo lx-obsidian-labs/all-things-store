@@ -5,11 +5,44 @@ import { useState } from "react";
 
 export function Newsletter() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || submitting) return;
+    setSubmitting(true);
+
+    try {
+      await fetch("/api/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: email,
+          subject: "Welcome to All Things!",
+          html: `<!DOCTYPE html>
+<html><head><meta charset="utf-8"></head>
+<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;margin:0;padding:24px;">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;">
+<div style="background:#7c3aed;color:#fff;padding:32px;text-align:center;">
+<h1 style="margin:0;font-size:24px;">Welcome to All Things!</h1>
+</div>
+<div style="padding:32px;">
+<p>Thanks for subscribing! You'll now receive curated product picks, early access to new arrivals, and exclusive subscriber-only offers.</p>
+<p style="margin-top:16px;">Stay tuned for our next drop.</p>
+<p style="margin-top:16px;">&mdash; The LX Obsidian Labs Team</p>
+</div>
+<div style="background:#f9f9f9;padding:16px 32px;text-align:center;font-size:12px;color:#999;">All Things &middot; hello@allthings.store</div>
+</div>
+</body>
+</html>`,
+        }),
+      });
+    } catch {
+      // best-effort
+    }
+
+    setSubmitting(false);
     setSubmitted(true);
   };
 
