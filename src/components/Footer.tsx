@@ -8,11 +8,17 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6">
           <div className="sm:col-span-2 md:col-span-2 lg:col-span-2">
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-accent-dark">
-                <span className="font-display text-lg text-white">AT</span>
-              </div>
+              <img
+                src="/logo-icon.png"
+                alt={BRAND.storeName}
+                className="h-10 w-10 rounded-xl object-cover"
+              />
               <div>
-                <p className="font-display text-xl text-white">{BRAND.storeName}</p>
+                <img
+                  src="/logo-main.png"
+                  alt={BRAND.storeName}
+                  className="h-7 object-contain brightness-110"
+                />
                 <p className="text-xs uppercase tracking-[0.15em] text-obsidian-400">
                   A {BRAND.company} brand
                 </p>

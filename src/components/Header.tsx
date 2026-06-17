@@ -30,13 +30,17 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-white/5 bg-obsidian-950/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-accent-dark shadow-lg shadow-accent/20 transition-transform group-hover:scale-105">
-            <span className="font-display text-lg text-white">AT</span>
-          </div>
-          <div>
-            <span className="font-display text-xl tracking-wide text-white">
-              {BRAND.storeName}
-            </span>
+          <img
+            src="/logo-icon.png"
+            alt={BRAND.storeName}
+            className="h-10 w-10 rounded-xl object-cover transition-transform group-hover:scale-105"
+          />
+          <div className="hidden sm:block">
+            <img
+              src="/logo-main.png"
+              alt={BRAND.storeName}
+              className="h-8 object-contain brightness-110"
+            />
             <span className="block text-[10px] uppercase tracking-[0.2em] text-obsidian-400">
               by {BRAND.companyShort}
             </span>

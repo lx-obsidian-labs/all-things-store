@@ -30,6 +30,7 @@ interface FieldErrors {
   name?: string;
   address?: string;
   city?: string;
+  province?: string;
   country?: string;
   phone?: string;
 }
@@ -59,6 +60,7 @@ export default function CheckoutPage() {
   const [address, setAddress] = useState("");
   const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("delivery");
@@ -139,7 +141,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           orderNumber,
           shippingCountry: country,
-          shippingProvince: city,
+          shippingProvince: province || city,
           shippingCity: city,
           shippingPhone: phone,
           shippingCustomerName: name,
@@ -333,6 +335,13 @@ export default function CheckoutPage() {
                     )}
                   </div>
                 </div>
+                <input
+                  type="text"
+                  value={province}
+                  onChange={(e) => setProvince(e.target.value)}
+                  placeholder="State / Province (optional)"
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-obsidian-500 outline-none transition-colors focus:border-accent/50"
+                />
                 <input
                   type="text"
                   value={postalCode}

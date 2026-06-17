@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Sparkles, TrendingUp, Clock, Zap, Tag } from "lucide-react";
+import { ArrowRight, Sparkles, TrendingUp, Clock, Zap, Tag, Snowflake } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
 import { RecentlyViewedSection } from "./RecentlyViewedSection";
-import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts } from "@/lib/products";
+import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts, getWinterProducts } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
 
@@ -15,6 +15,7 @@ export default function HomePage() {
   const cheapest = getCheapestProducts(6);
   const newArrivals = getNewArrivals(4);
   const winning = getWinningProducts(3);
+  const winterItems = getWinterProducts(6);
 
   return (
     <>
@@ -184,6 +185,36 @@ export default function HomePage() {
         </h2>
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {winning.map((product, i) => (
+            <ProductCard key={product.id} product={product} index={i} />
+          ))}
+        </div>
+      </section>
+
+      {/* Winter Special — seasonal */}
+      <section className="section-padding mx-auto max-w-7xl">
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <div className="mb-2 flex items-center gap-2">
+              <Snowflake className="h-4 w-4 text-sky-400" />
+              <p className="text-sm font-medium uppercase tracking-wider text-sky-400">
+                Winter Special
+              </p>
+            </div>
+            <h2 className="font-display text-3xl text-white sm:text-4xl">
+              Stay warm this season
+            </h2>
+          </div>
+          <Link
+            href="/shop?tag=winter"
+            className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
+          >
+            View all winter gear
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-6">
+          {winterItems.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>

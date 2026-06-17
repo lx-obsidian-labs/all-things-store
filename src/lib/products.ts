@@ -1,6 +1,7 @@
 import type { Category, Product } from "./types";
 import { cheapProducts } from "./cheap-products";
 import { clothingGadgetProducts } from "./clothing-gadgets";
+import { winterProducts } from "./winter-products";
 import { applyExistingImages } from "./existing-images";
 import { assignSubcategories } from "./subcategories";
 
@@ -1076,6 +1077,7 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
   },
   ...cheapProducts,
   ...clothingGadgetProducts,
+  ...winterProducts,
 ]));
 
 export function getProductBySlug(slug: string): Product | undefined {
@@ -1154,6 +1156,10 @@ export function getProductsByTag(tag: string): Product[] {
 
 export function getCheapestProducts(limit = 6): Product[] {
   return [...products].sort((a, b) => a.price - b.price).slice(0, limit);
+}
+
+export function getWinterProducts(limit = 6): Product[] {
+  return products.filter((p) => p.tags.includes("winter")).slice(0, limit);
 }
 
 export type SortOption = "default" | "price-asc" | "price-desc" | "name" | "newest" | "rating" | "bestselling";

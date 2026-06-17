@@ -136,6 +136,7 @@ export interface CJOrderProduct {
   sku: string;
   quantity: number;
   unitPrice?: number;
+  vid?: string;
 }
 
 export interface CreateCJOrderParams {
@@ -218,6 +219,28 @@ export async function createCJOrder(
     const token = await getCJToken();
     const countryCode = getCountryCode(params.shippingCountry);
 
+    // Step 1: Look up variant + product IDs for all products
+    const resolvedProducts: { vid: string; quantity: number; unitPrice?: number }[] = [];
+    for (const p of params.products) {
+      let vid = p.vid;
+      if (!vid) {
+        const variant = await lookupVidAndPid(token, p.sku);
+        if (!variant) {
+          return {
+            success: false,
+            message: `Product SKU ${p.sku} not found in CJ catalog. Try re-sourcing this product.`,
+          };
+        }
+        vid = variant.vid;
+        if (variant.pid) {
+          await new Promise((r) => setTimeout(r, 1100));
+          await addToMyProduct(variant.pid);
+        }
+      }
+      resolvedProducts.push({ vid, quantity: p.quantity, unitPrice: p.unitPrice });
+      await new Promise((r) => setTimeout(r, 1100));
+    }
+
     const baseBody: Record<string, any> = {
       orderNumber: params.orderNumber,
       shippingCountryCode: countryCode,
@@ -236,11 +259,7 @@ export async function createCJOrder(
       platform: "api",
       orderFlow: 1,
       isSandbox: params.isSandbox ? 1 : 0,
-      products: params.products.map((p) => ({
-        sku: p.sku,
-        quantity: p.quantity,
-        ...(p.unitPrice ? { unitPrice: p.unitPrice } : {}),
-      })),
+      products: resolvedProducts,
     };
 
     // Try payType=2 (balance payment — auto cart + confirm + pay)
@@ -260,7 +279,7 @@ export async function createCJOrder(
       };
     }
 
-    // Fallback: create only (payType=3) so order is at least recorded at CJ
+    // Fallback: create only (payType=3)
     const fallback = await callCJOrderAPI(token, baseBody, 3);
 
     if (fallback.success && fallback.data) {
@@ -318,7 +337,16 @@ export async function diagnoseCJConnection(): Promise<CJDiagnosticResult> {
     const token = await getCJToken();
     result.tokenOk = true;
 
-    // Step 2: test order endpoint with minimal payload (payType=3)
+    // Step 2: Look up a real variant VID for testing
+    const product = await lookupVidAndPid(token, "CJSJ1601466");
+    const testVid = product?.vid || "1586990909827330048"; // fallback to black variant if lookup fails
+
+    // Step 2a: Add product to My Products
+    if (product?.pid) {
+      await addToMyProduct(product.pid);
+    }
+
+    // Step 3: test order endpoint with minimal payload (payType=3)
     const testOrderNumber = `TEST-${Date.now().toString(36).toUpperCase()}`;
     const res = await fetch(
       `${CJ_BASE}/shopping/order/createOrderV2`,
@@ -344,7 +372,7 @@ export async function diagnoseCJConnection(): Promise<CJDiagnosticResult> {
           payType: 3,
           orderFlow: 1,
           isSandbox: 1,
-          products: [{ sku: "CJSJ1601466", quantity: 1 }],
+          products: [{ vid: testVid, quantity: 1 }],
         }),
       }
     );
@@ -386,23 +414,33 @@ export async function verifyCJProducts(
   const token = await getCJToken();
   const results: CJProductLookup[] = [];
 
-  for (const sku of skus) {
+  for (const [idx, sku] of skus.entries()) {
+    if (idx > 0) await new Promise((r) => setTimeout(r, 1100));
+
     try {
       const res = await fetch(
         `${CJ_BASE}/product/query?productSku=${encodeURIComponent(sku)}`,
         { headers: { "CJ-Access-Token": token } }
       );
       const data = await res.json();
-      if (isCJSuccess(data) && data.data) {
+      if ((isCJSuccess(data) || data.data) && data.data) {
+        const product = data.data;
+        // Extract the first actual variant VID from the variants array
+        const actualVid =
+          product.variants?.[0]?.vid || product.vid || product.pid;
         results.push({
           sku,
           found: true,
-          name: data.data.productNameEn || data.data.productName,
-          vid: data.data.vid || data.data.pid,
-          price: parseFloat(data.data.sellPrice) || 0,
+          name: product.productNameEn || product.productName,
+          vid: actualVid,
+          price: parseFloat(product.sellPrice) || 0,
         });
       } else {
-        results.push({ sku, found: false, error: data.message || "Not found" });
+        results.push({
+          sku,
+          found: false,
+          error: data.message || data.msg || `Code ${data.code}`,
+        });
       }
     } catch (err: any) {
       results.push({ sku, found: false, error: err.message });
@@ -410,6 +448,68 @@ export async function verifyCJProducts(
   }
 
   return results;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Add product to CJ "My Products" — needed before ordering            */
+/* ------------------------------------------------------------------ */
+
+export async function addToMyProduct(
+  productId: string
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const token = await getCJToken();
+    const res = await fetch(`${CJ_BASE}/product/addToMyProduct`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "CJ-Access-Token": token,
+      },
+      body: JSON.stringify({ productId }),
+    });
+    const data = await res.json();
+    // "The product has been added to My Products" means it already exists — that's fine
+    if (isCJSuccess(data) || data.code === 1600000) {
+      return { success: true, message: data.message || "ok" };
+    }
+    return { success: false, message: data.message || "addToMyProduct failed" };
+  } catch (err: any) {
+    return { success: false, message: err.message };
+  }
+}
+
+async function lookupVidAndPid(
+  token: string,
+  sku: string,
+  retries = 3
+): Promise<{ vid: string; pid: string; variantSku?: string } | null> {
+  for (let attempt = 0; attempt < retries; attempt++) {
+    try {
+      const res = await fetch(
+        `${CJ_BASE}/product/query?productSku=${encodeURIComponent(sku)}`,
+        { headers: { "CJ-Access-Token": token } }
+      );
+      const data = await res.json();
+      if (!isCJSuccess(data) || !data.data) {
+        if (data.code === 1600104) {
+          await new Promise((r) => setTimeout(r, 1200));
+          continue;
+        }
+        return null;
+      }
+      const product = data.data;
+      const pid = product.pid || product.vid;
+      if (product.variants?.length > 0) {
+        const variant = product.variants[0];
+        return { vid: variant.vid, pid, variantSku: variant.variantSku };
+      }
+      if (product.vid) return { vid: product.vid, pid: product.pid || product.vid };
+      return pid ? { vid: pid, pid } : null;
+    } catch {
+      if (attempt < retries - 1) await new Promise((r) => setTimeout(r, 1200));
+    }
+  }
+  return null;
 }
 
 /* ------------------------------------------------------------------ */

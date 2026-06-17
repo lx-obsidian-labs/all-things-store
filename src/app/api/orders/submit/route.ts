@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { createCJOrder } from "@/lib/sourcing";
 
 const LOGISTICS_MAP: Record<string, string> = {
-  standard: "CJPacket",
-  express: "CJPacket Fast Line",
+  standard: "CJ Registered Air Mail",
+  express: "CJ Express",
 };
 
 export async function POST(req: NextRequest) {

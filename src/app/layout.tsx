@@ -30,6 +30,10 @@ export const metadata: Metadata = {
   },
   description: `${BRAND.storeName} is a curated dropshipping store by ${BRAND.company}. Discover tech, home, style, and wellness essentials.`,
   keywords: ["dropshipping", "online store", "curated products", BRAND.company],
+  icons: {
+    icon: "/logo-icon.png",
+    apple: "/logo-icon.png",
+  },
 };
 
 export default function RootLayout({
