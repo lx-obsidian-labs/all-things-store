@@ -18,14 +18,18 @@ export interface ExtractedProduct {
 }
 
 export interface SourcingProviderConfig {
-  /** "simulated" returns mock data for demo/testing */
   mode: "simulated" | "aliexpress-affiliate" | "cjdropshipping";
   apiKey?: string;
   apiSecret?: string;
 }
 
 const DEFAULT_CONFIG: SourcingProviderConfig = {
-  mode: "simulated",
+  mode:
+    (process.env.CJ_API_KEY ? "cjdropshipping" :
+     process.env.ALIEXPRESS_API_KEY ? "aliexpress-affiliate" :
+     "simulated") as SourcingProviderConfig["mode"],
+  apiKey: process.env.CJ_API_KEY || process.env.ALIEXPRESS_API_KEY,
+  apiSecret: process.env.ALIEXPRESS_API_SECRET,
 };
 
 let config: SourcingProviderConfig = { ...DEFAULT_CONFIG };
@@ -39,66 +43,213 @@ export function getSourcingConfig() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Extract product data from a URL or search term                     */
+/*  CJ Dropshipping – Token management                                 */
+/* ------------------------------------------------------------------ */
+
+const CJ_BASE = "https://developers.cjdropshipping.com/api2.0/v1";
+
+interface CJToken {
+  accessToken: string;
+  accessTokenExpiryDate: string;
+  refreshToken: string;
+  refreshTokenExpiryDate: string;
+}
+
+let cachedToken: CJToken | null = null;
+
+async function getCJToken(): Promise<string> {
+  if (cachedToken && new Date(cachedToken.accessTokenExpiryDate) > new Date()) {
+    return cachedToken.accessToken;
+  }
+
+  const apiKey = config.apiKey || process.env.CJ_API_KEY;
+  if (!apiKey) throw new Error("CJ_API_KEY not configured");
+
+  // Try refresh first
+  if (cachedToken?.refreshToken) {
+    try {
+      const res = await fetch(`${CJ_BASE}/authentication/refreshAccessToken`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refreshToken: cachedToken.refreshToken }),
+      });
+      const data = await res.json();
+      if (data.success && data.data?.accessToken) {
+        cachedToken = {
+          ...cachedToken!,
+          accessToken: data.data.accessToken,
+          accessTokenExpiryDate: data.data.accessTokenExpiryDate,
+          refreshToken: data.data.refreshToken,
+          refreshTokenExpiryDate: data.data.refreshTokenExpiryDate,
+        };
+        return cachedToken.accessToken;
+      }
+    } catch { /* fall through to full auth */ }
+  }
+
+  // Full auth
+  const res = await fetch(`${CJ_BASE}/authentication/getAccessToken`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ apiKey }),
+  });
+  const data = await res.json();
+  if (!data.success) {
+    throw new Error(`CJ auth failed: ${data.message}`);
+  }
+  cachedToken = data.data;
+  return cachedToken!.accessToken;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Extract product data from a URL or search term                      */
 /* ------------------------------------------------------------------ */
 
 export async function extractFromUrl(url: string): Promise<{ success: true; product: ExtractedProduct } | { success: false; error: string }> {
   if (!url.trim()) return { success: false, error: "URL is required" };
 
   const isAliExpress = url.includes("aliexpress.com") || url.includes("aliexpress.us");
-  const isCJ = url.includes("cjdropshipping.com");
+  const isCJ = url.includes("cjdropshipping.com") || url.includes("cjdropshipping.cn");
 
   if (!isAliExpress && !isCJ) {
     return { success: false, error: "Only AliExpress and CJ Dropshipping URLs are supported" };
   }
 
-  switch (config.mode) {
-    case "aliexpress-affiliate":
-      return extractViaAliExpressAffiliate(url);
-    case "cjdropshipping":
-      return extractViaCJApi(url);
-    case "simulated":
-    default:
-      return simulateExtraction(url, isAliExpress ? "aliexpress" : "cj-dropshipping");
+  if (config.mode === "cjdropshipping" && isCJ) {
+    return extractFromCJUrl(url);
   }
+  if (config.mode === "aliexpress-affiliate" && isAliExpress) {
+    return extractViaAliExpressAffiliate(url);
+  }
+
+  return simulateExtraction(url, isAliExpress ? "aliexpress" : "cj-dropshipping");
 }
 
 export async function searchProducts(query: string): Promise<ExtractedProduct[]> {
   if (!query.trim()) return [];
 
-  switch (config.mode) {
-    case "aliexpress-affiliate":
-      return searchViaAliExpress(query);
-    case "cjdropshipping":
-      return searchViaCJ(query);
-    case "simulated":
-    default:
-      return simulateSearch(query);
+  if (config.mode === "cjdropshipping") {
+    return searchCJProducts(query);
+  }
+  if (config.mode === "aliexpress-affiliate") {
+    return searchViaAliExpress(query);
+  }
+
+  return simulateSearch(query);
+}
+
+/* ------------------------------------------------------------------ */
+/*  CJ Dropshipping – real API calls                                    */
+/* ------------------------------------------------------------------ */
+
+async function extractFromCJUrl(url: string): Promise<{ success: true; product: ExtractedProduct } | { success: false; error: string }> {
+  try {
+    const pidMatch = url.match(/[?&]pid=([^&]+)/) || url.match(/\/product\/([a-f0-9-]+)/i);
+    const skuMatch = url.match(/[?&]sku=([^&]+)/i);
+    const id = pidMatch?.[1] || skuMatch?.[1];
+
+    if (!id) {
+      return { success: false, error: "Could not extract product ID from CJ URL" };
+    }
+
+    const token = await getCJToken();
+    const res = await fetch(`${CJ_BASE}/product/list?pid=${id}&pageSize=1`, {
+      headers: { "CJ-Access-Token": token },
+    });
+    const data = await res.json();
+
+    if (!data.success || !data.data?.list?.length) {
+      return { success: false, error: "Product not found on CJ Dropshipping" };
+    }
+
+    const p = data.data.list[0];
+    return {
+      success: true,
+      product: mapCJProduct(p),
+    };
+  } catch (err: any) {
+    return { success: false, error: err.message || "CJ API request failed" };
   }
 }
 
+async function searchCJProducts(query: string): Promise<ExtractedProduct[]> {
+  try {
+    const token = await getCJToken();
+    const res = await fetch(
+      `${CJ_BASE}/product/listV2?keyWord=${encodeURIComponent(query)}&page=1&size=10&features=enable_description`,
+      { headers: { "CJ-Access-Token": token } }
+    );
+    const data = await res.json();
+
+    if (!data.success) return [];
+    const list = data.data?.content?.[0]?.productList ?? [];
+    return list.map(mapCJProductV2);
+  } catch {
+    return [];
+  }
+}
+
+function mapCJProduct(p: any): ExtractedProduct {
+  return {
+    title: p.productNameEn || p.productName || "Unknown Product",
+    description: (p.remark || p.productNameEn || "").replace(/[[\]"]/g, "").slice(0, 500),
+    price: parseFloat(p.sellPrice) || 0,
+    compareAtPrice: p.sellPrice ? parseFloat(p.sellPrice) * 1.5 : undefined,
+    image: p.productImage || "",
+    images: p.productImage ? [p.productImage] : [],
+    category: mapCJCategory(p.categoryName || ""),
+    tags: [],
+    supplier: {
+      source: "cj-dropshipping",
+      sku: p.productSku || p.pid || "",
+      costPrice: parseFloat(p.sellPrice) || 0,
+      shippingDays: p.deliveryTime || "5-10",
+    },
+  };
+}
+
+function mapCJProductV2(p: any): ExtractedProduct {
+  return {
+    title: p.nameEn || "Unknown Product",
+    description: (p.description || p.nameEn || "").replace(/<[^>]*>/g, "").slice(0, 500),
+    price: parseFloat(p.sellPrice) || 0,
+    compareAtPrice: p.nowPrice ? parseFloat(p.nowPrice) * 1.5 : undefined,
+    image: p.bigImage || "",
+    images: p.bigImage ? [p.bigImage] : [],
+    category: mapCJCategory(p.oneCategoryName || p.threeCategoryName || ""),
+    tags: [],
+    supplier: {
+      source: "cj-dropshipping",
+      sku: p.sku || "",
+      costPrice: parseFloat(p.discountPrice || p.sellPrice) || 0,
+      shippingDays: p.deliveryCycle || "5-10",
+    },
+  };
+}
+
+function mapCJCategory(cjCat: string): string {
+  const lower = cjCat.toLowerCase();
+  if (lower.includes("phone") || lower.includes("electron") || lower.includes("computer") || lower.includes("gadget")) return "tech";
+  if (lower.includes("home") || lower.includes("furniture") || lower.includes("kitchen")) return "home";
+  if (lower.includes("cloth") || lower.includes("fashion") || lower.includes("accessor") || lower.includes("wear")) return "style";
+  if (lower.includes("health") || lower.includes("sport") || lower.includes("beauty") || lower.includes("wellness")) return "wellness";
+  return "tech";
+}
+
 /* ------------------------------------------------------------------ */
-/*  Real provider stubs — swap in actual API calls when keys are set  */
+/*  AliExpress Affiliate API stubs – implement when key is configured   */
 /* ------------------------------------------------------------------ */
 
 async function extractViaAliExpressAffiliate(url: string): Promise<{ success: true; product: ExtractedProduct } | { success: false; error: string }> {
-  return { success: false, error: "AliExpress Affiliate API key not configured. Set ALIEXPRESS_API_KEY in your environment." };
-}
-
-async function extractViaCJApi(url: string): Promise<{ success: true; product: ExtractedProduct } | { success: false; error: string }> {
-  return { success: false, error: "CJ Dropshipping API key not configured. Set CJ_API_KEY in your environment." };
+  return { success: false, error: "AliExpress Affiliate API key not configured. Set ALIEXPRESS_API_KEY env var." };
 }
 
 async function searchViaAliExpress(query: string): Promise<ExtractedProduct[]> {
   return [];
 }
 
-async function searchViaCJ(query: string): Promise<ExtractedProduct[]> {
-  return [];
-}
-
 /* ------------------------------------------------------------------ */
-/*  Simulated extraction — returns realistic mock data                 */
+/*  Simulated extraction – returns realistic mock data                  */
 /* ------------------------------------------------------------------ */
 
 const mockProducts: ExtractedProduct[] = [
@@ -177,7 +328,7 @@ const mockProducts: ExtractedProduct[] = [
   },
   {
     title: "RFID Blocking Slim Bifold Wallet",
-    description: "Genuine leather RFID blocking wallet with 8 card slots, ID window, and money clip. Ultra-slim design fits front or back pocket. Available in multiple colors.",
+    description: "Genuine leather RFID blocking wallet with 8 card slots, ID window, and money clip. Ultra-slim design fits front or back pocket.",
     price: 9.99,
     compareAtPrice: 19.99,
     image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80",
@@ -213,7 +364,7 @@ const mockProducts: ExtractedProduct[] = [
   },
   {
     title: "Portable USB-C Blender 400ml",
-    description: "Rechargeable portable blender with 6-blade design, 400ml capacity, IPX6 waterproof, dual USB output. Crushes ice and frozen fruit in 30 seconds. Perfect for gym, office, travel.",
+    description: "Rechargeable portable blender with 6-blade design, 400ml capacity, IPX6 waterproof, dual USB output. Crushes ice and frozen fruit in 30 seconds.",
     price: 21.99,
     compareAtPrice: 39.99,
     image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b90d8?w=800&q=80",
@@ -231,7 +382,7 @@ const mockProducts: ExtractedProduct[] = [
   },
   {
     title: "DIY Modular Floating Wall Shelves",
-    description: "Set of 3 floating shelves with hidden bracket design. Each shelf holds up to 15kg. MDF + wood veneer finish with cable management channel. Easy 10-min installation.",
+    description: "Set of 3 floating shelves with hidden bracket design. Each shelf holds up to 15kg. MDF + wood veneer finish with cable management channel.",
     price: 18.99,
     compareAtPrice: 34.99,
     image: "https://images.unsplash.com/photo-1594020612200-02f035aa8e77?w=800&q=80",
@@ -262,8 +413,8 @@ function simulateExtraction(url: string, source: SupplierSource): { success: tru
     };
   }
 
-  const sku = `AE${idMatch[1]}`;
-  const existing = findBySku(sku) || findBySku(`CJ${idMatch[1]}`) || findBySku(sku);
+  const sku = `${source === "cj-dropshipping" ? "CJ" : "AE"}${idMatch[1]}`;
+  const existing = findBySku(sku);
 
   if (existing) {
     return { success: true, product: { ...existing } };
