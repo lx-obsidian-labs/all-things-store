@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus, ShoppingBag, Tag, Trash2 } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Tag, Trash2, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -212,11 +212,12 @@ export default function CartPage() {
               </div>
             </div>
 
-            <button type="button" className="btn-primary w-full" disabled>
-              Checkout — Coming Soon
-            </button>
+            <Link href="/checkout" className="btn-primary w-full">
+              Checkout
+              <ArrowRight className="h-4 w-4" />
+            </Link>
             <p className="text-center text-xs text-obsidian-500">
-              Payment integration will be added once products are sourced
+              Pay on delivery &mdash; no card needed
             </p>
           </div>
         </div>
