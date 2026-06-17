@@ -1171,6 +1171,6 @@ export function sortProducts(list: Product[], sort: SortOption): Product[] {
         (a, b) => getWinningScore(b) - getWinningScore(a)
       );
     default:
-      return sorted;
+      return sorted.sort((a, b) => a.price - b.price);
   }
 }
