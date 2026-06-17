@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   Minus,
   Package,
@@ -11,6 +11,7 @@ import {
   Shield,
   Truck,
 } from "lucide-react";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { ProductCard } from "@/components/ProductCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
@@ -121,6 +122,24 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const { recentlyViewed, addRecentlyViewed } = useRecentlyViewed();
+
+  useEffect(() => {
+    addRecentlyViewed(product.slug);
+  }, [product.slug, addRecentlyViewed]);
+
+  const viewingCount = useMemo(() => {
+    const id = parseInt(product.id, 10) || 1;
+    return 8 + ((id * 13 + 7) % 35);
+  }, [product.id]);
+
+  const freeShippingRemaining = useMemo(() => {
+    const remaining = 50 - product.price;
+    if (remaining <= 0) return 0;
+    if (remaining < 50) return remaining;
+    return null;
+  }, [product.price]);
 
   const allImages = product.images?.length ? product.images : [product.image];
   const discount =
@@ -313,6 +332,54 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
             </div>
           </div>
 
+          {/* Social Proof */}
+          <div className="mb-4 flex items-center gap-2 text-sm text-obsidian-400">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            <span>{viewingCount} people are viewing this right now</span>
+          </div>
+
+          {/* Free Shipping Offer */}
+          {freeShippingRemaining !== null ? (
+            <div className="mb-4 flex items-center gap-2 rounded-xl border border-accent/20 bg-accent/5 px-4 py-3">
+              <Truck className="h-4 w-4 shrink-0 text-accent-light" />
+              <p className="text-sm text-obsidian-300">
+                {freeShippingRemaining === 0
+                  ? "This item qualifies for free shipping!"
+                  : `Add only ${fmt(freeShippingRemaining)} more for free shipping`}
+              </p>
+            </div>
+          ) : (
+            <div className="mb-4 flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
+              <Truck className="h-4 w-4 shrink-0 text-obsidian-500" />
+              <p className="text-sm text-obsidian-500">
+                Free shipping on orders over {fmt(50)}
+              </p>
+            </div>
+          )}
+
+          {/* Trust Badges — right next to CTA */}
+          <div className="mb-6 grid grid-cols-2 gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4">
+            <div className="flex items-center gap-2 text-xs text-obsidian-400">
+              <Shield className="h-4 w-4 shrink-0 text-accent-light" />
+              <span>30-day returns</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-obsidian-400">
+              <Package className="h-4 w-4 shrink-0 text-accent-light" />
+              <span>CJ Dropshipping</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-obsidian-400">
+              <Shield className="h-4 w-4 shrink-0 text-emerald-400" />
+              <span>Secure checkout</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs text-obsidian-400">
+              <Truck className="h-4 w-4 shrink-0 text-accent-light" />
+              <span>Global shipping</span>
+            </div>
+          </div>
+
           {/* Add to Cart */}
           <button
             type="button"
@@ -404,17 +471,6 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               </div>
             )}
 
-            {/* Trust Badges */}
-            <div className="grid grid-cols-2 gap-3 p-5">
-              <div className="flex items-center gap-2 text-xs text-obsidian-400">
-                <Shield className="h-4 w-4 shrink-0 text-accent-light" />
-                <span>30-day returns</span>
-              </div>
-              <div className="flex items-center gap-2 text-xs text-obsidian-400">
-                <Package className="h-4 w-4 shrink-0 text-accent-light" />
-                <span>CJ Dropshipping</span>
-              </div>
-            </div>
           </div>
 
           {product.supplier.sku && (
@@ -524,6 +580,20 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           </div>
         </div>
       </div>
+
+      {/* Recently Viewed */}
+      {recentlyViewed.length > 0 && (
+        <section className="mt-20 border-t border-white/5 pt-16">
+          <h2 className="mb-8 font-display text-2xl text-white">
+            Recently Viewed
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {recentlyViewed.map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Related Products */}
       {related.length > 0 && (

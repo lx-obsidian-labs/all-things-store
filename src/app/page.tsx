@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles, TrendingUp, Clock, Zap, Tag } from "lucide-react"
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
+import { RecentlyViewedSection } from "./RecentlyViewedSection";
 import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
@@ -210,6 +211,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <RecentlyViewedSection />
 
       {/* Blog */}
       <section className="section-padding mx-auto max-w-7xl">
