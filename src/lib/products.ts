@@ -4,6 +4,19 @@ import { clothingGadgetProducts } from "./clothing-gadgets";
 import { winterProducts } from "./winter-products";
 import { clothingMoreProducts } from "./clothing-more";
 import { shoeProducts } from "./shoe-products";
+import { massProducts1 } from "./mass-products-1";
+import { massProducts2 } from "./mass-products-2";
+import { massProducts3 } from "./mass-products-3";
+import { massProducts4 } from "./mass-products-4";
+import { massProducts5 } from "./mass-products-5";
+import { massProducts6 } from "./mass-products-6";
+import { massProducts7 } from "./mass-products-7";
+import { massProducts8 } from "./mass-products-8";
+import { massProducts9 } from "./mass-products-9";
+import { massProducts10 } from "./mass-products-10";
+import { massProducts11 } from "./mass-products-11";
+import { massProducts12 } from "./mass-products-12";
+import { massProducts13 } from "./mass-products-13";
 import { applyExistingImages } from "./existing-images";
 import { assignSubcategories } from "./subcategories";
 
@@ -1087,6 +1100,19 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
   ...winterProducts,
   ...clothingMoreProducts,
   ...shoeProducts.map((p) => ({ ...p, category: "shoes" as const })),
+  ...massProducts1,
+  ...massProducts2,
+  ...massProducts3,
+  ...massProducts4,
+  ...massProducts5,
+  ...massProducts6,
+  ...massProducts7,
+  ...massProducts8,
+  ...massProducts9,
+  ...massProducts10,
+  ...massProducts11,
+  ...massProducts12,
+  ...massProducts13,
 ]));
 
 export function getProductBySlug(slug: string): Product | undefined {

@@ -4,7 +4,7 @@ import { BRAND } from "@/lib/brand";
 import { categories } from "@/lib/products";
 
 export function Hero() {
-  const totalProducts = 634; // static total, updated when products are added
+  const totalProducts = 5736; // static total, updated when products are added
 
   return (
     <section className="relative overflow-hidden">

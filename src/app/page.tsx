@@ -26,7 +26,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 text-center sm:grid-cols-4">
             {[
-              { value: "634+", label: "Products" },
+              { value: "5,736+", label: "Products" },
               { value: "5", label: "Collections" },
               { value: "20+", label: "Categories" },
               { value: "28", label: "Countries" },
