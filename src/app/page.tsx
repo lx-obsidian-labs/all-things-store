@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Sparkles, TrendingUp, Clock, Zap, Tag, Snowflake } from "lucide-react";
+import { ArrowRight, TrendingUp, Clock, Zap, Tag, Snowflake } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
 import { RecentlyViewedSection } from "./RecentlyViewedSection";
-import { categories, getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts, getWinterProducts } from "@/lib/products";
+import { getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts, getWinterProducts } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
 
@@ -21,7 +21,7 @@ export default function HomePage() {
     <>
       <Hero />
 
-      {/* Best Sellers — social proof, highest conversion priority */}
+      {/* Best Sellers */}
       <section className="section-padding mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
@@ -32,7 +32,7 @@ export default function HomePage() {
               </p>
             </div>
             <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Most loved by customers
+              Most loved by our community
             </h2>
           </div>
           <Link
@@ -51,128 +51,101 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Deals / On Sale — urgency drives conversion */}
+      {/* Deals + Budget Finds — merged into one value-focused row */}
       <section className="section-padding border-t border-white/5 bg-obsidian-900/30">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <div className="mb-2 flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-emerald-400" />
+                <Tag className="h-4 w-4 text-emerald-400" />
                 <p className="text-sm font-medium uppercase tracking-wider text-emerald-400">
-                  On Sale
+                  Best Value
                 </p>
               </div>
               <h2 className="font-display text-3xl text-white sm:text-4xl">
-                Best deals & discounts
+                Deals & budget finds
               </h2>
             </div>
             <Link
-              href="/shop"
+              href="/shop?sort=price-asc"
               className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
             >
-              View all deals
+              Shop all deals
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {deals.map((product, i) => (
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6">
+            {[...deals, ...cheapest.slice(0, 2)].map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Categories — wayfinding for browsing shoppers */}
-      <section className="section-padding mx-auto max-w-7xl">
-        <div className="mb-12 text-center">
-          <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent-light">
-            Categories
-          </p>
-          <h2 className="font-display text-3xl text-white sm:text-4xl">
-            Shop by collection
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              href={`/shop?category=${cat.id}`}
-              className="glass-card group p-6 transition-all hover:border-accent/30 hover:bg-accent/5 hover:-translate-y-0.5"
-            >
-              <h3 className="mb-2 font-display text-xl text-white transition-colors group-hover:text-accent-light">
-                {cat.name}
-              </h3>
-              <p className="text-sm text-obsidian-400">{cat.description}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Budget Finds — low-commitment entry point for price-sensitive shoppers */}
+      {/* New Arrivals */}
       <section className="section-padding mx-auto max-w-7xl">
         <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <div className="mb-2 flex items-center gap-2">
-              <Tag className="h-4 w-4 text-emerald-400" />
-              <p className="text-sm font-medium uppercase tracking-wider text-emerald-400">
-                Budget Finds
+              <Clock className="h-4 w-4 text-accent-light" />
+              <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
+                New Arrivals
               </p>
             </div>
             <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Great quality, tiny prices
+              Fresh drops
             </h2>
           </div>
           <Link
-            href="/shop?sort=price-asc"
+            href="/shop?sort=newest"
             className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
           >
-            Shop budget picks
+            View newest
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-          {cheapest.map((product, i) => (
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {newArrivals.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
       </section>
 
-      {/* New Arrivals — freshness signals active catalog */}
+      {/* Winter Special — seasonal */}
       <section className="section-padding border-t border-white/5 bg-obsidian-900/30">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <div className="mb-2 flex items-center gap-2">
-                <Clock className="h-4 w-4 text-accent-light" />
-                <p className="text-sm font-medium uppercase tracking-wider text-accent-light">
-                  New Arrivals
+                <Snowflake className="h-4 w-4 text-sky-400" />
+                <p className="text-sm font-medium uppercase tracking-wider text-sky-400">
+                  Winter Special
                 </p>
               </div>
               <h2 className="font-display text-3xl text-white sm:text-4xl">
-                Fresh from the catalog
+                Stay warm this season
               </h2>
             </div>
             <Link
-              href="/shop?sort=newest"
+              href="/shop?tag=winter"
               className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
             >
-              View newest
+              View all winter gear
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {newArrivals.map((product, i) => (
+          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-6">
+            {winterItems.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Top Picks — curated selection */}
+      {/* Top Picks */}
       <section className="section-padding mx-auto max-w-7xl">
         <div className="mb-8 flex items-center gap-3">
           <Zap className="h-5 w-5 text-accent-light" />
@@ -190,35 +163,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Winter Special — seasonal */}
-      <section className="section-padding mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <div className="mb-2 flex items-center gap-2">
-              <Snowflake className="h-4 w-4 text-sky-400" />
-              <p className="text-sm font-medium uppercase tracking-wider text-sky-400">
-                Winter Special
-              </p>
-            </div>
-            <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Stay warm this season
-            </h2>
-          </div>
-          <Link
-            href="/shop?tag=winter"
-            className="group flex items-center gap-2 text-sm font-medium text-accent-light transition-colors hover:text-white"
-          >
-            View all winter gear
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-6">
-          {winterItems.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
-      </section>
+      <RecentlyViewedSection />
 
       {/* Brand Story */}
       <section className="section-padding mx-auto max-w-7xl">
@@ -229,12 +174,12 @@ export default function HomePage() {
               {BRAND.company}
             </p>
             <h2 className="mb-4 font-display text-3xl text-white sm:text-4xl">
-              Quality products, obsidian-level standards
+              Everything, curated
             </h2>
             <p className="mb-8 text-obsidian-300 leading-relaxed">
-              Every product at {BRAND.storeName} is evaluated for quality,
-              design, and customer satisfaction. We&apos;re building a store
-              you can trust — one curated item at a time.
+              We search thousands of products so you don&apos;t have to. Every item
+              at {BRAND.storeName} is chosen for quality, design, and value —
+              across tech, home, style, and wellness.
             </p>
             <Link href="/about" className="btn-primary">
               Learn about us
@@ -242,8 +187,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <RecentlyViewedSection />
 
       {/* Blog */}
       <section className="section-padding mx-auto max-w-7xl">

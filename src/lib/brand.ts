@@ -1,6 +1,6 @@
 export const BRAND = {
   storeName: "All Things",
-  tagline: "Curated essentials for modern living",
+  tagline: "Everything you need, all in one place",
   company: "LX Obsidian Labs",
   companyShort: "LX Obsidian",
   email: "hello@allthings.store",
