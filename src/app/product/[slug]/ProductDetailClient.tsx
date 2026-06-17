@@ -160,8 +160,27 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
     addToast(`${product.name} added to cart`, "success");
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.image,
+    sku: product.supplier.sku || product.id,
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+  };
+
   return (
     <div className="section-padding mx-auto max-w-7xl">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Breadcrumbs
         items={[
           { label: "Shop", href: "/shop" },

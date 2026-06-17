@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { DM_Sans, Instrument_Serif } from "next/font/google";
 import { CartProvider } from "@/context/CartContext";
 import { WishlistProvider } from "@/context/WishlistContext";
@@ -10,6 +11,8 @@ import { Header } from "@/components/Header";
 import { ToastContainer } from "@/components/ToastContainer";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CookieConsent } from "@/components/CookieConsent";
+import { Analytics } from "@/components/Analytics";
 import { BRAND } from "@/lib/brand";
 import "./globals.css";
 
@@ -35,6 +38,14 @@ export const metadata: Metadata = {
     icon: "/logo-icon.png",
     apple: "/logo-icon.png",
   },
+  openGraph: {
+    title: `${BRAND.storeName} — ${BRAND.tagline}`,
+    description: `Discover curated tech, home, style, and wellness essentials at ${BRAND.storeName}.`,
+    url: "https://allthings.store",
+    siteName: BRAND.storeName,
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -57,6 +68,8 @@ export default function RootLayout({
                 <ToastContainer />
                 <OnboardingModal />
                 <WhatsAppButton />
+                <CookieConsent />
+                <Suspense fallback={null}><Analytics /></Suspense>
               </div>
             </ToastProvider>
           </WishlistProvider>

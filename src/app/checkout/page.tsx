@@ -114,7 +114,7 @@ export default function CheckoutPage() {
     setErrors(validate());
   }
 
-  async function placeOrder() {
+  async function placeOrder(paypalCaptureId?: string) {
     if (submittingRef.current) return;
     submittingRef.current = true;
     setSubmitError("");
@@ -172,6 +172,7 @@ export default function CheckoutPage() {
       email,
       shippingAddress: { name, phone, address, address2, city, country, postalCode },
       paymentMethod,
+      paypalCaptureId: paypalCaptureId || null,
       createdAt: new Date().toISOString(),
       cjStatus: cjResult?.success ? "forwarded" : "failed",
       cjOrderId: cjResult?.success ? (cjResult?.data?.cjOrderId || orderNumber) : null,
@@ -283,7 +284,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    await placeOrder();
+    await placeOrder(captureData.captureId);
   }
 
   const fieldError = (field: string) =>

@@ -38,6 +38,7 @@ interface OrderData {
     country: string;
   };
   paymentMethod: string;
+  paypalCaptureId?: string | null;
   createdAt: string;
   cjStatus?: string;
   cjOrderId?: string | null;
@@ -50,6 +51,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<OrderData[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [retrying, setRetrying] = useState<string | null>(null);
+  const [refunding, setRefunding] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -91,6 +93,27 @@ export default function OrdersPage() {
       updateOrder(orderId, { cjError: "Network error during retry" });
     }
     setRetrying(null);
+  }
+
+  async function handleRefund(orderId: string, captureId: string) {
+    if (!confirm("Refund this order? This cannot be undone.")) return;
+    setRefunding(orderId);
+    try {
+      const res = await fetch("/api/paypal/refund-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ captureId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        updateOrder(orderId, { cjStatus: "refunded" });
+      } else {
+        alert(data.message || "Refund failed");
+      }
+    } catch {
+      alert("Network error during refund");
+    }
+    setRefunding(null);
   }
 
   if (!loaded) return null;
@@ -165,7 +188,7 @@ export default function OrdersPage() {
                 </span>
                 <span className="flex items-center gap-1.5 text-xs text-emerald-400">
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                  Pay on Delivery
+                  {order.paymentMethod === "paypal" ? "PayPal" : "Pay on Delivery"}
                 </span>
               </div>
 
@@ -320,6 +343,21 @@ export default function OrdersPage() {
                       </p>
                     )}
                   </div>
+
+                  {/* Refund for PayPal orders */}
+                  {order.paymentMethod === "paypal" && order.paypalCaptureId && order.cjStatus !== "refunded" && (
+                    <div className="border-t border-white/10 pt-3">
+                      <button
+                        type="button"
+                        onClick={() => handleRefund(order.id, order.paypalCaptureId!)}
+                        disabled={refunding === order.id}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-red-500/10 px-3 py-1.5 text-xs text-red-400 transition-colors hover:bg-red-500/20 disabled:opacity-50"
+                      >
+                        <RefreshCw className={`h-3 w-3 ${refunding === order.id ? "animate-spin" : ""}`} />
+                        {refunding === order.id ? "Refunding..." : "Refund via PayPal"}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </details>
             </div>

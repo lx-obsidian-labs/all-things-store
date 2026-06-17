@@ -2,12 +2,14 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Grid3X3, List, ListOrdered, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid3X3, List, ListOrdered, X } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { CategoryPills } from "@/components/CategoryPills";
 import { categories, products, sortProducts } from "@/lib/products";
-import { subcategories, getSubcategoryLabel } from "@/lib/subcategories";
+import { subcategories } from "@/lib/subcategories";
 import type { SortOption } from "@/lib/products";
+
+const PER_PAGE = 24;
 
 interface ShopClientProps {
   initialCategory: string;
@@ -18,6 +20,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
   const [sort, setSort] = useState<SortOption>("default");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [activeSubcategory, setActiveSubcategory] = useState<string>("");
+  const [page, setPage] = useState(1);
 
   const activeCategory = searchParams.get("category") ?? initialCategory;
 
@@ -47,6 +50,18 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
 
   const sorted = useMemo(() => sortProducts(subcategoryFiltered, sort), [subcategoryFiltered, sort]);
 
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PER_PAGE));
+  const safePage = Math.min(page, totalPages);
+  const pageProducts = useMemo(
+    () => sorted.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE),
+    [sorted, safePage]
+  );
+
+  function goToPage(p: number) {
+    setPage(Math.max(1, Math.min(p, totalPages)));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   const categoryInfo = categories.find((c) => c.id === activeCategory);
 
   return (
@@ -75,7 +90,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
         <div className="mb-6 flex flex-wrap items-center gap-1.5">
           <button
             type="button"
-            onClick={() => setActiveSubcategory("")}
+            onClick={() => { setActiveSubcategory(""); setPage(1); }}
             className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
               !activeSubcategory
                 ? "border-accent/40 bg-accent/10 text-accent-light shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]"
@@ -95,7 +110,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
               <button
                 key={sub.id}
                 type="button"
-                onClick={() => setActiveSubcategory(sub.id)}
+                onClick={() => { setActiveSubcategory(sub.id); setPage(1); }}
                 className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
                   activeSubcategory === sub.id
                     ? "border-accent/40 bg-accent/10 text-accent-light shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]"
@@ -138,27 +153,13 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
               onChange={(e) => setSort(e.target.value as SortOption)}
               className="appearance-none rounded-full border border-white/10 bg-white/5 py-2 pl-10 pr-8 text-sm text-obsidian-300 transition-colors focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/30"
             >
-              <option value="default" className="bg-obsidian-900">
-                Default
-              </option>
-              <option value="bestselling" className="bg-obsidian-900">
-                Best Selling
-              </option>
-              <option value="rating" className="bg-obsidian-900">
-                Top Rated
-              </option>
-              <option value="price-asc" className="bg-obsidian-900">
-                Price: Low to High
-              </option>
-              <option value="price-desc" className="bg-obsidian-900">
-                Price: High to Low
-              </option>
-              <option value="newest" className="bg-obsidian-900">
-                Newest
-              </option>
-              <option value="name" className="bg-obsidian-900">
-                Name
-              </option>
+              <option value="default" className="bg-obsidian-900">Default</option>
+              <option value="bestselling" className="bg-obsidian-900">Best Selling</option>
+              <option value="rating" className="bg-obsidian-900">Top Rated</option>
+              <option value="price-asc" className="bg-obsidian-900">Price: Low to High</option>
+              <option value="price-desc" className="bg-obsidian-900">Price: High to Low</option>
+              <option value="newest" className="bg-obsidian-900">Newest</option>
+              <option value="name" className="bg-obsidian-900">Name</option>
             </select>
           </div>
 
@@ -167,9 +168,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
               type="button"
               onClick={() => setView("grid")}
               className={`rounded-full p-2 transition-colors ${
-                view === "grid"
-                  ? "bg-accent text-white"
-                  : "text-obsidian-400 hover:text-white"
+                view === "grid" ? "bg-accent text-white" : "text-obsidian-400 hover:text-white"
               }`}
               aria-label="Grid view"
             >
@@ -179,9 +178,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
               type="button"
               onClick={() => setView("list")}
               className={`rounded-full p-2 transition-colors ${
-                view === "list"
-                  ? "bg-accent text-white"
-                  : "text-obsidian-400 hover:text-white"
+                view === "list" ? "bg-accent text-white" : "text-obsidian-400 hover:text-white"
               }`}
               aria-label="List view"
             >
@@ -195,18 +192,71 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
         <div className="glass-card py-16 text-center">
           <p className="text-obsidian-400">No products in this category yet.</p>
         </div>
-      ) : view === "grid" ? (
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {sorted.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
       ) : (
-        <div className="space-y-4">
-          {sorted.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
+        <>
+          {view === "grid" ? (
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {pageProducts.map((product, i) => (
+                <ProductCard key={product.id} product={product} index={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {pageProducts.map((product, i) => (
+                <ProductCard key={product.id} product={product} index={i} />
+              ))}
+            </div>
+          )}
+
+          {totalPages > 1 && (
+            <div className="mt-10 flex items-center justify-center gap-2">
+              <button
+                type="button"
+                onClick={() => goToPage(safePage - 1)}
+                disabled={safePage <= 1}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-obsidian-400 transition-colors hover:border-accent/30 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+
+              {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
+                let pageNum: number;
+                if (totalPages <= 7) {
+                  pageNum = i + 1;
+                } else if (safePage <= 4) {
+                  pageNum = i + 1;
+                } else if (safePage >= totalPages - 3) {
+                  pageNum = totalPages - 6 + i;
+                } else {
+                  pageNum = safePage - 3 + i;
+                }
+                return (
+                  <button
+                    key={pageNum}
+                    type="button"
+                    onClick={() => goToPage(pageNum)}
+                    className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-medium transition-colors ${
+                      safePage === pageNum
+                        ? "bg-accent text-white"
+                        : "border border-white/10 text-obsidian-400 hover:border-accent/30 hover:text-white"
+                    }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+
+              <button
+                type="button"
+                onClick={() => goToPage(safePage + 1)}
+                disabled={safePage >= totalPages}
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-obsidian-400 transition-colors hover:border-accent/30 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
