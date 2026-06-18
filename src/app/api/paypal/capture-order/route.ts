@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const PAYPAL_API = process.env.PAYPAL_API || "https://api-m.sandbox.paypal.com";
+const PAYPAL_API = process.env.PAYPAL_API || "https://api-m.paypal.com";
 const CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "";
 const CLIENT_SECRET = process.env.PAYPAL_CLIENT_SECRET || "";
 
