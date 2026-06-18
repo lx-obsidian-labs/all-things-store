@@ -15,7 +15,6 @@ import {
   Zap,
 } from "lucide-react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { PaystackCheckoutForm } from "@/components/PaystackCheckoutForm";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 
@@ -27,7 +26,7 @@ const COUNTRIES = [
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type PaymentMethod = "delivery" | "paypal" | "paystack";
+type PaymentMethod = "delivery" | "paypal" | "eft";
 
 interface FieldErrors {
   email?: string;
@@ -54,7 +53,14 @@ const SHIPPING_OPTIONS: Record<
 };
 
 const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "";
-const PAYSTACK_PK = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "";
+
+const BANK_DETAILS = {
+  bank: process.env.NEXT_PUBLIC_BANK_NAME || "Your Bank",
+  accountName: process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || "All Things",
+  accountNumber: process.env.NEXT_PUBLIC_BANK_ACCOUNT_NUMBER || "",
+  branchCode: process.env.NEXT_PUBLIC_BANK_BRANCH_CODE || "",
+  reference: "",
+};
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -269,10 +275,6 @@ export default function CheckoutPage() {
     const data = await res.json();
     if (!data.success) throw new Error(data.message || "Failed to create PayPal order");
     return data.orderID;
-  }
-
-  async function handlePaystackSuccess(reference: string) {
-    await placeOrder(reference);
   }
 
   async function onPayPalApprove(data: { orderID: string }) {
@@ -561,22 +563,22 @@ export default function CheckoutPage() {
                 </label>
 
                 <label className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-colors ${
-                  paymentMethod === "paystack"
+                  paymentMethod === "eft"
                     ? "border-accent/30 bg-accent/5"
                     : "border-white/10 bg-white/5 hover:border-accent/30"
                 }`}>
                   <input
                     type="radio"
                     name="payment"
-                    value="paystack"
-                    checked={paymentMethod === "paystack"}
-                    onChange={() => setPaymentMethod("paystack")}
+                    value="eft"
+                    checked={paymentMethod === "eft"}
+                    onChange={() => setPaymentMethod("eft")}
                     className="h-4 w-4 accent-accent"
                   />
                   <div>
-                    <p className="text-sm font-medium text-white">Card, Bank, USSD & Mobile Money</p>
+                    <p className="text-sm font-medium text-white">EFT / Bank Transfer</p>
                     <p className="text-xs text-obsidian-500">
-                      Pay with Visa, Mastercard, bank transfer, USSD, or mobile money via Paystack
+                      Pay directly from your bank account — no card needed
                     </p>
                   </div>
                 </label>
@@ -599,22 +601,26 @@ export default function CheckoutPage() {
                   </p>
                 )}
 
-                {paymentMethod === "paystack" && !PAYSTACK_PK && (
-                  <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-400">
-                    Paystack not configured. Set NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY in .env.local.
-                  </p>
-                )}
-
-                {paymentMethod === "paystack" && PAYSTACK_PK && (
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                    <PaystackCheckoutForm
-                      email={email}
-                      total={total}
-                      name={name}
-                      onSuccess={handlePaystackSuccess}
-                      onError={(msg) => setSubmitError(msg)}
-                      submitting={submitting}
-                    />
+                {paymentMethod === "eft" && (
+                  <div className="rounded-xl border border-accent/20 bg-accent/5 p-5 space-y-3">
+                    <div className="flex items-center gap-2 text-accent-light">
+                      <div className="rounded-full bg-accent/10 p-1.5">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg>
+                      </div>
+                      <p className="text-sm font-medium">Pay via EFT / Bank Transfer</p>
+                    </div>
+                    <div className="space-y-1.5 text-sm text-obsidian-300">
+                      <p><span className="text-obsidian-500">Bank:</span> {BANK_DETAILS.bank}</p>
+                      <p><span className="text-obsidian-500">Account Name:</span> {BANK_DETAILS.accountName}</p>
+                      <p><span className="text-obsidian-500">Account Number:</span> <span className="font-mono text-white">{BANK_DETAILS.accountNumber || "— set in .env.local —"}</span></p>
+                      {BANK_DETAILS.branchCode && <p><span className="text-obsidian-500">Branch Code:</span> {BANK_DETAILS.branchCode}</p>}
+                      <p><span className="text-obsidian-500">Reference:</span> <span className="font-mono text-white">ORD-{Date.now().toString(36).toUpperCase().slice(0, 10)}</span></p>
+                    </div>
+                    <p className="text-xs text-obsidian-500">
+                      Use your order number as the reference. Your order will be processed once payment reflects.
+                    </p>
                   </div>
                 )}
               </div>
