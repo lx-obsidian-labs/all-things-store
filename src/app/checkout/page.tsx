@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,8 +25,6 @@ const COUNTRIES = [
 ];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-type PaymentMethod = "delivery" | "paypal" | "eft";
 
 interface FieldErrors {
   email?: string;
@@ -54,14 +52,6 @@ const SHIPPING_OPTIONS: Record<
 
 const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "";
 
-const BANK_DETAILS = {
-  bank: process.env.NEXT_PUBLIC_BANK_NAME || "Your Bank",
-  accountName: process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || "All Things",
-  accountNumber: process.env.NEXT_PUBLIC_BANK_ACCOUNT_NUMBER || "",
-  branchCode: process.env.NEXT_PUBLIC_BANK_BRANCH_CODE || "",
-  reference: "",
-};
-
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, subtotal, clearCart, updateQuantity, removeItem } = useCart();
@@ -76,7 +66,6 @@ export default function CheckoutPage() {
   const [province, setProvince] = useState("");
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("delivery");
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>("standard");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -122,7 +111,7 @@ export default function CheckoutPage() {
     setErrors(validate());
   }
 
-  async function placeOrder(paymentRef?: string) {
+  async function placeOrder(paypalCaptureId?: string) {
     if (submittingRef.current) return;
     submittingRef.current = true;
     setSubmitError("");
@@ -179,8 +168,8 @@ export default function CheckoutPage() {
       total,
       email,
       shippingAddress: { name, phone, address, address2, city, country, postalCode },
-      paymentMethod,
-      paymentRef: paymentRef || null,
+      paymentMethod: "paypal",
+      paypalCaptureId: paypalCaptureId || null,
       createdAt: new Date().toISOString(),
       cjStatus: cjResult?.success ? "forwarded" : "failed",
       cjOrderId: cjResult?.success ? (cjResult?.data?.cjOrderId || orderNumber) : null,
@@ -221,7 +210,7 @@ export default function CheckoutPage() {
 <div style="border-top:2px solid #7c3aed;padding:12px 0;text-align:right;font-size:18px;font-weight:bold;">Total: ${fmt(total)}</div>
 <hr style="border:none;border-top:1px solid #eee;margin:16px 0;">
 <p style="font-size:14px;color:#666;"><strong>Shipping to:</strong><br>${address}, ${city}, ${country}</p>
-<p style="font-size:14px;color:#666;"><strong>Payment:</strong> ${paymentMethod === "paypal" ? "PayPal" : "Pay on Delivery"}</p>
+<p style="font-size:14px;color:#666;"><strong>Payment:</strong> PayPal</p>
 </div>
 <div style="background:#f9f9f9;padding:16px 32px;text-align:center;font-size:12px;color:#999;">All Things &middot; hello@allthings.store</div>
 </div>
@@ -239,23 +228,8 @@ export default function CheckoutPage() {
 
     clearCart();
     submittingRef.current = false;
-    await new Promise((r) => setTimeout(r, 600));
+    setSubmitting(false);
     router.push("/checkout/confirmation");
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setSubmitError("");
-    const fieldErrors = validate();
-    setErrors(fieldErrors);
-    setTouched({ email: true, name: true, address: true, city: true, country: true });
-    if (Object.keys(fieldErrors).length > 0) return;
-
-    if (paymentMethod === "delivery") {
-      setSubmitting(true);
-      await placeOrder();
-      setSubmitting(false);
-    }
   }
 
   async function createPayPalOrder(): Promise<string> {
@@ -279,20 +253,27 @@ export default function CheckoutPage() {
 
   async function onPayPalApprove(data: { orderID: string }) {
     setSubmitError("");
+    setSubmitting(true);
 
-    const captureRes = await fetch("/api/paypal/capture-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderID: data.orderID }),
-    });
+    try {
+      const captureRes = await fetch("/api/paypal/capture-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderID: data.orderID }),
+      });
 
-    const captureData = await captureRes.json();
-    if (!captureData.success) {
-      setSubmitError(captureData.message || "Payment capture failed");
-      return;
+      const captureData = await captureRes.json();
+      if (!captureData.success) {
+        setSubmitError(captureData.message || "Payment capture failed");
+        setSubmitting(false);
+        return;
+      }
+
+      await placeOrder(captureData.captureId);
+    } catch (err: any) {
+      setSubmitError(err.message || "Something went wrong processing your payment");
+      setSubmitting(false);
     }
-
-    await placeOrder(captureData.captureId);
   }
 
   const fieldError = (field: string) =>
@@ -319,8 +300,7 @@ export default function CheckoutPage() {
         Back to cart
       </Link>
 
-      <form onSubmit={handleSubmit}>
-        <PayPalScriptProvider options={{ clientId: PAYPAL_CLIENT_ID, currency: "USD" }}>
+      <PayPalScriptProvider options={{ clientId: PAYPAL_CLIENT_ID, currency: "USD" }}>
         <div className="grid gap-10 lg:grid-cols-5">
           {/* Left — Form */}
           <div className="lg:col-span-3 space-y-8">
@@ -516,74 +496,16 @@ export default function CheckoutPage() {
             <div className="glass-card p-6">
               <div className="mb-4 flex items-center gap-2">
                 <Shield className="h-4 w-4 text-accent-light" />
-                <h2 className="font-display text-lg text-white">Payment Method</h2>
+                <h2 className="font-display text-lg text-white">Payment</h2>
               </div>
 
-              <div className="space-y-3">
-                <label className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-colors ${
-                  paymentMethod === "delivery"
-                    ? "border-accent/30 bg-accent/5"
-                    : "border-white/10 bg-white/5 hover:border-accent/30"
-                }`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="delivery"
-                    checked={paymentMethod === "delivery"}
-                    onChange={() => setPaymentMethod("delivery")}
-                    className="h-4 w-4 accent-accent"
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-white">Pay on Delivery</p>
-                    <p className="text-xs text-obsidian-500">
-                      Pay when you receive your order
-                    </p>
-                  </div>
-                </label>
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 text-sm text-obsidian-400">
+                  <Lock className="h-3.5 w-3.5 text-accent-light" />
+                  <span>Pay securely with PayPal — credit/debit card or PayPal account</span>
+                </div>
 
-                <label className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-colors ${
-                  paymentMethod === "paypal"
-                    ? "border-accent/30 bg-accent/5"
-                    : "border-white/10 bg-white/5 hover:border-accent/30"
-                }`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="paypal"
-                    checked={paymentMethod === "paypal"}
-                    onChange={() => setPaymentMethod("paypal")}
-                    className="h-4 w-4 accent-accent"
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-white">PayPal</p>
-                    <p className="text-xs text-obsidian-500">
-                      Pay with your PayPal account or credit/debit card
-                    </p>
-                  </div>
-                </label>
-
-                <label className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-colors ${
-                  paymentMethod === "eft"
-                    ? "border-accent/30 bg-accent/5"
-                    : "border-white/10 bg-white/5 hover:border-accent/30"
-                }`}>
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="eft"
-                    checked={paymentMethod === "eft"}
-                    onChange={() => setPaymentMethod("eft")}
-                    className="h-4 w-4 accent-accent"
-                  />
-                  <div>
-                    <p className="text-sm font-medium text-white">EFT / Bank Transfer</p>
-                    <p className="text-xs text-obsidian-500">
-                      Pay directly from your bank account — no card needed
-                    </p>
-                  </div>
-                </label>
-
-                {paymentMethod === "paypal" && PAYPAL_CLIENT_ID && (
+                {PAYPAL_CLIENT_ID ? (
                   <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                     <PayPalButtons
                       style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
@@ -591,37 +513,13 @@ export default function CheckoutPage() {
                       onApprove={onPayPalApprove}
                       onError={() => setSubmitError("PayPal payment failed. Please try again.")}
                       onCancel={() => setSubmitError("PayPal payment was cancelled.")}
+                      disabled={submitting}
                     />
                   </div>
-                )}
-
-                {paymentMethod === "paypal" && !PAYPAL_CLIENT_ID && (
+                ) : (
                   <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-400">
                     PayPal not configured. Set NEXT_PUBLIC_PAYPAL_CLIENT_ID in .env.local
                   </p>
-                )}
-
-                {paymentMethod === "eft" && (
-                  <div className="rounded-xl border border-accent/20 bg-accent/5 p-5 space-y-3">
-                    <div className="flex items-center gap-2 text-accent-light">
-                      <div className="rounded-full bg-accent/10 p-1.5">
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                        </svg>
-                      </div>
-                      <p className="text-sm font-medium">Pay via EFT / Bank Transfer</p>
-                    </div>
-                    <div className="space-y-1.5 text-sm text-obsidian-300">
-                      <p><span className="text-obsidian-500">Bank:</span> {BANK_DETAILS.bank}</p>
-                      <p><span className="text-obsidian-500">Account Name:</span> {BANK_DETAILS.accountName}</p>
-                      <p><span className="text-obsidian-500">Account Number:</span> <span className="font-mono text-white">{BANK_DETAILS.accountNumber || "— set in .env.local —"}</span></p>
-                      {BANK_DETAILS.branchCode && <p><span className="text-obsidian-500">Branch Code:</span> {BANK_DETAILS.branchCode}</p>}
-                      <p><span className="text-obsidian-500">Reference:</span> <span className="font-mono text-white">ORD-{Date.now().toString(36).toUpperCase().slice(0, 10)}</span></p>
-                    </div>
-                    <p className="text-xs text-obsidian-500">
-                      Use your order number as the reference. Your order will be processed once payment reflects.
-                    </p>
-                  </div>
                 )}
               </div>
             </div>
@@ -719,23 +617,6 @@ export default function CheckoutPage() {
                 </p>
               )}
 
-              {paymentMethod === "delivery" && (
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="btn-primary w-full py-3 text-sm disabled:opacity-50"
-                >
-                  {submitting ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Processing...
-                    </span>
-                  ) : (
-                    `Place Order — ${fmt(total)}`
-                  )}
-                </button>
-              )}
-
               <div className="flex items-center justify-center gap-2 text-xs text-obsidian-500">
                 <Lock className="h-3 w-3" />
                 <span>Secure checkout</span>
@@ -743,8 +624,7 @@ export default function CheckoutPage() {
             </div>
           </div>
         </div>
-        </PayPalScriptProvider>
-      </form>
+      </PayPalScriptProvider>
     </div>
   );
 }
