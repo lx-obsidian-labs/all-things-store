@@ -312,6 +312,7 @@ export default function CheckoutPage() {
       </Link>
 
       <form onSubmit={handleSubmit}>
+        <PayPalScriptProvider options={{ clientId: PAYPAL_CLIENT_ID, currency: "USD" }}>
         <div className="grid gap-10 lg:grid-cols-5">
           {/* Left — Form */}
           <div className="lg:col-span-3 space-y-8">
@@ -555,15 +556,13 @@ export default function CheckoutPage() {
 
                 {paymentMethod === "paypal" && PAYPAL_CLIENT_ID && (
                   <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                    <PayPalScriptProvider options={{ clientId: PAYPAL_CLIENT_ID, currency: "USD" }}>
-                      <PayPalButtons
-                        style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
-                        createOrder={createPayPalOrder}
-                        onApprove={onPayPalApprove}
-                        onError={() => setSubmitError("PayPal payment failed. Please try again.")}
-                        onCancel={() => setSubmitError("PayPal payment was cancelled.")}
-                      />
-                    </PayPalScriptProvider>
+                    <PayPalButtons
+                      style={{ layout: "vertical", color: "gold", shape: "rect", label: "pay" }}
+                      createOrder={createPayPalOrder}
+                      onApprove={onPayPalApprove}
+                      onError={() => setSubmitError("PayPal payment failed. Please try again.")}
+                      onCancel={() => setSubmitError("PayPal payment was cancelled.")}
+                    />
                   </div>
                 )}
 
@@ -692,6 +691,7 @@ export default function CheckoutPage() {
             </div>
           </div>
         </div>
+        </PayPalScriptProvider>
       </form>
     </div>
   );
