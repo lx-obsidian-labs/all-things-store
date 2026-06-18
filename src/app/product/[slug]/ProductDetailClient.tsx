@@ -17,6 +17,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
   getCategoryName,
   products,
+  getBreadcrumbs,
 } from "@/lib/products";
 import { getSubcategoryLabel } from "@/lib/subcategories";
 import { useCart } from "@/context/CartContext";
@@ -160,6 +161,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
     addToast(`${product.name} added to cart`, "success");
   };
 
+  const breadcrumbItems = getBreadcrumbs(product.category);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -167,6 +169,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
     description: product.description,
     image: product.image,
     sku: product.supplier.sku || product.id,
+    category: breadcrumbItems.map((c) => c.name).join(" > "),
     offers: {
       "@type": "Offer",
       price: product.price,
@@ -184,10 +187,10 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
       <Breadcrumbs
         items={[
           { label: "Shop", href: "/shop" },
-          {
-            label: getCategoryName(product.category),
-            href: `/shop?category=${product.category}`,
-          },
+          ...getBreadcrumbs(product.category).map((c) => ({
+            label: c.name,
+            href: `/shop?category=${c.id}`,
+          })),
           { label: product.name },
         ]}
       />

@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { BRAND } from "@/lib/brand";
+import { getParentCategories } from "@/lib/products";
 
 export function Footer() {
+  const categories = getParentCategories();
+
   return (
     <footer className="border-t border-white/5 bg-obsidian-950">
       <div className="section-padding mx-auto max-w-7xl">
@@ -28,7 +31,7 @@ export function Footer() {
 
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-obsidian-300">
-              Shop
+              Collections
             </h4>
             <ul className="space-y-2 text-sm text-obsidian-400">
               <li>
@@ -36,19 +39,21 @@ export function Footer() {
                   All Products
                 </Link>
               </li>
+              {categories.map((cat) => (
+                <li key={cat.id}>
+                  <Link href={`/shop?category=${cat.id}`} className="transition-colors hover:text-accent-light">
+                    {cat.name}
+                  </Link>
+                </li>
+              ))}
               <li>
-                <Link href="/shop?sort=bestselling" className="transition-colors hover:text-accent-light">
-                  Best Sellers
+                <Link href="/clothing" className="transition-colors hover:text-accent-light">
+                  Clothing
                 </Link>
               </li>
               <li>
-                <Link href="/wishlist" className="transition-colors hover:text-accent-light">
-                  Wishlist
-                </Link>
-              </li>
-              <li>
-                <Link href="/cart" className="transition-colors hover:text-accent-light">
-                  Cart
+                <Link href="/shoes" className="transition-colors hover:text-accent-light">
+                  Shoes
                 </Link>
               </li>
             </ul>

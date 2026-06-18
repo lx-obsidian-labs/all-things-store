@@ -26,38 +26,60 @@ import { assignSubcategories } from "./subcategories";
 export const categories: Category[] = [
   {
     id: "tech",
-    name: "Tech & Gadgets",
-    description: "Smart accessories and everyday tech essentials",
-  },
-  {
-    id: "consumer-electronics",
-    name: "Consumer Electronics",
-    description: "Smart devices, home entertainment, and personal electronics",
-  },
-  {
-    id: "home",
-    name: "Home & Living",
-    description: "Elevate your space with thoughtful design pieces",
+    name: "Electronics & Tech",
+    description: "Audio, charging, wearables, smart devices, and computer accessories",
+    icon: "zap",
+    order: 0,
+    featured: true,
   },
   {
     id: "style",
-    name: "Style & Wear",
-    description: "Clothing, accessories and lifestyle wear",
+    name: "Fashion & Apparel",
+    description: "Clothing, footwear, accessories, jewelry, and bags for men, women, and kids",
+    icon: "shirt",
+    order: 1,
+    featured: true,
   },
   {
     id: "shoes",
     name: "Shoes & Footwear",
-    description: "Sneakers, boots, sandals and more for the whole family",
+    description: "Sneakers, boots, sandals, and more for the whole family",
+    icon: "footprints",
+    order: 2,
+    featured: true,
+    parentId: "style",
+  },
+  {
+    id: "home",
+    name: "Home & Living",
+    description: "Decor, kitchen, organization, and lighting for every room in your home",
+    icon: "home",
+    order: 3,
+    featured: true,
   },
   {
     id: "wellness",
-    name: "Wellness",
-    description: "Products for calm, focus, focus, and daily balance",
+    name: "Health & Wellness",
+    description: "Fitness, personal care, relaxation, and healthy living essentials",
+    icon: "heart",
+    order: 4,
+    featured: true,
   },
   {
     id: "car-parts",
-    name: "Car Parts & Accessories",
-    description: "Auto parts, tools, and vehicle accessories",
+    name: "Automotive",
+    description: "Car parts, tools, electronics, and accessories for your vehicle",
+    icon: "car",
+    order: 5,
+    featured: true,
+  },
+  {
+    id: "consumer-electronics",
+    name: "Premium Electronics",
+    description: "Televisions, smart home hubs, gaming laptops, and high-end audio gear",
+    icon: "tv",
+    order: 6,
+    featured: true,
   },
 ];
 
@@ -1131,12 +1153,42 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
   ...massProducts13,
 ]));
 
+export function getParentCategories(): Category[] {
+  return categories.filter((c) => !c.parentId).sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+}
+
+export function getChildCategories(parentId: string): Category[] {
+  return categories.filter((c) => c.parentId === parentId).sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
+}
+
+export function getCategoryTree(): Category[] {
+  const tree: Category[] = [];
+  for (const cat of getParentCategories()) {
+    tree.push(cat);
+    tree.push(...getChildCategories(cat.id));
+  }
+  return tree;
+}
+
+export function getBreadcrumbs(categoryId: string): { id: string; name: string }[] {
+  const cat = categories.find((c) => c.id === categoryId);
+  if (!cat) return [];
+  if (cat.parentId) {
+    const parent = categories.find((c) => c.id === cat.parentId);
+    return parent
+      ? [{ id: parent.id, name: parent.name }, { id: cat.id, name: cat.name }]
+      : [{ id: cat.id, name: cat.name }];
+  }
+  return [{ id: cat.id, name: cat.name }];
+}
+
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
 
 export function getProductsByCategory(categoryId: string): Product[] {
-  return products.filter((p) => p.category === categoryId);
+  const childIds = getChildCategories(categoryId).map((c) => c.id);
+  return products.filter((p) => p.category === categoryId || childIds.includes(p.category));
 }
 
 export function getFeaturedProducts(): Product[] {

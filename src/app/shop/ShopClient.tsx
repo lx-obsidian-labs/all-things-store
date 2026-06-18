@@ -2,11 +2,12 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { ChevronLeft, ChevronRight, Grid3X3, List, ListOrdered, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid3X3, List, ListOrdered, X, ChevronRight as ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
 import { CategoryPills } from "@/components/CategoryPills";
-import { categories, products, sortProducts } from "@/lib/products";
-import { subcategories } from "@/lib/subcategories";
+import { categories, products, sortProducts, getChildCategories, getBreadcrumbs } from "@/lib/products";
+import { subcategories, getSubcategoriesForCategory } from "@/lib/subcategories";
 import type { SortOption } from "@/lib/products";
 
 const PER_PAGE = 24;
@@ -24,28 +25,37 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
 
   const activeCategory = searchParams.get("category") ?? initialCategory;
 
-  const filtered = useMemo(
-    () =>
-      activeCategory === "all"
-        ? products
-        : products.filter((p) => p.category === activeCategory),
-    [activeCategory]
-  );
+  const relatedCategories = useMemo(() => {
+    if (activeCategory === "all") return [];
+    const children = getChildCategories(activeCategory);
+    if (children.length > 0) return children;
+    const cat = categories.find((c) => c.id === activeCategory);
+    if (cat?.parentId) {
+      return getChildCategories(cat.parentId);
+    }
+    return [];
+  }, [activeCategory]);
+
+  const filterByCategory = useMemo(() => {
+    if (activeCategory === "all") return products;
+    const childIds = getChildCategories(activeCategory).map((c) => c.id);
+    return products.filter((p) => p.category === activeCategory || childIds.includes(p.category));
+  }, [activeCategory]);
 
   const availableSubcategories = useMemo(() => {
     const set = new Set<string>();
-    for (const p of filtered) {
+    for (const p of filterByCategory) {
       if (p.subcategory) set.add(p.subcategory);
     }
     return subcategories.filter((s) => set.has(s.id));
-  }, [filtered]);
+  }, [filterByCategory]);
 
   const subcategoryFiltered = useMemo(
     () =>
       activeSubcategory
-        ? filtered.filter((p) => p.subcategory === activeSubcategory)
-        : filtered,
-    [filtered, activeSubcategory]
+        ? filterByCategory.filter((p) => p.subcategory === activeSubcategory)
+        : filterByCategory,
+    [filterByCategory, activeSubcategory]
   );
 
   const sorted = useMemo(() => sortProducts(subcategoryFiltered, sort), [subcategoryFiltered, sort]);
@@ -63,12 +73,32 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
   }
 
   const categoryInfo = categories.find((c) => c.id === activeCategory);
+  const breadcrumbs = activeCategory !== "all" ? getBreadcrumbs(activeCategory) : [];
 
   return (
     <div className="section-padding mx-auto max-w-7xl">
+      {/* Breadcrumbs */}
+      {breadcrumbs.length > 0 && (
+        <div className="mb-6 flex items-center gap-2 text-xs text-obsidian-500">
+          <Link href="/shop" className="transition-colors hover:text-white">Shop</Link>
+          {breadcrumbs.map((crumb, i) => (
+            <span key={crumb.id} className="flex items-center gap-2">
+              <ArrowRight className="h-3 w-3" />
+              <span className={i === breadcrumbs.length - 1 ? "text-obsidian-300" : "transition-colors hover:text-white"}>
+                {i < breadcrumbs.length - 1 ? (
+                  <Link href={`/shop?category=${crumb.id}`} className="transition-colors hover:text-white">{crumb.name}</Link>
+                ) : (
+                  crumb.name
+                )}
+              </span>
+            </span>
+          ))}
+        </div>
+      )}
+
       <div className="mb-10">
         <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent-light">
-          Collection
+          {activeCategory === "all" ? "Collection" : (categoryInfo?.parentId ? categories.find(c => c.id === categoryInfo.parentId)?.name : "") || "Collection"}
         </p>
         <h1 className="mb-3 font-display text-4xl text-white sm:text-5xl">
           {categoryInfo && activeCategory !== "all"
@@ -86,6 +116,33 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
         <CategoryPills active={activeCategory} />
       </div>
 
+      {/* Related sub-category links */}
+      {relatedCategories.length > 0 && activeCategory !== "all" && (
+        <div className="mb-6 flex flex-wrap items-center gap-1.5">
+          <span className="mr-1 text-xs font-medium uppercase tracking-wider text-obsidian-500">Browse</span>
+          {relatedCategories.map((child) => {
+            const count = products.filter((p) => p.category === child.id).length;
+            return (
+              <Link
+                key={child.id}
+                href={`/shop?category=${child.id}`}
+                className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all ${
+                  activeCategory === child.id
+                    ? "border-accent/40 bg-accent/10 text-accent-light"
+                    : "border-white/[0.06] bg-white/[0.02] text-obsidian-500 hover:border-white/20 hover:text-obsidian-300"
+                }`}
+              >
+                {child.name}
+                <span className="ml-1.5 tabular-nums text-obsidian-600">
+                  {count}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Subcategory filter pills */}
       {availableSubcategories.length > 0 && (
         <div className="mb-6 flex flex-wrap items-center gap-1.5">
           <button
@@ -105,7 +162,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
             </span>
           </button>
           {availableSubcategories.map((sub) => {
-            const count = filtered.filter((p) => p.subcategory === sub.id).length;
+            const count = filterByCategory.filter((p) => p.subcategory === sub.id).length;
             return (
               <button
                 key={sub.id}
@@ -190,7 +247,7 @@ export function ShopClient({ initialCategory }: ShopClientProps) {
 
       {sorted.length === 0 ? (
         <div className="glass-card py-16 text-center">
-          <p className="text-obsidian-400">No products in this category yet.</p>
+          <p className="text-obsidian-400">No products found.</p>
         </div>
       ) : (
         <>

@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "Clothing",
-  description: "Shop men's, women's, and kids' clothing.",
+  title: "Clothing — Fashion & Apparel",
+  description: "Discover premium clothing for men, women, and kids — including hoodies, jeans, shirts, dresses, jackets, and activewear. Shop the latest styles at unbeatable prices.",
 };
 
 const SECTIONS = [

@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, TrendingUp, Clock, Zap, Tag, Snowflake } from "lucide-react";
+import { ArrowRight, TrendingUp, Clock, Zap, Tag, Snowflake, Shirt, Home, Heart, Car, Tv, Smartphone } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
 import { Newsletter } from "@/components/Newsletter";
 import { RecentlyViewedSection } from "./RecentlyViewedSection";
-import { getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts, getWinterProducts } from "@/lib/products";
+import { getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts, getWinterProducts, getParentCategories, getProductsByCategory } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
 
@@ -27,8 +27,8 @@ export default function HomePage() {
           <div className="grid grid-cols-2 gap-8 text-center sm:grid-cols-4">
             {[
               { value: "5,736+", label: "Products" },
-              { value: "5", label: "Collections" },
-              { value: "20+", label: "Categories" },
+              { value: "7", label: "Collections" },
+              { value: "36+", label: "Categories" },
               { value: "28", label: "Countries" },
             ].map((s) => (
               <div key={s.label}>
@@ -41,6 +41,44 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Explore Collections */}
+      <section className="section-padding mx-auto max-w-7xl">
+        <div className="mb-10 text-center">
+          <p className="mb-2 text-sm font-medium uppercase tracking-wider text-accent-light">
+            Collections
+          </p>
+          <h2 className="font-display text-3xl text-white sm:text-4xl">
+            Shop by category
+          </h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {getParentCategories().map((cat) => {
+            const count = getProductsByCategory(cat.id).length;
+            return (
+              <Link
+                key={cat.id}
+                href={`/shop?category=${cat.id}`}
+                className="glass-card group relative overflow-hidden rounded-xl border border-white/5 p-5 transition-all hover:-translate-y-0.5 hover:border-accent/20 hover:shadow-lg hover:shadow-accent/5"
+              >
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent-light transition-colors group-hover:bg-accent/20">
+                  {cat.icon === "zap" && <Smartphone className="h-5 w-5" />}
+                  {cat.icon === "shirt" && <Shirt className="h-5 w-5" />}
+                  {cat.icon === "home" && <Home className="h-5 w-5" />}
+                  {cat.icon === "heart" && <Heart className="h-5 w-5" />}
+                  {cat.icon === "car" && <Car className="h-5 w-5" />}
+                  {cat.icon === "tv" && <Tv className="h-5 w-5" />}
+                  {!["zap","shirt","home","heart","car","tv"].includes(cat.icon ?? "") && <Smartphone className="h-5 w-5" />}
+                </div>
+                <h3 className="mb-1 font-medium text-white transition-colors group-hover:text-accent-light">
+                  {cat.name}
+                </h3>
+                <p className="text-xs text-obsidian-500">{count} products</p>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

@@ -2,21 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, Menu, Search, ShoppingBag, X } from "lucide-react";
+import { Heart, Menu, Search, ShoppingBag, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { BRAND } from "@/lib/brand";
+import { getParentCategories } from "@/lib/products";
 import { SearchOverlay } from "@/components/SearchOverlay";
 import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 
-const navLinks = [
+const topLevelLinks = [
   { href: "/shop", label: "Shop" },
-  { href: "/clothing", label: "Clothing" },
-  { href: "/shoes", label: "Shoes" },
+  { href: "/blog", label: "Journal" },
   { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/account/orders", label: "Orders" },
 ];
 
 export function Header() {
@@ -25,6 +23,8 @@ export function Header() {
   const { itemCount: wishlistCount } = useWishlist();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [shopMenuOpen, setShopMenuOpen] = useState(false);
+  const categories = getParentCategories();
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/5 bg-obsidian-950/80 backdrop-blur-xl">
@@ -46,7 +46,55 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
+          {/* Shop dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setShopMenuOpen(true)}
+            onMouseLeave={() => setShopMenuOpen(false)}
+          >
+            <Link
+              href="/shop"
+              className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-accent-light ${
+                pathname.startsWith("/shop") || pathname.startsWith("/clothing") || pathname.startsWith("/shoes")
+                  ? "text-accent-light"
+                  : "text-obsidian-300"
+              }`}
+            >
+              Shop
+              <ChevronDown className={`h-3.5 w-3.5 transition-transform ${shopMenuOpen ? "rotate-180" : ""}`} />
+            </Link>
+            {shopMenuOpen && (
+              <div className="absolute left-0 top-full mt-2 w-56 rounded-xl border border-white/10 bg-obsidian-950 py-2 shadow-2xl backdrop-blur-xl">
+                {categories.map((cat) => (
+                  <Link
+                    key={cat.id}
+                    href={`/shop?category=${cat.id}`}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm text-obsidian-300 transition-colors hover:bg-white/5 hover:text-white"
+                    onClick={() => setShopMenuOpen(false)}
+                  >
+                    <span>{cat.name}</span>
+                  </Link>
+                ))}
+                <div className="my-1 border-t border-white/5" />
+                <Link
+                  href="/clothing"
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-obsidian-300 transition-colors hover:bg-white/5 hover:text-white"
+                  onClick={() => setShopMenuOpen(false)}
+                >
+                  <span>Clothing</span>
+                </Link>
+                <Link
+                  href="/shoes"
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm text-obsidian-300 transition-colors hover:bg-white/5 hover:text-white"
+                  onClick={() => setShopMenuOpen(false)}
+                >
+                  <span>Shoes</span>
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {topLevelLinks.filter((l) => l.href !== "/shop").map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -110,7 +158,43 @@ export function Header() {
       {mobileOpen && (
         <nav className="border-t border-white/5 px-4 py-4 md:hidden">
           <div className="flex flex-col gap-3">
-            {navLinks.map((link) => (
+            <Link
+              href="/shop"
+              onClick={() => setMobileOpen(false)}
+              className={`rounded-lg px-4 py-3 text-sm font-medium ${
+                pathname.startsWith("/shop")
+                  ? "bg-accent/10 text-accent-light"
+                  : "text-obsidian-300 hover:bg-white/5"
+              }`}
+            >
+              All Products
+            </Link>
+            {categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/shop?category=${cat.id}`}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm text-obsidian-300 hover:bg-white/5"
+              >
+                {cat.name}
+              </Link>
+            ))}
+            <Link
+              href="/clothing"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-lg px-4 py-3 text-sm text-obsidian-300 hover:bg-white/5"
+            >
+              Clothing
+            </Link>
+            <Link
+              href="/shoes"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-lg px-4 py-3 text-sm text-obsidian-300 hover:bg-white/5"
+            >
+              Shoes
+            </Link>
+            <hr className="border-white/5" />
+            {topLevelLinks.filter((l) => l.href !== "/shop").map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

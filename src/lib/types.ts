@@ -61,8 +61,22 @@ export interface CartItem {
   quantity: number;
 }
 
+export type Subcategory = {
+  id: string;
+  name: string;
+  categoryId: string;
+};
+
 export type Category = {
   id: string;
   name: string;
   description: string;
+  parentId?: string;
+  icon?: string;
+  featured?: boolean;
+  order?: number;
+};
+
+export type CategoryTree = Category & {
+  children: CategoryTree[];
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { categories } from "@/lib/products";
+import { getParentCategories, getChildCategories } from "@/lib/products";
 
 interface CategoryPillsProps {
   active?: string;
@@ -12,6 +12,9 @@ export function CategoryPills({
   active = "all",
   basePath = "/shop",
 }: CategoryPillsProps) {
+  const parentCategories = getParentCategories();
+  const childCategories = active !== "all" ? getChildCategories(active) : [];
+
   return (
     <div className="flex flex-wrap gap-2">
       <Link
@@ -24,7 +27,7 @@ export function CategoryPills({
       >
         All
       </Link>
-      {categories.map((cat) => (
+      {parentCategories.map((cat) => (
         <Link
           key={cat.id}
           href={`${basePath}?category=${cat.id}`}
@@ -37,6 +40,23 @@ export function CategoryPills({
           {cat.name}
         </Link>
       ))}
+      {childCategories.length > 0 && (
+        <div className="flex w-full flex-wrap gap-2 pt-1">
+          {childCategories.map((child) => (
+            <Link
+              key={child.id}
+              href={`${basePath}?category=${child.id}`}
+              className={`rounded-full px-3 py-1.5 text-xs font-medium transition-all ${
+                active === child.id
+                  ? "bg-accent/20 text-accent-light"
+                  : "border border-white/5 bg-white/[0.02] text-obsidian-500 hover:border-white/20 hover:text-obsidian-300"
+              }`}
+            >
+              {child.name}
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,14 +1,19 @@
+import type { Metadata } from "next";
 import { ShopClient } from "./ShopClient";
+import { categories } from "@/lib/products";
 
 interface ShopPageProps {
   searchParams: Promise<{ category?: string }>;
 }
 
-export const metadata = {
-  title: "Shop",
-  description:
-    "Browse our curated collection of tech, home, style, and wellness products.",
-};
+export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {
+  const { category } = await searchParams;
+  const cat = categories.find((c) => c.id === category);
+  return {
+    title: cat ? `${cat.name} — Shop` : "Shop All Products",
+    description: cat?.description ?? "Browse our full catalog of curated essentials across electronics, fashion, home, wellness, and more.",
+  };
+}
 
 export default async function ShopPage({ searchParams }: ShopPageProps) {
   const { category } = await searchParams;
