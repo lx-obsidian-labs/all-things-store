@@ -24,6 +24,7 @@ import {
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
+import { orderConfirmationEmail } from "@/lib/email-templates";
 
 const STEPS = [
   { key: "contact", label: "Contact", icon: Mail },
@@ -239,34 +240,17 @@ export default function CheckoutPage() {
 
     // Send confirmation email (best-effort)
     try {
-      const itemsHtml = orderItems
-        .map(
-          (item) =>
-            `<tr><td style="padding:10px 0;border-bottom:1px solid #eee;"><strong>${item.name}</strong> × ${item.quantity}</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;">${fmt(item.price * item.quantity)}</td></tr>`
-        )
-        .join("");
-
-      const html = `<!DOCTYPE html>
-<html><head><meta charset="utf-8"></head>
-<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;margin:0;padding:24px;">
-<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;">
-<div style="background:#7c3aed;color:#fff;padding:32px;text-align:center;">
-<h1 style="margin:0;font-size:24px;">Order Confirmed!</h1>
-<p style="margin:8px 0 0;opacity:0.9;">All Things</p>
-</div>
-<div style="padding:32px;">
-<p>Hi <strong>${name}</strong>,</p>
-<p>Your order <strong>#${orderNumber}</strong> has been placed successfully.</p>
-<table style="width:100%;border-collapse:collapse;margin:16px 0;">${itemsHtml}</table>
-<div style="border-top:2px solid #7c3aed;padding:12px 0;text-align:right;font-size:18px;font-weight:bold;">Total: ${fmt(total)}</div>
-<hr style="border:none;border-top:1px solid #eee;margin:16px 0;">
-<p style="font-size:14px;color:#666;"><strong>Shipping to:</strong><br>${address}, ${city}, ${country}</p>
-<p style="font-size:14px;color:#666;"><strong>Payment:</strong> PayPal</p>
-</div>
-<div style="background:#f9f9f9;padding:16px 32px;text-align:center;font-size:12px;color:#999;">All Things &middot; hello@allthings.store</div>
-</div>
-</body>
-</html>`;
+      const html = orderConfirmationEmail({
+        name,
+        orderNumber,
+        items: orderItems.map((i) => ({
+          name: i.name,
+          quantity: i.quantity,
+          price: fmt(i.price * i.quantity),
+        })),
+        total: fmt(total),
+        address: [address, address2, city, country].filter(Boolean).join(", "),
+      });
 
       await fetch("/api/email/send", {
         method: "POST",

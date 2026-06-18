@@ -21,6 +21,7 @@ import {
   getBreadcrumbs,
 } from "@/lib/products";
 import { getSubcategoryLabel } from "@/lib/subcategories";
+import { ShareButtons } from "@/components/ShareButtons";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -412,6 +413,11 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
               <Package className="h-4 w-4 shrink-0" />
               <span>Fulfilled by CJ</span>
             </div>
+          </div>
+
+          {/* Share */}
+          <div className="mb-6">
+            <ShareButtons title={product.name} url={`/product/${product.slug}`} />
           </div>
 
           {/* Add to Cart */}

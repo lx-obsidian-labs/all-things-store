@@ -8,6 +8,8 @@ import { OnboardingProvider } from "@/context/OnboardingContext";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ToastContainer } from "@/components/ToastContainer";
+import { AbandonedCartBanner } from "@/components/AbandonedCartBanner";
+import { AnnouncementBar } from "@/components/AnnouncementBar";
 import { OnboardingModal } from "@/components/OnboardingModal";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { CookieConsent } from "@/components/CookieConsent";
@@ -112,11 +114,13 @@ export default function RootLayout({
           <WishlistProvider>
             <ToastProvider>
               <div className="flex min-h-screen flex-col bg-obsidian-gradient">
+                <AnnouncementBar />
                 <Header />
                 <main className="flex-1">{children}</main>
                 <Footer />
                 <ToastContainer />
                 <OnboardingModal />
+                <AbandonedCartBanner />
                 <WhatsAppButton />
                 <CookieConsent />
               </div>

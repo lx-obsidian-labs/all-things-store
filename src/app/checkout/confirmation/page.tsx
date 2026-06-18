@@ -13,6 +13,7 @@ import {
   ShoppingBag,
   Home,
   ChevronRight,
+  Star,
 } from "lucide-react";
 import { useCurrency } from "@/context/CurrencyContext";
 
@@ -266,6 +267,35 @@ export default function ConfirmationPage() {
             <p className="mt-2 text-sm text-obsidian-500">
               Your order will be processed and confirmed shortly.
             </p>
+          </div>
+        )}
+
+        {/* Review Request */}
+        {order.items.length > 0 && (
+          <div className="mb-8 rounded-xl border border-accent/20 bg-accent/5 p-5 text-left transition-all hover:border-accent/30">
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10">
+                <Star className="h-5 w-5 text-accent-light" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-white">Love your purchase?</p>
+                <p className="mt-0.5 text-sm text-obsidian-400">
+                  Share your review and help others discover great products.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {order.items.slice(0, 3).map((item) => (
+                    <a
+                      key={item.id}
+                      href={`/product/${item.id}`}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs text-obsidian-300 transition-all hover:border-accent/30 hover:text-accent-light"
+                    >
+                      <Star className="h-3 w-3" />
+                      Review {item.name.length > 20 ? item.name.slice(0, 20) + "…" : item.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
