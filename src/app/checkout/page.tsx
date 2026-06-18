@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,9 +15,7 @@ import {
   Zap,
 } from "lucide-react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import { StripePaymentForm } from "@/components/StripePaymentForm";
+import { PaystackCheckoutForm } from "@/components/PaystackCheckoutForm";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
 
@@ -29,7 +27,7 @@ const COUNTRIES = [
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-type PaymentMethod = "delivery" | "paypal" | "card";
+type PaymentMethod = "delivery" | "paypal" | "paystack";
 
 interface FieldErrors {
   email?: string;
@@ -56,7 +54,7 @@ const SHIPPING_OPTIONS: Record<
 };
 
 const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "";
-const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "";
+const PAYSTACK_PK = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -80,13 +78,6 @@ export default function CheckoutPage() {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const submittingRef = useRef(false);
-
-  const [stripeClientSecret, setStripeClientSecret] = useState<string | null>(null);
-  const [stripeLoading, setStripeLoading] = useState(false);
-  const stripePromise = useMemo(
-    () => (STRIPE_PK ? loadStripe(STRIPE_PK) : null),
-    [],
-  );
 
   const shippingFee = subtotal >= 50 ? SHIPPING_OPTIONS[shippingMethod].fee : 4.99;
   const displayShipping =
@@ -125,7 +116,7 @@ export default function CheckoutPage() {
     setErrors(validate());
   }
 
-  async function placeOrder(paypalCaptureId?: string) {
+  async function placeOrder(paymentRef?: string) {
     if (submittingRef.current) return;
     submittingRef.current = true;
     setSubmitError("");
@@ -183,7 +174,7 @@ export default function CheckoutPage() {
       email,
       shippingAddress: { name, phone, address, address2, city, country, postalCode },
       paymentMethod,
-      paypalCaptureId: paypalCaptureId || null,
+      paymentRef: paymentRef || null,
       createdAt: new Date().toISOString(),
       cjStatus: cjResult?.success ? "forwarded" : "failed",
       cjOrderId: cjResult?.success ? (cjResult?.data?.cjOrderId || orderNumber) : null,
@@ -280,36 +271,8 @@ export default function CheckoutPage() {
     return data.orderID;
   }
 
-  async function createStripePaymentIntent() {
-    const fieldErrors = validate();
-    if (Object.keys(fieldErrors).length > 0) {
-      setErrors(fieldErrors);
-      setTouched({ email: true, name: true, address: true, city: true, country: true });
-      return;
-    }
-
-    setStripeLoading(true);
-    setSubmitError("");
-
-    try {
-      const res = await fetch("/api/payments/create-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: total, currency: "USD" }),
-      });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.message ?? "Failed to create payment");
-      setStripeClientSecret(data.clientSecret);
-    } catch (err: any) {
-      setSubmitError(err.message ?? "Failed to initialize card payment");
-      setStripeLoading(false);
-    }
-  }
-
-  async function handleStripeSuccess(paymentIntentId: string) {
-    setStripeClientSecret(null);
-    setStripeLoading(false);
-    await placeOrder(paymentIntentId);
+  async function handlePaystackSuccess(reference: string) {
+    await placeOrder(reference);
   }
 
   async function onPayPalApprove(data: { orderID: string }) {
@@ -598,22 +561,22 @@ export default function CheckoutPage() {
                 </label>
 
                 <label className={`flex cursor-pointer items-center gap-4 rounded-xl border p-4 transition-colors ${
-                  paymentMethod === "card"
+                  paymentMethod === "paystack"
                     ? "border-accent/30 bg-accent/5"
                     : "border-white/10 bg-white/5 hover:border-accent/30"
                 }`}>
                   <input
                     type="radio"
                     name="payment"
-                    value="card"
-                    checked={paymentMethod === "card"}
-                    onChange={() => setPaymentMethod("card")}
+                    value="paystack"
+                    checked={paymentMethod === "paystack"}
+                    onChange={() => setPaymentMethod("paystack")}
                     className="h-4 w-4 accent-accent"
                   />
                   <div>
-                    <p className="text-sm font-medium text-white">Credit / Debit Card</p>
+                    <p className="text-sm font-medium text-white">Card, Bank, USSD & Mobile Money</p>
                     <p className="text-xs text-obsidian-500">
-                      Pay securely with Visa, Mastercard, American Express & more
+                      Pay with Visa, Mastercard, bank transfer, USSD, or mobile money via Paystack
                     </p>
                   </div>
                 </label>
@@ -636,39 +599,22 @@ export default function CheckoutPage() {
                   </p>
                 )}
 
-                {paymentMethod === "card" && !stripeClientSecret && (
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                    {stripeLoading ? (
-                      <div className="flex items-center justify-center py-4">
-                        <span className="h-5 w-5 animate-spin rounded-full border-2 border-accent/30 border-t-accent" />
-                      </div>
-                    ) : !STRIPE_PK ? (
-                      <p className="text-xs text-amber-400">
-                        Card payments not configured. Set NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY in .env.local.
-                      </p>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={createStripePaymentIntent}
-                        className="btn-primary w-full py-3 text-sm"
-                      >
-                        Continue to Card Payment
-                      </button>
-                    )}
-                  </div>
+                {paymentMethod === "paystack" && !PAYSTACK_PK && (
+                  <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-400">
+                    Paystack not configured. Set NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY in .env.local.
+                  </p>
                 )}
 
-                {paymentMethod === "card" && stripeClientSecret && stripePromise && (
+                {paymentMethod === "paystack" && PAYSTACK_PK && (
                   <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                    <Elements key={stripeClientSecret} stripe={stripePromise} options={{ clientSecret: stripeClientSecret }}>
-                      <StripePaymentForm
-                        total={total}
-                        currency="USD"
-                        onSuccess={handleStripeSuccess}
-                        onError={(msg) => { setSubmitError(msg); setStripeClientSecret(null); setStripeLoading(false); }}
-                        submitting={submitting}
-                      />
-                    </Elements>
+                    <PaystackCheckoutForm
+                      email={email}
+                      total={total}
+                      name={name}
+                      onSuccess={handlePaystackSuccess}
+                      onError={(msg) => setSubmitError(msg)}
+                      submitting={submitting}
+                    />
                   </div>
                 )}
               </div>
