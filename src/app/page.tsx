@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { ArrowRight, TrendingUp, Clock, Zap, Tag, Snowflake, Shirt, Home, Heart, Car, Tv, Smartphone } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { ProductCard } from "@/components/ProductCard";
@@ -8,6 +9,28 @@ import { RecentlyViewedSection } from "./RecentlyViewedSection";
 import { getBestSellingProducts, getDealProducts, getNewArrivals, getWinningProducts, getCheapestProducts, getWinterProducts, getParentCategories, getProductsByCategory } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
 import { BRAND } from "@/lib/brand";
+
+export const metadata: Metadata = {
+  title: "Home — Curated Tech, Fashion, Home & Wellness",
+  description: `Shop ${BRAND.storeName} — your curated marketplace for premium electronics, fashion apparel, home essentials, wellness products, and automotive accessories. Quality products, fast shipping, fair prices.`,
+  keywords: [
+    "online shopping", "curated marketplace", "tech gadgets", "fashion online",
+    "home decor store", "wellness products", "automotive accessories",
+    BRAND.storeName.toLowerCase(), "buy electronics online", "fashion boutique",
+  ],
+  openGraph: {
+    title: `${BRAND.storeName} — ${BRAND.tagline}`,
+    description: `Discover 5,000+ curated products across electronics, fashion, home, wellness & automotive. Quality guaranteed, shipped worldwide.`,
+    url: "https://allthings.store",
+    images: [{ url: "/logo-icon.png", width: 512, height: 512, alt: BRAND.storeName }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${BRAND.storeName} — ${BRAND.tagline}`,
+    description: `5,000+ curated essentials in tech, fashion, home & wellness.`,
+    images: ["/logo-icon.png"],
+  },
+};
 
 export default function HomePage() {
   const bestSellers = getBestSellingProducts(6);

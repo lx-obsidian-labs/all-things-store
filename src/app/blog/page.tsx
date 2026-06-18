@@ -1,12 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowRight, Calendar, Clock, User } from "lucide-react";
 import { blogPosts } from "@/lib/blog";
 
-export const metadata = {
-  title: "Blog",
+export const metadata: Metadata = {
+  title: "Journal — Product Guides & Lifestyle Insights",
   description:
-    "Read about product guides, lifestyle tips, and curated living insights from the All Things team.",
+    "Explore product guides, lifestyle tips, workspace inspiration, and curated living insights from the All Things team. Discover how to make the most of what you own.",
+  keywords: ["lifestyle blog", "product guides", "home tips", "tech advice", "minimalist living", "buying guides"],
+  openGraph: {
+    title: "Journal — All Things Blog",
+    description: "Product guides, lifestyle tips, and curated living insights.",
+    type: "website",
+  },
 };
 
 export default function BlogPage() {

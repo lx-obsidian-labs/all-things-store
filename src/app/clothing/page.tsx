@@ -6,6 +6,11 @@ import { BRAND } from "@/lib/brand";
 export const metadata: Metadata = {
   title: "Clothing — Fashion & Apparel",
   description: "Discover premium clothing for men, women, and kids — including hoodies, jeans, shirts, dresses, jackets, and activewear. Shop the latest styles at unbeatable prices.",
+  keywords: ["clothing", "fashion", "apparel", "men's fashion", "women's fashion", "kids fashion", "hoodies", "jeans", "dresses"],
+  openGraph: {
+    title: "Clothing Collection — All Things",
+    description: "Premium fashion for men, women, and kids. Hoodies, jeans, dresses, jackets & more.",
+  },
 };
 
 const SECTIONS = [

@@ -1,9 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { BRAND } from "@/lib/brand";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Shipping & Returns",
-  description: `Shipping information and return policy for ${BRAND.storeName}.`,
+  description: `Learn about ${BRAND.storeName} shipping rates, delivery times, and return policy. Fast worldwide shipping from our fulfillment centers.`,
+  keywords: ["shipping policy", "returns", "delivery times", "worldwide shipping", "order tracking"],
 };
 
 export default function ShippingPage() {

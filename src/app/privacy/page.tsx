@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import { BRAND } from "@/lib/brand";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: `Privacy policy for ${BRAND.storeName}.`,
+  description: `Read the ${BRAND.storeName} privacy policy. Learn how we collect, use, and protect your personal information when you shop with us.`,
+  robots: { index: false, follow: false },
 };
 
 export default function PrivacyPage() {

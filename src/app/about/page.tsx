@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import { BRAND } from "@/lib/brand";
 
-export const metadata = {
-  title: "About",
-  description: `Learn about ${BRAND.storeName} and ${BRAND.company}.`,
+export const metadata: Metadata = {
+  title: "About Us",
+  description: `Learn about ${BRAND.storeName} by ${BRAND.company}. We curate quality products across electronics, fashion, home, wellness, and automotive — making smart shopping accessible to everyone.`,
+  keywords: ["about us", BRAND.company.toLowerCase(), "curated marketplace", "our story"],
+  openGraph: {
+    title: `About ${BRAND.storeName}`,
+    description: `Discover the story behind ${BRAND.storeName} — a curated marketplace by ${BRAND.company}.`,
+  },
 };
 
 export default function AboutPage() {

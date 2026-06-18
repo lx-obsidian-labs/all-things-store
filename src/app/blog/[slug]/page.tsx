@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { blogPosts, getBlogPostBySlug } from "@/lib/blog";
+import { BRAND } from "@/lib/brand";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -12,13 +14,28 @@ export async function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
   if (!post) return { title: "Post Not Found" };
   return {
     title: post.title,
     description: post.excerpt,
+    keywords: [post.category.toLowerCase(), "lifestyle", "buying guide", "product tips"],
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      images: [{ url: post.image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image],
+    },
   };
 }
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   CheckCircle2,
@@ -14,10 +15,12 @@ import { products } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
 import type { SupplierSource } from "@/lib/types";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Product Sourcing",
   description:
-    "Dropshipping sourcing guide and workflow for All Things store.",
+    `Transparent product sourcing at ${BRAND.storeName}. Learn how we source, vet, and ship quality products from trusted global suppliers including CJ Dropshipping and AliExpress.`,
+  keywords: ["product sourcing", "dropshipping", "supply chain", "wholesale", "product development"],
+  robots: { index: true, follow: true },
 };
 
 const suppliers = [

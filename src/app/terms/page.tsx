@@ -1,9 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { BRAND } from "@/lib/brand";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Terms of Service",
-  description: `Terms and conditions for ${BRAND.storeName}.`,
+  description: `Review the ${BRAND.storeName} terms and conditions governing your use of our marketplace and purchases.`,
+  robots: { index: false, follow: false },
 };
 
 export default function TermsPage() {

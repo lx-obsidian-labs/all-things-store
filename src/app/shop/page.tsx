@@ -9,9 +9,17 @@ interface ShopPageProps {
 export async function generateMetadata({ searchParams }: ShopPageProps): Promise<Metadata> {
   const { category } = await searchParams;
   const cat = categories.find((c) => c.id === category);
+  const title = cat ? `${cat.name} — Shop All Products` : "Shop All Products";
+  const description = cat?.description ?? "Browse 5,000+ curated products across electronics, fashion, home & living, wellness, automotive, and more. Quality you can trust, prices you'll love.";
   return {
-    title: cat ? `${cat.name} — Shop` : "Shop All Products",
-    description: cat?.description ?? "Browse our full catalog of curated essentials across electronics, fashion, home, wellness, and more.",
+    title,
+    description,
+    keywords: [cat?.name ?? "shop", "all products", "online store", "curated catalog"],
+    openGraph: {
+      title,
+      description,
+      type: "website",
+    },
   };
 }
 

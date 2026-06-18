@@ -25,25 +25,73 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-display",
 });
 
+const SITE_URL = "https://allthings.store";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${BRAND.storeName} — ${BRAND.tagline}`,
     template: `%s | ${BRAND.storeName}`,
   },
-  description: `${BRAND.storeName} is a curated dropshipping store by ${BRAND.company}. Discover tech, home, style, and wellness essentials.`,
-  keywords: ["dropshipping", "online store", "curated products", BRAND.company],
+  description: `${BRAND.storeName} is a curated marketplace by ${BRAND.company}. Discover premium electronics, fashion, home essentials, wellness products, and automotive accessories — all in one place.`,
+  keywords: [
+    "online marketplace", "curated products", "electronics", "fashion", "home decor",
+    "wellness", "automotive accessories", "dropshipping store", BRAND.company.toLowerCase(),
+    "tech gadgets", "clothing online", "home essentials",
+  ],
+  authors: [{ name: BRAND.company }],
+  creator: BRAND.company,
+  publisher: BRAND.company,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/logo-icon.png",
     apple: "/logo-icon.png",
   },
   openGraph: {
-    title: `${BRAND.storeName} — ${BRAND.tagline}`,
-    description: `Discover curated tech, home, style, and wellness essentials at ${BRAND.storeName}.`,
-    url: "https://allthings.store",
-    siteName: BRAND.storeName,
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: BRAND.storeName,
+    title: `${BRAND.storeName} — ${BRAND.tagline}`,
+    description: `Discover premium electronics, fashion, home essentials, wellness products, and more at ${BRAND.storeName}. Curated quality, delivered worldwide.`,
+    images: [{ url: "/logo-icon.png", width: 512, height: 512, alt: BRAND.storeName }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${BRAND.storeName} — ${BRAND.tagline}`,
+    description: `Curated essentials in tech, fashion, home & wellness — delivered worldwide.`,
+    images: ["/logo-icon.png"],
+    creator: `@${BRAND.companyShort.replace(/\s+/g, "").toLowerCase()}`,
+  },
+  category: "marketplace",
+  classification: "E-commerce",
+  other: {
+    "og:locale:alternate": "en",
+  },
+};
+
+const jsonLdOrganization = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: BRAND.company,
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo-icon.png`,
+  description: `${BRAND.storeName} — ${BRAND.tagline}`,
+  email: BRAND.email,
+  founder: { "@type": "Person", name: BRAND.company },
+  sameAs: [
+    // Add social URLs here when available
+  ],
 };
 
 export default function RootLayout({
@@ -54,6 +102,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${dmSans.variable} ${instrumentSerif.variable}`}>
       <body className="min-h-screen font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganization) }}
+        />
         <CurrencyProvider>
         <OnboardingProvider>
         <CartProvider>
