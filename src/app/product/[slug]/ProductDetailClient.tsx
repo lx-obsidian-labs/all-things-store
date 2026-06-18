@@ -7,6 +7,7 @@ import {
   Minus,
   Package,
   Plus,
+  RefreshCw,
   Star,
   Shield,
   Truck,
@@ -282,7 +283,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
 
           {/* Price */}
           <div className="mb-8 flex items-baseline gap-3">
-            <span className="text-3xl font-bold text-white">
+            <span className={`text-4xl font-bold ${product.compareAtPrice ? "text-red-400" : "text-white"}`}>
               {fmt(product.price)}
             </span>
             {product.compareAtPrice && (
@@ -291,8 +292,8 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
                   {fmt(product.compareAtPrice)}
                 </span>
                 {discount && discount > 0 && (
-                  <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-sm font-semibold text-emerald-400">
-                    Save {discount}%
+                  <span className="rounded-full bg-red-500/15 px-3 py-0.5 text-sm font-semibold text-red-400">
+                    -{discount}%
                   </span>
                 )}
               </>
@@ -394,22 +395,22 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
           )}
 
           {/* Trust Badges — right next to CTA */}
-          <div className="mb-6 grid grid-cols-2 gap-3 rounded-xl border border-white/5 bg-white/[0.02] p-4">
-            <div className="flex items-center gap-2 text-xs text-obsidian-400">
-              <Shield className="h-4 w-4 shrink-0 text-accent-light" />
+          <div className="mb-6 grid grid-cols-2 gap-2">
+            <div className="flex items-center gap-2 rounded-xl border border-emerald-500/15 bg-emerald-500/5 px-4 py-3 text-xs text-emerald-300">
+              <RefreshCw className="h-4 w-4 shrink-0" />
               <span>30-day returns</span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-obsidian-400">
-              <Package className="h-4 w-4 shrink-0 text-accent-light" />
-              <span>CJ Dropshipping</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs text-obsidian-400">
-              <Shield className="h-4 w-4 shrink-0 text-emerald-400" />
+            <div className="flex items-center gap-2 rounded-xl border border-accent/15 bg-accent/5 px-4 py-3 text-xs text-accent-light">
+              <Shield className="h-4 w-4 shrink-0" />
               <span>Secure checkout</span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-obsidian-400">
-              <Truck className="h-4 w-4 shrink-0 text-accent-light" />
-              <span>Global shipping</span>
+            <div className="flex items-center gap-2 rounded-xl border border-accent/15 bg-accent/5 px-4 py-3 text-xs text-accent-light">
+              <Truck className="h-4 w-4 shrink-0" />
+              <span>Free shipping $50+</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3 text-xs text-obsidian-400">
+              <Package className="h-4 w-4 shrink-0" />
+              <span>Fulfilled by CJ</span>
             </div>
           </div>
 

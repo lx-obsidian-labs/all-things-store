@@ -21,7 +21,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    return NextResponse.json({ success: true, data: result });
+    return NextResponse.json({
+      success: true,
+      data: {
+        cjOrderId: result.cjOrderId,
+        cjOrderNumber: result.cjOrderNumber,
+        orderStatus: result.orderStatus,
+        actualPayment: result.actualPayment,
+        usedBalancePayment: result.usedBalancePayment,
+        cjPayUrl: result.cjPayUrl,
+        message: result.message,
+      },
+    });
   } catch (err: any) {
     return NextResponse.json(
       { success: false, message: err.message },

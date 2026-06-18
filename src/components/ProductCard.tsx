@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingBag, Star } from "lucide-react";
+import { Check, ShoppingBag, Star } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { getDiscountPercent } from "@/lib/products";
 import { getSubcategoryLabel } from "@/lib/subcategories";
@@ -25,12 +26,15 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const isBestseller = product.tags.includes("bestseller");
   const isTrending = product.tags.includes("trending");
   const rating = product.rating ?? 0;
+  const [quickAdded, setQuickAdded] = useState(false);
 
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addItem(product);
+    setQuickAdded(true);
     addToast(`${product.name} added to cart`, "success");
+    setTimeout(() => setQuickAdded(false), 1500);
   };
 
   return (
@@ -51,7 +55,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian-950/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
 
         {discount > 0 && (
-          <span className="absolute left-3 top-3 animate-pulse rounded-full bg-emerald-500/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider shadow-lg">
+          <span className="absolute left-3 top-3 rounded-full bg-red-500/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider shadow-lg shadow-red-500/20">
             -{discount}%
           </span>
         )}
@@ -86,10 +90,18 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         <button
           type="button"
           onClick={handleQuickAdd}
-          className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-accent text-white opacity-0 shadow-lg shadow-accent/30 transition-all duration-300 hover:bg-accent-light hover:scale-110 active:scale-95 group-hover:opacity-100"
+          className={`absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full text-white shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 ${
+            quickAdded
+              ? "bg-emerald-500 opacity-100 shadow-emerald-500/30"
+              : "bg-accent opacity-0 shadow-accent/30 group-hover:opacity-100 hover:bg-accent-light"
+          }`}
           aria-label="Quick add to cart"
         >
-          <ShoppingBag className="h-4 w-4" />
+          {quickAdded ? (
+            <Check className="h-4 w-4 animate-bounce-in" />
+          ) : (
+            <ShoppingBag className="h-4 w-4" />
+          )}
         </button>
       </div>
 
@@ -127,7 +139,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         )}
 
         <div className="flex items-baseline gap-2">
-          <span className="text-lg font-bold text-white">
+          <span className={`text-lg font-bold ${product.compareAtPrice ? "text-red-400" : "text-white"}`}>
             {fmt(product.price)}
           </span>
           {product.compareAtPrice && (

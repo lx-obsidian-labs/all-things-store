@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Minus, Plus, ShoppingBag, Tag, Trash2, ArrowRight } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Tag, Trash2, ArrowRight, Truck, Shield } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useCurrency } from "@/context/CurrencyContext";
@@ -137,6 +137,49 @@ export default function CartPage() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Shipping Progress Bar */}
+        {subtotal > 0 && subtotal < 50 && (
+          <div className="glass-card p-5">
+            <div className="mb-2 flex items-center justify-between text-sm">
+              <span className="text-obsidian-400">Free shipping</span>
+              <span className="text-obsidian-500">
+                {fmt(50 - subtotal)} away
+              </span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-obsidian-800">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-accent to-accent-light transition-all duration-500"
+                style={{ width: `${Math.min(100, (subtotal / 50) * 100)}%` }}
+              />
+            </div>
+            <p className="mt-2 text-xs text-obsidian-500">
+              Add {fmt(50 - subtotal)} more for free shipping
+            </p>
+          </div>
+        )}
+        {subtotal >= 50 && (
+          <div className="glass-card flex items-center gap-3 p-5">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/15">
+              <Truck className="h-5 w-5 text-emerald-400" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-emerald-400">You qualify for free shipping!</p>
+              <p className="text-xs text-obsidian-500">Delivery in 10-15 business days</p>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 gap-3">
+          <div className="flex items-center gap-2 rounded-xl border border-accent/10 bg-accent/5 px-4 py-3 text-xs text-accent-light">
+            <Shield className="h-3.5 w-3.5 shrink-0" />
+            <span>Secure checkout</span>
+          </div>
+          <div className="flex items-center gap-2 rounded-xl border border-emerald-500/10 bg-emerald-500/5 px-4 py-3 text-xs text-emerald-300">
+            <Truck className="h-3.5 w-3.5 shrink-0" />
+            <span>30-day returns</span>
+          </div>
         </div>
 
         <div className="lg:col-span-1">

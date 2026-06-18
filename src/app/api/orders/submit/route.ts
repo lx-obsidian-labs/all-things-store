@@ -70,6 +70,7 @@ export async function POST(req: NextRequest) {
         postageAmount: result.postageAmount,
         orderStatus: result.orderStatus,
         usedBalancePayment: result.usedBalancePayment,
+        cjPayUrl: result.cjPayUrl,
         message: result.message,
       },
     });

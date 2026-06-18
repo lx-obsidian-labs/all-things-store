@@ -584,6 +584,34 @@ export async function retryCJOrderPayment(
     const result = await res.json();
 
     if (!result.success && result.code !== 200) {
+      // Fallback: try payType=3 to at least get the pay URL
+      const fallbackRes = await fetch(
+        `${CJ_BASE}/shopping/order/createOrderV2`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "CJ-Access-Token": token,
+          },
+          body: JSON.stringify({
+            orderNumber,
+            payType: 3,
+            isSandbox: 0,
+          }),
+        }
+      );
+      const fallback = await fallbackRes.json();
+      if (fallback.success || fallback.code === 200) {
+        return {
+          success: true,
+          cjOrderId: fallback.data?.orderId,
+          orderStatus: fallback.data?.orderStatus,
+          actualPayment: fallback.data?.actualPayment,
+          cjPayUrl: fallback.data?.cjPayUrl,
+          usedBalancePayment: false,
+          message: `Balance payment failed (${result.message}). Pay via the CJ link to fulfill.`,
+        };
+      }
       return {
         success: false,
         message: result.message || "Payment retry failed",
