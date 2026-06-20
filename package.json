@@ -7,10 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cj-sync": "node scripts/sync-cj-prices.mjs"
+    "cj-sync": "node scripts/sync-cj-prices.mjs",
+    "cj-resolve": "node --env-file=.env.local scripts/resolve-cj-vids.mjs",
+    "cj-webhooks": "node --env-file=.env.local scripts/register-cj-webhooks.mjs"
   },
   "dependencies": {
     "@paypal/react-paypal-js": "^10.0.0",
+    "@upstash/qstash": "^2.11.1",
     "lucide-react": "^0.468.0",
     "next": "^15.1.0",
     "react": "^19.0.0",

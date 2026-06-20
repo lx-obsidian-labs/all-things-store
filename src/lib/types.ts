@@ -53,6 +53,10 @@ export interface Product {
     shippingFee?: number;
     processingTime?: string;
     notes?: string;
+    /** CJ "vid" — variant ID required for order creation */
+    cjVariantId?: string;
+    /** CJ "pid" — product ID needed for addToMyProduct */
+    cjProductId?: string;
   };
 }
 

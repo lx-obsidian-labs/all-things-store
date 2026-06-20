@@ -24,6 +24,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2056621",
+      cjVariantId: "2406090651331618200",
+      cjProductId: "2406090651331618000",
       costPrice: 8.39,
       shippingDays: "5-10",
       shippingFee: 3.36,
@@ -53,6 +55,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2057107",
+      cjVariantId: "2406100635481612400",
+      cjProductId: "2406100635481612200",
       costPrice: 8.39,
       shippingDays: "5-10",
       shippingFee: 3.36,
@@ -82,6 +86,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2058726",
+      cjVariantId: "2406120719391627600",
+      cjProductId: "2406120719391627400",
       costPrice: 6.86,
       shippingDays: "5-10",
       shippingFee: 2.74,
@@ -111,6 +117,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2271504",
+      cjVariantId: "2501150834271620800",
+      cjProductId: "2501150834271620600",
       costPrice: 6.14,
       shippingDays: "5-10",
       shippingFee: 2.46,
@@ -140,6 +148,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2057231",
+      cjVariantId: "2406100805001604800",
+      cjProductId: "2406100805001604600",
       costPrice: 6.72,
       shippingDays: "5-10",
       shippingFee: 2.69,
@@ -169,6 +179,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2061245",
+      cjVariantId: "2406150921401622900",
+      cjProductId: "2406150921401622700",
       costPrice: 5.8,
       shippingDays: "5-10",
       shippingFee: 2.32,
@@ -198,6 +210,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2423403",
+      cjVariantId: "2507070411191615300",
+      cjProductId: "2507070411191615000",
       costPrice: 3.02,
       shippingDays: "5-10",
       shippingFee: 1.21,
@@ -227,6 +241,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYH2423703",
+      cjVariantId: "2507070806461623300",
+      cjProductId: "2507070806461623000",
       costPrice: 7.63,
       shippingDays: "5-10",
       shippingFee: 3.05,
@@ -256,6 +272,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJQB1777616",
+      cjVariantId: "1668473005842255872",
+      cjProductId: "1668473005812895744",
       costPrice: 5.25,
       shippingDays: "5-10",
       shippingFee: 2.1,
@@ -285,6 +303,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLS1489631",
+      cjVariantId: "1529278625911156736",
+      cjProductId: "1529278625743384576",
       costPrice: 11.26,
       shippingDays: "5-10",
       shippingFee: 4.5,
@@ -314,6 +334,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJQB1462744",
+      cjVariantId: "1514432711698690048",
+      cjProductId: "1514432711480586240",
       costPrice: 3.5,
       shippingDays: "5-10",
       shippingFee: 1.4,
@@ -343,6 +365,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLS2837007",
+      cjVariantId: "2604160307091600900",
+      cjProductId: "2604160307091600100",
       costPrice: 7.63,
       shippingDays: "5-10",
       shippingFee: 3.05,
@@ -372,6 +396,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJCS2830148",
+      cjVariantId: "2604130321231621700",
+      cjProductId: "2604130321231621100",
       costPrice: 3.69,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -401,6 +427,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJCS2146577",
+      cjVariantId: "2409250257181610700",
+      cjProductId: "2409250257181610400",
       costPrice: 2.46,
       shippingDays: "5-10",
       shippingFee: 0.98,
@@ -430,6 +458,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2253034",
+      cjVariantId: "2412250600161629600",
+      cjProductId: "2412250600161628900",
       costPrice: 0.84,
       shippingDays: "5-10",
       shippingFee: 0.34,
@@ -459,6 +489,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJJCWYC00189",
+      cjVariantId: "A77BB34F-BBAE-4504-9BBD-BD431778E5E7",
+      cjProductId: "1570CBD6-B45C-46C4-A355-31E50A8ED9C3",
       costPrice: 4.2,
       shippingDays: "5-10",
       shippingFee: 1.68,
@@ -488,6 +520,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJPK2154341",
+      cjVariantId: "2410080523341607300",
+      cjProductId: "2410080523341607000",
       costPrice: 9.29,
       shippingDays: "5-10",
       shippingFee: 3.72,
@@ -517,6 +551,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXZ2200451",
+      cjVariantId: "2411190639271625000",
+      cjProductId: "2411190639271624800",
       costPrice: 8.94,
       shippingDays: "5-10",
       shippingFee: 3.58,
@@ -546,6 +582,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXX2181953",
+      cjVariantId: "2411050226091619600",
+      cjProductId: "2411050226091619200",
       costPrice: 2.99,
       shippingDays: "5-10",
       shippingFee: 1.2,
@@ -575,6 +613,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXZ2051950",
+      cjVariantId: "1797180455993749504",
+      cjProductId: "1797180455914057728",
       costPrice: 10.36,
       shippingDays: "5-10",
       shippingFee: 4.14,
@@ -604,6 +644,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJPK1897116",
+      cjVariantId: "1724636312000540672",
+      cjProductId: "1724636311891488768",
       costPrice: 13.27,
       shippingDays: "5-10",
       shippingFee: 5.31,
@@ -633,6 +675,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJTZ2198159",
+      cjVariantId: "2411170331111613200",
+      cjProductId: "2411170331111613000",
       costPrice: 4.02,
       shippingDays: "5-10",
       shippingFee: 1.61,
@@ -662,6 +706,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1014575",
+      cjVariantId: "1362248855877455872",
+      cjProductId: "1362248854547861504",
       costPrice: 19.67,
       shippingDays: "5-10",
       shippingFee: 7.87,
@@ -691,6 +737,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJWZ1914109",
+      cjVariantId: "1732222258183557120",
+      cjProductId: "1732222258162585600",
       costPrice: 0.79,
       shippingDays: "5-10",
       shippingFee: 0.32,
@@ -720,6 +768,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJS1549256",
+      cjVariantId: "1562637702439784448",
+      cjProductId: "1562637702406230016",
       costPrice: 3.85,
       shippingDays: "5-10",
       shippingFee: 1.54,
@@ -749,6 +799,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDD1671398",
+      cjVariantId: "1619971278872924160",
+      cjProductId: "1619971278839369728",
       costPrice: 6.52,
       shippingDays: "5-10",
       shippingFee: 2.61,
@@ -778,6 +830,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDK1708829",
+      cjVariantId: "1636554088932855808",
+      cjProductId: "1636554088848969728",
       costPrice: 1.81,
       shippingDays: "5-10",
       shippingFee: 0.72,
@@ -807,6 +861,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1001247",
+      cjVariantId: "1355358352376467456",
+      cjProductId: "1355358352355495936",
       costPrice: 3.35,
       shippingDays: "5-10",
       shippingFee: 1.34,
@@ -836,6 +892,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLT1925077",
+      cjVariantId: "1737111578921029632",
+      cjProductId: "1737111578904252416",
       costPrice: 2.81,
       shippingDays: "5-10",
       shippingFee: 1.12,
@@ -865,6 +923,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDD1672516",
+      cjVariantId: "1620610803047485440",
+      cjProductId: "1620610802850353152",
       costPrice: 5.07,
       shippingDays: "5-10",
       shippingFee: 2.03,
@@ -894,6 +954,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDD1672430",
+      cjVariantId: "1620600424376455168",
+      cjProductId: "1620600424338706432",
       costPrice: 2.71,
       shippingDays: "5-10",
       shippingFee: 1.08,
@@ -923,6 +985,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDD1671472",
+      cjVariantId: "1619991419564216320",
+      cjProductId: "1619991419530661888",
       costPrice: 5.07,
       shippingDays: "5-10",
       shippingFee: 2.03,
@@ -952,6 +1016,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDK1751303",
+      cjVariantId: "1654664328681246720",
+      cjProductId: "1654664328383451136",
       costPrice: 4.71,
       shippingDays: "5-10",
       shippingFee: 1.88,
@@ -981,6 +1047,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2310654",
+      cjVariantId: "2502271852311618200",
+      cjProductId: "2502271852311618000",
       costPrice: 3.94,
       shippingDays: "5-10",
       shippingFee: 1.58,
@@ -1010,6 +1078,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXX2312320",
+      cjVariantId: "2503010255561616900",
+      cjProductId: "2503010255561616300",
       costPrice: 5.64,
       shippingDays: "5-10",
       shippingFee: 2.26,
@@ -1039,6 +1109,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2278091",
+      cjVariantId: "2501230624011604700",
+      cjProductId: "2501230624011604500",
       costPrice: 4.78,
       shippingDays: "5-10",
       shippingFee: 1.91,
@@ -1068,6 +1140,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2352402",
+      cjVariantId: "2504121038351601400",
+      cjProductId: "2504121038351601200",
       costPrice: 4.53,
       shippingDays: "5-10",
       shippingFee: 1.81,
@@ -1097,6 +1171,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXX2333096",
+      cjVariantId: "2503201450281606100",
+      cjProductId: "2503201450281605900",
       costPrice: 10.95,
       shippingDays: "5-10",
       shippingFee: 4.38,
@@ -1126,6 +1202,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXX2337751",
+      cjVariantId: "2503260841451603000",
+      cjProductId: "2503260841451602800",
       costPrice: 6.97,
       shippingDays: "5-10",
       shippingFee: 2.79,
@@ -1155,6 +1233,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2417395",
+      cjVariantId: "2507011209291624800",
+      cjProductId: "2507011209291624600",
       costPrice: 3.6,
       shippingDays: "5-10",
       shippingFee: 1.44,
@@ -1184,6 +1264,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLY1768751",
+      cjVariantId: "1664078179864563713",
+      cjProductId: "1664078179843592192",
       costPrice: 4.52,
       shippingDays: "5-10",
       shippingFee: 1.81,
@@ -1213,6 +1295,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLY2069655",
+      cjVariantId: "2406261501361619000",
+      cjProductId: "2406261501361618700",
       costPrice: 6.97,
       shippingDays: "5-10",
       shippingFee: 2.79,
@@ -1242,6 +1326,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLY1764987",
+      cjVariantId: "1661665327350435840",
+      cjProductId: "1661665327027474432",
       costPrice: 6.7,
       shippingDays: "5-10",
       shippingFee: 2.68,
@@ -1271,6 +1357,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLY2056755",
+      cjVariantId: "2406090851001617300",
+      cjProductId: "2406090851001616800",
       costPrice: 8.11,
       shippingDays: "5-10",
       shippingFee: 3.24,
@@ -1300,6 +1388,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLY2384579",
+      cjVariantId: "2505240553241605500",
+      cjProductId: "2505240553241604800",
       costPrice: 16.42,
       shippingDays: "5-10",
       shippingFee: 6.57,
@@ -1329,6 +1419,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJLY2400267",
+      cjVariantId: "2506120808141606000",
+      cjProductId: "2506120808141605600",
       costPrice: 7.96,
       shippingDays: "5-10",
       shippingFee: 3.18,
@@ -1358,6 +1450,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDS1986740",
+      cjVariantId: "1767407820938420224",
+      cjProductId: "1767407820850339840",
       costPrice: 7.32,
       shippingDays: "5-10",
       shippingFee: 2.93,
@@ -1387,6 +1481,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNSTXJH00215",
+      cjVariantId: "0E6F4E66-27C8-4B23-B0DE-AE9DC0292BB6",
+      cjProductId: "BF201840-1ECF-4655-A3AF-8244CAAD4E35",
       costPrice: 5.58,
       shippingDays: "5-10",
       shippingFee: 2.23,
@@ -1416,6 +1512,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDS2300273",
+      cjVariantId: "2502210805401614700",
+      cjProductId: "2502210805401614200",
       costPrice: 5.8,
       shippingDays: "5-10",
       shippingFee: 2.32,
@@ -1445,6 +1543,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDS2385363",
+      cjVariantId: "2505250900531609800",
+      cjProductId: "2505250900531609500",
       costPrice: 10.45,
       shippingDays: "5-10",
       shippingFee: 4.18,
@@ -1474,6 +1574,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDS2288038",
+      cjVariantId: "2502100925531621800",
+      cjProductId: "2502100925531621600",
       costPrice: 7.46,
       shippingDays: "5-10",
       shippingFee: 2.98,
@@ -1503,6 +1605,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDS2361358",
+      cjVariantId: "2504240404151619500",
+      cjProductId: "2504240404151619300",
       costPrice: 6.3,
       shippingDays: "5-10",
       shippingFee: 2.52,
@@ -1532,6 +1636,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDS2071379",
+      cjVariantId: "2406290415441605200",
+      cjProductId: "2406290415441605000",
       costPrice: 12.51,
       shippingDays: "5-10",
       shippingFee: 5,
@@ -1561,6 +1667,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJDS2300289",
+      cjVariantId: "2502210818061622500",
+      cjProductId: "2502210818061622300",
       costPrice: 4.7,
       shippingDays: "5-10",
       shippingFee: 1.88,
@@ -1590,6 +1698,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ1310650",
+      cjVariantId: "1445789825256001536",
+      cjProductId: "1445789825172115456",
       costPrice: 1.84,
       shippingDays: "5-10",
       shippingFee: 0.74,
@@ -1619,6 +1729,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ1159719",
+      cjVariantId: "1400737803645620224",
+      cjProductId: "1400737802169225216",
       costPrice: 1.77,
       shippingDays: "5-10",
       shippingFee: 0.71,
@@ -1648,6 +1760,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ2282339",
+      cjVariantId: "2502020238551616400",
+      cjProductId: "2502020238551616200",
       costPrice: 1.57,
       shippingDays: "5-10",
       shippingFee: 0.63,
@@ -1677,6 +1791,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ2056913",
+      cjVariantId: "2406100217541624900",
+      cjProductId: "2406100217541624700",
       costPrice: 1.66,
       shippingDays: "5-10",
       shippingFee: 0.66,
@@ -1706,6 +1822,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ2414430",
+      cjVariantId: "2506290550001621800",
+      cjProductId: "2506290550001621600",
       costPrice: 2.11,
       shippingDays: "5-10",
       shippingFee: 0.84,
@@ -1735,6 +1853,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ2828198",
+      cjVariantId: "2604110729191612100",
+      cjProductId: "2604110729191611700",
       costPrice: 2.37,
       shippingDays: "5-10",
       shippingFee: 0.95,
@@ -1764,6 +1884,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ1319094",
+      cjVariantId: "1448635526813978624",
+      cjProductId: "1448635526763646976",
       costPrice: 5.6,
       shippingDays: "5-10",
       shippingFee: 2.24,
@@ -1793,6 +1915,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBQ2301866",
+      cjVariantId: "2502220526111612300",
+      cjProductId: "2502220526111612100",
       costPrice: 2.99,
       shippingDays: "5-10",
       shippingFee: 1.2,
@@ -1822,6 +1946,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2222383",
+      cjVariantId: "2411240238511621000",
+      cjProductId: "2411240238511620800",
       costPrice: 2.46,
       shippingDays: "5-10",
       shippingFee: 0.98,
@@ -1851,6 +1977,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJWJNHNT00029",
+      cjVariantId: "0D6323EF-6873-459C-920A-6902C36D087B",
+      cjProductId: "305DB8CB-34A1-4E04-A84F-DA84A8AD32F5",
       costPrice: 2.02,
       shippingDays: "5-10",
       shippingFee: 0.81,
@@ -1880,6 +2008,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJWJ1328642",
+      cjVariantId: "1451881354219360256",
+      cjProductId: "1451847697836412928",
       costPrice: 1.8,
       shippingDays: "5-10",
       shippingFee: 0.72,
@@ -1909,6 +2039,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD1385977",
+      cjVariantId: "1473582372552314880",
+      cjProductId: "1473582372510371840",
       costPrice: 2.53,
       shippingDays: "5-10",
       shippingFee: 1.01,
@@ -1938,6 +2070,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1000279",
+      cjVariantId: "1354971767290073088",
+      cjProductId: "1354971767256518656",
       costPrice: 9.75,
       shippingDays: "5-10",
       shippingFee: 3.9,
@@ -1967,6 +2101,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2235974",
+      cjVariantId: "2412070355501627900",
+      cjProductId: "2412070355501627400",
       costPrice: 2.97,
       shippingDays: "5-10",
       shippingFee: 1.19,
@@ -1996,6 +2132,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2260600",
+      cjVariantId: "2501040229491625500",
+      cjProductId: "2501040229491625200",
       costPrice: 6.97,
       shippingDays: "5-10",
       shippingFee: 2.79,
@@ -2025,6 +2163,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXZ2194305",
+      cjVariantId: "2411140142491615500",
+      cjProductId: "2411140142491615300",
       costPrice: 16.25,
       shippingDays: "5-10",
       shippingFee: 6.5,
@@ -2054,6 +2194,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJXZ2375426",
+      cjVariantId: "2505130920451605900",
+      cjProductId: "2505130920451605100",
       costPrice: 14.59,
       shippingDays: "5-10",
       shippingFee: 5.84,
@@ -2083,6 +2225,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYR2173081",
+      cjVariantId: "1850434089913307136",
+      cjProductId: "1850434088285917184",
       costPrice: 12.31,
       shippingDays: "5-10",
       shippingFee: 4.92,
@@ -2112,6 +2256,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJWJNHNT03587",
+      cjVariantId: "0AF914D4-DB24-44B2-BBA2-71317CCB8A32",
+      cjProductId: "1E5B8BEE-FC51-4819-866D-BF92DAC9305E",
       costPrice: 5.65,
       shippingDays: "5-10",
       shippingFee: 2.26,
@@ -2141,6 +2287,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJK1346078",
+      cjVariantId: "1457599522439041024",
+      cjProductId: "1457599522405486592",
       costPrice: 10.45,
       shippingDays: "5-10",
       shippingFee: 4.18,
@@ -2170,6 +2318,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2141778",
+      cjVariantId: "2409190911561623500",
+      cjProductId: "2409190911561623300",
       costPrice: 11.59,
       shippingDays: "5-10",
       shippingFee: 4.64,
@@ -2199,6 +2349,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBHNSNS33669",
+      cjVariantId: "0A4C488D-250D-4302-94AB-AD3FE2C1A41A",
+      cjProductId: "5F0889A3-D9E8-4068-8DAC-F184B45233BA",
       costPrice: 6.33,
       shippingDays: "5-10",
       shippingFee: 2.53,
@@ -2228,6 +2380,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1077884",
+      cjVariantId: "1381869829211951104",
+      cjProductId: "1381869827844608000",
       costPrice: 4.56,
       shippingDays: "5-10",
       shippingFee: 1.82,
@@ -2257,6 +2411,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJQB1484411",
+      cjVariantId: "1526470902651826176",
+      cjProductId: "1526470902534385664",
       costPrice: 6.57,
       shippingDays: "5-10",
       shippingFee: 2.63,
@@ -2286,6 +2442,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1754371",
+      cjVariantId: "1655907814977581056",
+      cjProductId: "1655907814906277888",
       costPrice: 6.38,
       shippingDays: "5-10",
       shippingFee: 2.55,
@@ -2315,6 +2473,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2083452",
+      cjVariantId: "2407140558071623200",
+      cjProductId: "2407140558071622900",
       costPrice: 2.46,
       shippingDays: "5-10",
       shippingFee: 0.98,
@@ -2344,6 +2504,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1975671",
+      cjVariantId: "1761731475936268288",
+      cjProductId: "1761731475902713856",
       costPrice: 13.98,
       shippingDays: "5-10",
       shippingFee: 5.59,
@@ -2373,6 +2535,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBHNSNS17730",
+      cjVariantId: "B2A24036-F8BA-4E70-BCC1-31D994265025",
+      cjProductId: "C01CC9A8-D657-4D4E-8AC4-B5255DEA8168",
       costPrice: 4.14,
       shippingDays: "5-10",
       shippingFee: 1.66,
@@ -2402,6 +2566,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2290388",
+      cjVariantId: "2502130357161608900",
+      cjProductId: "2502130357161608600",
       costPrice: 7.79,
       shippingDays: "5-10",
       shippingFee: 3.12,
@@ -2431,6 +2597,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJPD1566102",
+      cjVariantId: "1571027248831016960",
+      cjProductId: "1571027248763908096",
       costPrice: 3.41,
       shippingDays: "5-10",
       shippingFee: 1.36,
@@ -2460,6 +2628,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD1015665",
+      cjVariantId: "1362659299343601664",
+      cjProductId: "1362659297955287040",
       costPrice: 6.97,
       shippingDays: "5-10",
       shippingFee: 2.79,
@@ -2489,6 +2659,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYM1265974",
+      cjVariantId: "1431137172169297920",
+      cjProductId: "1431137172089606144",
       costPrice: 6.55,
       shippingDays: "5-10",
       shippingFee: 2.62,
@@ -2518,6 +2690,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2139270",
+      cjVariantId: "2409170153061615700",
+      cjProductId: "2409170153061615500",
       costPrice: 0.76,
       shippingDays: "5-10",
       shippingFee: 0.3,
@@ -2547,6 +2721,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJZBNSLX00125",
+      cjVariantId: "2670A3DB-8DCB-42B7-AFE2-718B0CECD348",
+      cjProductId: "A9ECB7FA-55EC-4118-B1CE-23019758CD48",
       costPrice: 1.84,
       shippingDays: "5-10",
       shippingFee: 0.74,
@@ -2576,6 +2752,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSL1143227",
+      cjVariantId: "1397117855539007488",
+      cjProductId: "1397117854108749824",
       costPrice: 1.59,
       shippingDays: "5-10",
       shippingFee: 0.64,
@@ -2605,6 +2783,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJPD1055030",
+      cjVariantId: "1375007947255582720",
+      cjProductId: "1375007945837907968",
       costPrice: 3.47,
       shippingDays: "5-10",
       shippingFee: 1.39,
@@ -2634,6 +2814,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2002102",
+      cjVariantId: "1775391346799419392",
+      cjProductId: "1775391346728116224",
       costPrice: 3.62,
       shippingDays: "5-10",
       shippingFee: 1.45,
@@ -2663,6 +2845,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2165543",
+      cjVariantId: "2410200707281611800",
+      cjProductId: "2410200707281611400",
       costPrice: 1.91,
       shippingDays: "5-10",
       shippingFee: 0.76,
@@ -2692,6 +2876,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2070529",
+      cjVariantId: "2406280318171605200",
+      cjProductId: "2406280318171605000",
       costPrice: 6.11,
       shippingDays: "5-10",
       shippingFee: 2.44,
@@ -2721,6 +2907,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS2070382",
+      cjVariantId: "1806355089025028096",
+      cjProductId: "1806355089008250880",
       costPrice: 5.25,
       shippingDays: "5-10",
       shippingFee: 2.1,
@@ -2750,6 +2938,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1059953",
+      cjVariantId: "1376809761781190656",
+      cjProductId: "1376809760208326656",
       costPrice: 5.17,
       shippingDays: "5-10",
       shippingFee: 2.07,
@@ -2779,6 +2969,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2325321",
+      cjVariantId: "2503120911201622200",
+      cjProductId: "2503120911201622000",
       costPrice: 5.12,
       shippingDays: "5-10",
       shippingFee: 2.05,
@@ -2808,6 +3000,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1155348",
+      cjVariantId: "1399938805368229888",
+      cjProductId: "1399938803954749440",
       costPrice: 5.61,
       shippingDays: "5-10",
       shippingFee: 2.24,
@@ -2837,6 +3031,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2363820",
+      cjVariantId: "2504270730481623600",
+      cjProductId: "2504270730481623300",
       costPrice: 9.23,
       shippingDays: "5-10",
       shippingFee: 3.69,
@@ -2866,6 +3062,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1545804",
+      cjVariantId: "1560434452793806848",
+      cjProductId: "1560434452751863808",
       costPrice: 5.45,
       shippingDays: "5-10",
       shippingFee: 2.18,
@@ -2895,6 +3093,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1094827",
+      cjVariantId: "1385473030653874176",
+      cjProductId: "1385473029341057024",
       costPrice: 3.34,
       shippingDays: "5-10",
       shippingFee: 1.34,
@@ -2924,6 +3124,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS2777672",
+      cjVariantId: "2603060729161619000",
+      cjProductId: "2603060729161618600",
       costPrice: 6.44,
       shippingDays: "5-10",
       shippingFee: 2.58,
@@ -2953,6 +3155,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJPB2083839",
+      cjVariantId: "1812477563194200064",
+      cjProductId: "1812477563177422848",
       costPrice: 3.98,
       shippingDays: "5-10",
       shippingFee: 1.59,
@@ -2982,6 +3186,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJPB2083841",
+      cjVariantId: "1812478869728284672",
+      cjProductId: "1812478869711507456",
       costPrice: 5.43,
       shippingDays: "5-10",
       shippingFee: 2.17,
@@ -3011,6 +3217,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1920617",
+      cjVariantId: "1735132766083633152",
+      cjProductId: "1735132765890695168",
       costPrice: 3.62,
       shippingDays: "5-10",
       shippingFee: 1.45,
@@ -3040,6 +3248,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1953695",
+      cjVariantId: "1749064500051333120",
+      cjProductId: "1749064500030361600",
       costPrice: 6.7,
       shippingDays: "5-10",
       shippingFee: 2.68,
@@ -3069,6 +3279,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS2394911",
+      cjVariantId: "2506070239201605100",
+      cjProductId: "2506070239201604800",
       costPrice: 4.41,
       shippingDays: "5-10",
       shippingFee: 1.76,
@@ -3098,6 +3310,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ1671816",
+      cjVariantId: "1620296122763849728",
+      cjProductId: "1620296122671575040",
       costPrice: 1.89,
       shippingDays: "5-10",
       shippingFee: 0.76,
@@ -3127,6 +3341,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSM1058128",
+      cjVariantId: "1376382806141308928",
+      cjProductId: "1376364754565730304",
       costPrice: 0.5,
       shippingDays: "5-10",
       shippingFee: 0.2,
@@ -3156,6 +3372,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ1089459",
+      cjVariantId: "1384428338457743360",
+      cjProductId: "1384428337052651520",
       costPrice: 1.54,
       shippingDays: "5-10",
       shippingFee: 0.62,
@@ -3185,6 +3403,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2061299",
+      cjVariantId: "2406150959001620000",
+      cjProductId: "2406150958591629800",
       costPrice: 1.09,
       shippingDays: "5-10",
       shippingFee: 0.44,
@@ -3214,6 +3434,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ1077003",
+      cjVariantId: "1381792095987175424",
+      cjProductId: "1381792091964837888",
       costPrice: 3.75,
       shippingDays: "5-10",
       shippingFee: 1.5,
@@ -3243,6 +3465,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJSJSJ00921",
+      cjVariantId: "1393108318913957888",
+      cjProductId: "8A06779A-4C8B-4EDF-8C4E-953EC8326475",
       costPrice: 3.59,
       shippingDays: "5-10",
       shippingFee: 1.44,
@@ -3272,6 +3496,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYP1268676",
+      cjVariantId: "1431919352508190720",
+      cjProductId: "1431919352474636288",
       costPrice: 0.55,
       shippingDays: "5-10",
       shippingFee: 0.22,
@@ -3301,6 +3527,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2285535",
+      cjVariantId: "2502070720551612800",
+      cjProductId: "2502070720551612200",
       costPrice: 0.66,
       shippingDays: "5-10",
       shippingFee: 0.26,
@@ -3330,6 +3558,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJBHIP00866",
+      cjVariantId: "0731340A-9733-426E-B5B5-5BB2C6FF3F4E",
+      cjProductId: "332FDDFD-20C3-42D6-B713-3A98E88A9DE9",
       costPrice: 0.56,
       shippingDays: "5-10",
       shippingFee: 0.22,
@@ -3359,6 +3589,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJBHIP01373",
+      cjVariantId: "05B8E197-9C9D-46D3-A148-09C6901B265A",
+      cjProductId: "176071A6-E328-466F-A42B-316589012A38",
       costPrice: 1.94,
       shippingDays: "5-10",
       shippingFee: 0.78,
@@ -3388,6 +3620,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJYDSJ00122",
+      cjVariantId: "021753C0-A3F2-4E54-A437-8AAC818825DD",
+      cjProductId: "62737D31-6C6A-4ADF-86E0-1C10B1E3B626",
       costPrice: 0.69,
       shippingDays: "5-10",
       shippingFee: 0.28,
@@ -3417,6 +3651,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJGJ1208466",
+      cjVariantId: "1413800992142659584",
+      cjProductId: "1413800990699819008",
       costPrice: 0.5,
       shippingDays: "5-10",
       shippingFee: 0.2,
@@ -3446,6 +3682,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJPG1673875",
+      cjVariantId: "1620990894017097728",
+      cjProductId: "1620990893949988864",
       costPrice: 0.6,
       shippingDays: "5-10",
       shippingFee: 0.24,
@@ -3475,6 +3713,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJIP1609963",
+      cjVariantId: "1590919276284882944",
+      cjProductId: "1590919276209385472",
       costPrice: 1.62,
       shippingDays: "5-10",
       shippingFee: 0.65,
@@ -3504,6 +3744,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJBHGA00163",
+      cjVariantId: "010E6049-2445-4E32-AC7D-5690CB88C8B5",
+      cjProductId: "B273110F-A2CF-4CB7-9B43-C003EC8B6700",
       costPrice: 0.76,
       shippingDays: "5-10",
       shippingFee: 0.3,
@@ -3533,6 +3775,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT2308036",
+      cjVariantId: "2502260411351625200",
+      cjProductId: "2502260411351625000",
       costPrice: 0.96,
       shippingDays: "5-10",
       shippingFee: 0.38,
@@ -3562,6 +3806,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2052886",
+      cjVariantId: "1797829441545056256",
+      cjProductId: "1797829441461170176",
       costPrice: 1.16,
       shippingDays: "5-10",
       shippingFee: 0.46,
@@ -3591,6 +3837,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJGY1038962",
+      cjVariantId: "1369963204603678720",
+      cjProductId: "1369963203186003968",
       costPrice: 1.28,
       shippingDays: "5-10",
       shippingFee: 0.51,
@@ -3620,6 +3868,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJQCQCQC00022",
+      cjVariantId: "1586638691928387584",
+      cjProductId: "F90C9C0E-860F-40B4-9C9D-0A7BF62BCC33",
       costPrice: 0.26,
       shippingDays: "5-10",
       shippingFee: 0.1,
@@ -3649,6 +3899,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT2201904",
+      cjVariantId: "2411200818231604200",
+      cjProductId: "2411200818231604000",
       costPrice: 9.45,
       shippingDays: "5-10",
       shippingFee: 3.78,
@@ -3678,6 +3930,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNB1091438",
+      cjVariantId: "1384779989597163520",
+      cjProductId: "1384779988124962816",
       costPrice: 0.76,
       shippingDays: "5-10",
       shippingFee: 0.3,
@@ -3707,6 +3961,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJQCNBQC00214",
+      cjVariantId: "CBFECFB0-16D0-4FB1-8B54-BBECF9CD5F08",
+      cjProductId: "547A7D35-B68E-4A32-9A82-0B99965C4D28",
       costPrice: 12.78,
       shippingDays: "5-10",
       shippingFee: 5.11,
@@ -3736,6 +3992,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBJ1160318",
+      cjVariantId: "1401368236724981760",
+      cjProductId: "1401042356643434496",
       costPrice: 4.19,
       shippingDays: "5-10",
       shippingFee: 1.68,
@@ -3765,6 +4023,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBJ2154086",
+      cjVariantId: "1843313495551922176",
+      cjProductId: "1843313494406877184",
       costPrice: 13.78,
       shippingDays: "5-10",
       shippingFee: 5.51,
@@ -3794,6 +4054,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBJ1066134",
+      cjVariantId: "1378900959111024640",
+      cjProductId: "1378900957542354944",
       costPrice: 2.81,
       shippingDays: "5-10",
       shippingFee: 1.12,
@@ -3823,6 +4085,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJSPBBJ00180",
+      cjVariantId: "0361B94F-DF5F-49F6-ABAD-B58158300A09",
+      cjProductId: "ECD01A6A-97B6-47E3-A499-642807E2C81F",
       costPrice: 5.44,
       shippingDays: "5-10",
       shippingFee: 2.18,
@@ -3852,6 +4116,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2250370",
+      cjVariantId: "2412211010521607000",
+      cjProductId: "2412211010521606800",
       costPrice: 4.02,
       shippingDays: "5-10",
       shippingFee: 1.61,
@@ -3881,6 +4147,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2299863",
+      cjVariantId: "2502210309191629800",
+      cjProductId: "2502210309191629601",
       costPrice: 3.68,
       shippingDays: "5-10",
       shippingFee: 1.47,
@@ -3910,6 +4178,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJSPBBJ00042",
+      cjVariantId: "0D144A2E-ADFC-4981-BE85-1CCA8A657368",
+      cjProductId: "A82FF2F9-73D0-4C03-8ADE-37954D9F9945",
       costPrice: 4.85,
       shippingDays: "5-10",
       shippingFee: 1.94,
@@ -3939,6 +4209,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJSPBBJ00176",
+      cjVariantId: "00E49868-D465-4C71-AAF0-9C451652F486",
+      cjProductId: "11585159-7A5C-46B0-AAC3-61E7C978E7A3",
       costPrice: 5.24,
       shippingDays: "5-10",
       shippingFee: 2.1,
@@ -3968,6 +4240,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1062243",
+      cjVariantId: "1377830293003702272",
+      cjProductId: "1377522867369021440",
       costPrice: 10.58,
       shippingDays: "5-10",
       shippingFee: 4.23,
@@ -3997,6 +4271,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT1422635",
+      cjVariantId: "1496403300495527936",
+      cjProductId: "1496403300390670336",
       costPrice: 4.11,
       shippingDays: "5-10",
       shippingFee: 1.64,
@@ -4026,6 +4302,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSM1849178",
+      cjVariantId: "1703055389639987200",
+      cjProductId: "1703055389602238464",
       costPrice: 11.98,
       shippingDays: "5-10",
       shippingFee: 4.79,
@@ -4055,6 +4333,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJGJ1734054",
+      cjVariantId: "1646726512303296512",
+      cjProductId: "1646726512265547776",
       costPrice: 11.94,
       shippingDays: "5-10",
       shippingFee: 4.78,
@@ -4084,6 +4364,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJSJSJ01018",
+      cjVariantId: "5650E9FC-27FA-457B-ACD2-A41208DCDAB5",
+      cjProductId: "166757A7-7890-4603-B39A-1FB23936757F",
       costPrice: 0.64,
       shippingDays: "5-10",
       shippingFee: 0.26,
@@ -4113,6 +4395,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2087178",
+      cjVariantId: "2407180832421610400",
+      cjProductId: "2407180832421610200",
       costPrice: 3.94,
       shippingDays: "5-10",
       shippingFee: 1.58,
@@ -4142,6 +4426,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJIP1299000",
+      cjVariantId: "1441656615987187712",
+      cjProductId: "1441656615907495936",
       costPrice: 1.75,
       shippingDays: "5-10",
       shippingFee: 0.7,
@@ -4171,6 +4457,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJGJ1570424",
+      cjVariantId: "1573132434798030848",
+      cjProductId: "1573132434739310592",
       costPrice: 1.55,
       shippingDays: "5-10",
       shippingFee: 0.62,
@@ -4200,6 +4488,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJSJSJ02737",
+      cjVariantId: "095126FF-FE54-4291-A4A5-648448FFB912",
+      cjProductId: "7C59DE5B-A511-4920-88A8-C808B21476EE",
       costPrice: 13.78,
       shippingDays: "5-10",
       shippingFee: 5.51,
@@ -4229,6 +4519,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJM1856349",
+      cjVariantId: "1706528463076724736",
+      cjProductId: "1706528462997032960",
       costPrice: 0.29,
       shippingDays: "5-10",
       shippingFee: 0.12,
@@ -4258,6 +4550,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ1921386",
+      cjVariantId: "1735490206708539392",
+      cjProductId: "1735490206582710272",
       costPrice: 1.74,
       shippingDays: "5-10",
       shippingFee: 0.7,
@@ -4287,6 +4581,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJGE1088062",
+      cjVariantId: "1384319185345187840",
+      cjProductId: "1384319183994621952",
       costPrice: 4.04,
       shippingDays: "5-10",
       shippingFee: 1.62,
@@ -4316,6 +4612,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYDYYST00041",
+      cjVariantId: "3A3F5BF7-3346-4DDF-99E8-58D9B2AD66BB",
+      cjProductId: "CEB94446-C8B5-44B8-963A-EC9CFDFC1364",
       costPrice: 4.82,
       shippingDays: "5-10",
       shippingFee: 1.93,
@@ -4345,6 +4643,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJST1210999",
+      cjVariantId: "1414472608048615424",
+      cjProductId: "1414472606639329280",
       costPrice: 15.01,
       shippingDays: "5-10",
       shippingFee: 6,
@@ -4374,6 +4674,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJST1573919",
+      cjVariantId: "1574748037132595200",
+      cjProductId: "1574748037048709120",
       costPrice: 5.64,
       shippingDays: "5-10",
       shippingFee: 2.26,
@@ -4403,6 +4705,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNT1905909",
+      cjVariantId: "1728324766525825024",
+      cjProductId: "1728324766412578816",
       costPrice: 3.24,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -4432,6 +4736,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYDYYST00046",
+      cjVariantId: "1ECF5C91-0A4B-4D78-ACBA-DFC5C987CA49",
+      cjProductId: "1A51B612-F988-4303-88AB-33F23D973DB2",
       costPrice: 3.15,
       shippingDays: "5-10",
       shippingFee: 1.26,
@@ -4461,6 +4767,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYDYYST00059",
+      cjVariantId: "45AB2A2D-11CB-4BE1-B98D-3EE9E0165FCD",
+      cjProductId: "72FE65AB-5652-49A0-9B5C-A8535089A3F4",
       costPrice: 2.64,
       shippingDays: "5-10",
       shippingFee: 1.06,
@@ -4490,6 +4798,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD1906167",
+      cjVariantId: "1728573487578615808",
+      cjProductId: "1728573487503118336",
       costPrice: 3.44,
       shippingDays: "5-10",
       shippingFee: 1.38,
@@ -4519,6 +4829,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYDYYST00098",
+      cjVariantId: "41A2342D-752E-41A0-BD64-8A3640D69B2E",
+      cjProductId: "38396C3B-40FA-4EE3-9FE2-60FE32A2DE24",
       costPrice: 4.4,
       shippingDays: "5-10",
       shippingFee: 1.76,
@@ -4548,6 +4860,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ1049925",
+      cjVariantId: "1373564077858754560",
+      cjProductId: "1373564076407525376",
       costPrice: 1.32,
       shippingDays: "5-10",
       shippingFee: 0.53,
@@ -4577,6 +4891,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT2257283",
+      cjVariantId: "2412300955041612400",
+      cjProductId: "2412300955041612200",
       costPrice: 3.18,
       shippingDays: "5-10",
       shippingFee: 1.27,
@@ -4606,6 +4922,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT1229164",
+      cjVariantId: "1419918806616248320",
+      cjProductId: "1419918805240516608",
       costPrice: 1.29,
       shippingDays: "5-10",
       shippingFee: 0.52,
@@ -4635,6 +4953,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJQB1155041",
+      cjVariantId: "1399910247233097728",
+      cjProductId: "1399910245874143232",
       costPrice: 1.49,
       shippingDays: "5-10",
       shippingFee: 0.6,
@@ -4664,6 +4984,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSY1123423",
+      cjVariantId: "1392029097827373056",
+      cjProductId: "1392029096455835648",
       costPrice: 3.45,
       shippingDays: "5-10",
       shippingFee: 1.38,
@@ -4693,6 +5015,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD1946366",
+      cjVariantId: "1745710303477768192",
+      cjProductId: "1745710303368716288",
       costPrice: 2.5,
       shippingDays: "5-10",
       shippingFee: 1,
@@ -4722,6 +5046,8 @@ export const clothingGadgetProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT1116056",
+      cjVariantId: "1390510912393318400",
+      cjProductId: "1390510911118249984",
       costPrice: 0.67,
       shippingDays: "5-10",
       shippingFee: 0.27,

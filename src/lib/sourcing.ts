@@ -57,7 +57,7 @@ interface CJToken {
 
 let cachedToken: CJToken | null = null;
 
-async function getCJToken(): Promise<string> {
+export async function getCJToken(): Promise<string> {
   if (cachedToken && new Date(cachedToken.accessTokenExpiryDate) > new Date()) {
     return cachedToken.accessToken;
   }
@@ -154,6 +154,7 @@ export interface CreateCJOrderParams {
   logisticName: string;
   products: CJOrderProduct[];
   isSandbox?: boolean;
+  storeName?: string;
 }
 
 export interface CJOrderResult {
@@ -241,6 +242,8 @@ export async function createCJOrder(
       await new Promise((r) => setTimeout(r, 1100));
     }
 
+    const storeName = params.storeName || process.env.CJ_STORE_NAME || "All Things Store";
+
     const baseBody: Record<string, any> = {
       orderNumber: params.orderNumber,
       shippingCountryCode: countryCode,
@@ -257,6 +260,7 @@ export async function createCJOrder(
       logisticName: params.logisticName,
       fromCountryCode: "CN",
       platform: "api",
+      storeName,
       orderFlow: 1,
       isSandbox: params.isSandbox ? 1 : 0,
       products: resolvedProducts,
@@ -627,6 +631,129 @@ export async function retryCJOrderPayment(
     };
   } catch (err: any) {
     return { success: false, message: err.message };
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  CJ Webhook Payload Types                                           */
+/* ------------------------------------------------------------------ */
+
+export interface CJWebhookPayload {
+  event: string;
+  messageId?: string;
+  messageType?: string;
+  orderId?: string;
+  orderNumber?: string;
+  orderStatus?: string;
+  trackingNumber?: string;
+  trackingUrl?: string;
+  logisticName?: string;
+  trackingStatus?: number;
+  productId?: string;
+  variantId?: string;
+  sku?: string;
+  inventory?: number;
+  timestamp?: string;
+  raw?: Record<string, any>;
+}
+
+export function parseCJWebhookEvent(body: Record<string, any>): CJWebhookPayload {
+  // Handle CJ's actual webhook format:
+  // { messageId, type, messageType, params: { ... } }
+  const eventType = body.type || body.event || "unknown";
+  const messageType = body.messageType || "UPDATE";
+  const params = body.params || body.data || body;
+  const messageId = body.messageId;
+
+  // Extract fields from params based on event type
+  let orderId: string | undefined;
+  let orderNumber: string | undefined;
+  let orderStatus: string | undefined;
+  let trackingNumber: string | undefined;
+  let trackingUrl: string | undefined;
+  let logisticName: string | undefined;
+  let variantId: string | undefined;
+  let inventory: number | undefined;
+
+  if (eventType === "ORDER" || eventType === "order") {
+    orderId = params.cjOrderId || params.orderId;
+    orderNumber = params.orderNumber;
+    orderStatus = params.orderStatus;
+    logisticName = params.logisticName;
+    trackingNumber = params.trackNumber || params.trackingNumber;
+    trackingUrl = params.trackingUrl;
+    
+    // Extract variantId from first order item
+    if (params.orderItems?.length > 0) {
+      variantId = params.orderItems[0].vid;
+    }
+  } else if (eventType === "LOGISTIC" || eventType === "logistics") {
+    orderId = params.orderId?.toString();
+    logisticName = params.logisticName;
+    trackingNumber = params.trackingNumber;
+    const trackingStatus = params.trackingStatus;
+    
+    // Parse logisticsTrackEvents if available
+    if (params.logisticsTrackEvents) {
+      try {
+        const events = typeof params.logisticsTrackEvents === "string" 
+          ? JSON.parse(params.logisticsTrackEvents) 
+          : params.logisticsTrackEvents;
+        if (events.length > 0) {
+          trackingUrl = events[0].thirdActivity || events[0].activity;
+        }
+      } catch {}
+    }
+  } else if (eventType === "STOCK" || eventType === "stock") {
+    variantId = params.vid;
+    inventory = params.stock ?? params.warehouseInventoryNum;
+    orderId = params.pid?.toString();
+  } else if (eventType === "PRODUCT" || eventType === "VARIANT") {
+    variantId = params.vid || params.variantId;
+    orderId = params.pid || params.productId;
+  }
+
+  return {
+    event: eventType,
+    messageId,
+    messageType,
+    orderId,
+    orderNumber,
+    orderStatus,
+    trackingNumber,
+    trackingUrl,
+    logisticName,
+    trackingStatus,
+    productId: orderId,
+    variantId,
+    sku: params.sku,
+    inventory,
+    timestamp: params.updateDate || params.createDate || new Date().toISOString(),
+    raw: body,
+  };
+}
+
+export function verifyCJWebhookSignature(
+  payload: string,
+  signature: string | null,
+  secret: string
+): boolean {
+  if (!secret) return true; // no secret configured — skip verification
+  if (!signature) return false;
+  // CJ uses HMAC-SHA256 for webhook signatures
+  // We use a simple constant-time comparison for now
+  try {
+    const crypto = require("crypto");
+    const expected = crypto
+      .createHmac("sha256", secret)
+      .update(payload)
+      .digest("hex");
+    return crypto.timingSafeEqual(
+      Buffer.from(signature),
+      Buffer.from(expected)
+    );
+  } catch {
+    return false;
   }
 }
 

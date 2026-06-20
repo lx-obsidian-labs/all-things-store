@@ -52,6 +52,10 @@ interface OrderData {
   cjPayUrl?: string | null;
   cjError?: string | null;
   usedBalancePayment?: boolean;
+  cjTrackingNumber?: string | null;
+  cjTrackingUrl?: string | null;
+  cjShippingStatus?: string | null;
+  cjLogisticName?: string | null;
 }
 
 function RefundModal({
@@ -132,6 +136,7 @@ export default function OrdersPage() {
   const [loaded, setLoaded] = useState(false);
   const [retrying, setRetrying] = useState<string | null>(null);
   const [refunding, setRefunding] = useState<string | null>(null);
+  const [refreshing, setRefreshing] = useState<string | null>(null);
   const [refundTarget, setRefundTarget] = useState<OrderData | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -195,6 +200,47 @@ export default function OrdersPage() {
       addToast("Network error during retry", "error");
     }
     setRetrying(null);
+  }
+
+  async function handleRefreshStatus(orderId: string, cjOrderId: string) {
+    setRefreshing(orderId);
+    try {
+      // Query CJ order status directly
+      const statusRes = await fetch(`/api/orders/status?orderId=${cjOrderId}`);
+      const statusData = await statusRes.json();
+
+      // Also check for webhook events
+      const webhookRes = await fetch(`/api/cj/webhook?orderId=${cjOrderId}&limit=5`);
+      const webhookData = await webhookRes.json();
+
+      const patch: Partial<OrderData> = {};
+
+      if (statusData.success && statusData.data) {
+        patch.cjShippingStatus = statusData.data.orderStatus || statusData.data.shippingStatus || null;
+        patch.cjTrackingNumber = statusData.data.trackingNumber || null;
+        patch.cjTrackingUrl = statusData.data.trackingUrl || null;
+        patch.cjLogisticName = statusData.data.logisticName || null;
+      }
+
+      // Enrich with latest webhook event data if available
+      if (webhookData.success && webhookData.events?.length > 0) {
+        const latest = webhookData.events[0];
+        if (latest.trackingNumber) patch.cjTrackingNumber = latest.trackingNumber;
+        if (latest.trackingUrl) patch.cjTrackingUrl = latest.trackingUrl;
+        if (latest.orderStatus) patch.cjShippingStatus = latest.orderStatus;
+        if (latest.logisticName) patch.cjLogisticName = latest.logisticName;
+      }
+
+      if (Object.keys(patch).length > 0) {
+        updateOrder(orderId, patch);
+        addToast("Order status refreshed", "success");
+      } else {
+        addToast("No new updates from CJ", "info");
+      }
+    } catch {
+      addToast("Failed to refresh order status", "error");
+    }
+    setRefreshing(null);
   }
 
   async function handleRefund(orderId: string, captureId: string) {
@@ -526,6 +572,56 @@ export default function OrdersPage() {
                       <p className="text-xs text-obsidian-600">
                         Not yet forwarded
                       </p>
+                    )}
+
+                    {/* Tracking & Shipping Updates */}
+                    {(order.cjTrackingNumber || order.cjShippingStatus || order.cjLogisticName) && (
+                      <div className="mt-3 border-t border-white/5 pt-3 space-y-1.5 text-xs">
+                        {order.cjShippingStatus && (
+                          <div className="flex items-center gap-1.5 text-accent-light">
+                            <Truck className="h-3.5 w-3.5" />
+                            <span>Status: {order.cjShippingStatus}</span>
+                          </div>
+                        )}
+                        {order.cjLogisticName && (
+                          <p className="text-obsidian-500">Carrier: {order.cjLogisticName}</p>
+                        )}
+                        {order.cjTrackingNumber && (
+                          <div className="flex items-center gap-2">
+                            <p className="text-obsidian-400">
+                              Tracking: <span className="font-mono text-white">{order.cjTrackingNumber}</span>
+                            </p>
+                            {order.cjTrackingUrl && (
+                              <a
+                                href={order.cjTrackingUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 rounded-lg bg-accent/10 px-2 py-1 text-accent-light transition-colors hover:bg-accent/20"
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                                Track
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Refresh Status Button */}
+                    {order.cjOrderId && order.cjStatus === "forwarded" && (
+                      <div className="mt-3 border-t border-white/5 pt-3">
+                        <button
+                          type="button"
+                          onClick={() => handleRefreshStatus(order.id, order.cjOrderId!)}
+                          disabled={refreshing === order.id}
+                          className="inline-flex items-center gap-1.5 rounded-lg bg-white/5 px-3 py-1.5 text-xs text-obsidian-300 transition-all hover:bg-white/10 hover:text-white active:scale-[0.98] disabled:opacity-50"
+                        >
+                          <RefreshCw
+                            className={`h-3 w-3 ${refreshing === order.id ? "animate-spin" : ""}`}
+                          />
+                          {refreshing === order.id ? "Checking..." : "Refresh CJ Status"}
+                        </button>
+                      </div>
                     )}
                   </div>
 

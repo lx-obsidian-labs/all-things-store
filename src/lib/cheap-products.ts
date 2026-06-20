@@ -17,6 +17,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD1990088",
+      cjVariantId: "1769240291086708736",
+      cjProductId: "1769240290998628352",
       costPrice: 0.07,
       shippingDays: "5-10",
       shippingFee: 1.03,
@@ -39,6 +41,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJ1106046",
+      cjVariantId: "1387667173119496192",
+      cjProductId: "1387667171785707520",
       costPrice: 0.1,
       shippingDays: "5-10",
       shippingFee: 1.05,
@@ -61,6 +65,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD1872171",
+      cjVariantId: "1713815946625822720",
+      cjProductId: "1713815946554519552",
       costPrice: 0.16,
       shippingDays: "5-10",
       shippingFee: 1.08,
@@ -83,6 +89,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJSJPB00006",
+      cjVariantId: "08273C28-85D1-4917-B423-517260244ED1",
+      cjProductId: "B053251F-C13D-4C05-B68C-13A73988E3A8",
       costPrice: 0.21,
       shippingDays: "5-10",
       shippingFee: 1.11,
@@ -105,6 +113,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHGA00085",
+      cjVariantId: "0813B32D-0B4F-4F41-ABC0-FCDDC54DEF50",
+      cjProductId: "3413B0DE-14B5-42AF-A695-F5B3DE7CD6BB",
       costPrice: 0.23,
       shippingDays: "5-10",
       shippingFee: 1.12,
@@ -127,6 +137,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPB1419030",
+      cjVariantId: "1494560539584630784",
+      cjProductId: "1494560538947096576",
       costPrice: 0.27,
       shippingDays: "5-10",
       shippingFee: 1.14,
@@ -149,6 +161,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPB1329532",
+      cjVariantId: "1452182126974865408",
+      cjProductId: "1452182126903562240",
       costPrice: 0.27,
       shippingDays: "5-10",
       shippingFee: 1.14,
@@ -171,6 +185,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT1324319",
+      cjVariantId: "1450401413594222592",
+      cjProductId: "1450401413535502336",
       costPrice: 0.27,
       shippingDays: "5-10",
       shippingFee: 1.14,
@@ -193,6 +209,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT1413936",
+      cjVariantId: "1492368742586388480",
+      cjProductId: "1492368742473142272",
       costPrice: 0.3,
       shippingDays: "5-10",
       shippingFee: 1.15,
@@ -215,6 +233,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2389448",
+      cjVariantId: "2505300639441618000",
+      cjProductId: "2505300639441617700",
       costPrice: 0.33,
       shippingDays: "5-10",
       shippingFee: 1.17,
@@ -240,6 +260,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX1921850",
+      cjVariantId: "1735601172863524864",
+      cjProductId: "1735601172754472960",
       costPrice: 0.36,
       shippingDays: "5-10",
       shippingFee: 1.18,
@@ -262,6 +284,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPB1086305",
+      cjVariantId: "1384024200594984960",
+      cjProductId: "1383981897499152384",
       costPrice: 0.38,
       shippingDays: "5-10",
       shippingFee: 1.19,
@@ -284,6 +308,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJJJTCF02180",
+      cjVariantId: "2512090320541600600",
+      cjProductId: "DAD7E482-1AE7-4608-A083-00713BF492E8",
       costPrice: 0.41,
       shippingDays: "5-10",
       shippingFee: 1.21,
@@ -325,6 +351,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD1975246",
+      cjVariantId: "1761573015583723520",
+      cjProductId: "1761573015550169088",
       costPrice: 0.48,
       shippingDays: "5-10",
       shippingFee: 1.24,
@@ -347,6 +375,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJJJTCF02021",
+      cjVariantId: "198E795D-8A14-4F44-B454-FB976204BE3D",
+      cjProductId: "0A23E469-E23E-4C0D-AF5B-913DC5EF01ED",
       costPrice: 0.48,
       shippingDays: "5-10",
       shippingFee: 1.24,
@@ -369,6 +399,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJGJ1208466",
+      cjVariantId: "1413800992142659584",
+      cjProductId: "1413800990699819008",
       costPrice: 0.5,
       shippingDays: "5-10",
       shippingFee: 1.25,
@@ -391,6 +423,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2045957",
+      cjVariantId: "1794551525109407744",
+      cjProductId: "1794551525029715968",
       costPrice: 0.5,
       shippingDays: "5-10",
       shippingFee: 1.25,
@@ -413,6 +447,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2151360",
+      cjVariantId: "2410020906181625000",
+      cjProductId: "2410020906181624800",
       costPrice: 0.53,
       shippingDays: "5-10",
       shippingFee: 1.27,
@@ -435,6 +471,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPG1714115",
+      cjVariantId: "1638734594704945152",
+      cjProductId: "1638734594595893248",
       costPrice: 0.53,
       shippingDays: "5-10",
       shippingFee: 1.27,
@@ -462,6 +500,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX2038493",
+      cjVariantId: "1791746956289650688",
+      cjProductId: "1791746956205764608",
       costPrice: 0.53,
       shippingDays: "5-10",
       shippingFee: 1.27,
@@ -484,6 +524,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHIP00866",
+      cjVariantId: "0731340A-9733-426E-B5B5-5BB2C6FF3F4E",
+      cjProductId: "332FDDFD-20C3-42D6-B713-3A98E88A9DE9",
       costPrice: 0.56,
       shippingDays: "5-10",
       shippingFee: 1.28,
@@ -506,6 +548,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2002653",
+      cjVariantId: "1775467926179549184",
+      cjProductId: "1775467926104051712",
       costPrice: 0.56,
       shippingDays: "5-10",
       shippingFee: 1.28,
@@ -528,6 +572,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD1940656",
+      cjVariantId: "1743250759120068608",
+      cjProductId: "1743250759015211008",
       costPrice: 0.56,
       shippingDays: "5-10",
       shippingFee: 1.28,
@@ -550,6 +596,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2005599",
+      cjVariantId: "1776955047369248768",
+      cjProductId: "1776955047293751296",
       costPrice: 0.57,
       shippingDays: "5-10",
       shippingFee: 1.29,
@@ -573,6 +621,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJJCFCF00514",
+      cjVariantId: "054DEA8A-25CE-4DC3-BA1D-7B3953EEBA17",
+      cjProductId: "F4C2C76E-ABF2-47EC-8826-3B0CB6B2E510",
       costPrice: 0.58,
       shippingDays: "5-10",
       shippingFee: 1.29,
@@ -595,6 +645,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJIP1045144",
+      cjVariantId: "1372063910198382592",
+      cjProductId: "1372063907417559040",
       costPrice: 0.59,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -617,6 +669,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJ1649497",
+      cjVariantId: "1607244579466653696",
+      cjProductId: "1607244579349213184",
       costPrice: 0.59,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -653,6 +707,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2052046",
+      cjVariantId: "1797198466221875200",
+      cjProductId: "1797198466137989120",
       costPrice: 0.59,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -675,6 +731,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHIP01243",
+      cjVariantId: "0F52AA78-3955-45C1-9DFD-777E19ADCB8B",
+      cjProductId: "16634010-D628-4124-8E3B-313BB38F01C1",
       costPrice: 0.6,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -697,6 +755,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPG1673875",
+      cjVariantId: "1620990894017097728",
+      cjProductId: "1620990893949988864",
       costPrice: 0.6,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -719,6 +779,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2121990",
+      cjVariantId: "2408280516101605900",
+      cjProductId: "2408280516101605700",
       costPrice: 0.6,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -741,6 +803,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX2086066",
+      cjVariantId: "2407170556301619100",
+      cjProductId: "2407170556301618900",
       costPrice: 0.6,
       shippingDays: "5-10",
       shippingFee: 1.3,
@@ -763,6 +827,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2249881",
+      cjVariantId: "2412210539301616100",
+      cjProductId: "2412210539301615100",
       costPrice: 0.61,
       shippingDays: "5-10",
       shippingFee: 1.31,
@@ -785,6 +851,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJFG1761844",
+      cjVariantId: "1659846010362933248",
+      cjProductId: "1659846010287435776",
       costPrice: 0.62,
       shippingDays: "5-10",
       shippingFee: 1.31,
@@ -816,6 +884,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD1971037",
+      cjVariantId: "1759411543030116352",
+      cjProductId: "1759411542912675840",
       costPrice: 0.62,
       shippingDays: "5-10",
       shippingFee: 1.31,
@@ -838,6 +908,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2197473",
+      cjVariantId: "2411160537471610700",
+      cjProductId: "2411160537471610500",
       costPrice: 0.63,
       shippingDays: "5-10",
       shippingFee: 1.32,
@@ -860,6 +932,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPB1038133",
+      cjVariantId: "1369878227228692480",
+      cjProductId: "1369878225664217088",
       costPrice: 0.63,
       shippingDays: "5-10",
       shippingFee: 1.32,
@@ -882,6 +956,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2046951",
+      cjVariantId: "1794985234908319744",
+      cjProductId: "1794985234824433664",
       costPrice: 0.64,
       shippingDays: "5-10",
       shippingFee: 1.32,
@@ -904,6 +980,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2017110",
+      cjVariantId: "1782299374064766976",
+      cjProductId: "1782299373980880896",
       costPrice: 0.64,
       shippingDays: "5-10",
       shippingFee: 1.32,
@@ -926,6 +1004,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJST2635821",
+      cjVariantId: "1997935278010777602",
+      cjProductId: "1997935277901725697",
       costPrice: 0.64,
       shippingDays: "5-10",
       shippingFee: 1.32,
@@ -948,6 +1028,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZBGJZB00019",
+      cjVariantId: "0811C5E7-A65C-458F-8A87-A3163CD00E03",
+      cjProductId: "37928CC1-8488-4D7F-B3C2-12104FEF1A27",
       costPrice: 0.64,
       shippingDays: "5-10",
       shippingFee: 1.32,
@@ -970,6 +1052,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2796364",
+      cjVariantId: "2603200806551602300",
+      cjProductId: "2603200806551601900",
       costPrice: 0.65,
       shippingDays: "5-10",
       shippingFee: 1.33,
@@ -992,6 +1076,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT1989552",
+      cjVariantId: "1768861853662322688",
+      cjProductId: "1768861853578436608",
       costPrice: 0.66,
       shippingDays: "5-10",
       shippingFee: 1.33,
@@ -1014,6 +1100,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2333076",
+      cjVariantId: "2503201353261622100",
+      cjProductId: "2503201353261621900",
       costPrice: 0.66,
       shippingDays: "5-10",
       shippingFee: 1.33,
@@ -1036,6 +1124,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSI1664176",
+      cjVariantId: "1614880485073760256",
+      cjProductId: "1614880484994068480",
       costPrice: 0.67,
       shippingDays: "5-10",
       shippingFee: 1.34,
@@ -1060,6 +1150,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJCF1574172",
+      cjVariantId: "1575006388382871552",
+      cjProductId: "1575006388303179776",
       costPrice: 0.68,
       shippingDays: "5-10",
       shippingFee: 1.34,
@@ -1082,6 +1174,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJYDSJ00122",
+      cjVariantId: "021753C0-A3F2-4E54-A437-8AAC818825DD",
+      cjProductId: "62737D31-6C6A-4ADF-86E0-1C10B1E3B626",
       costPrice: 0.69,
       shippingDays: "5-10",
       shippingFee: 1.35,
@@ -1107,6 +1201,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX1986695",
+      cjVariantId: "1767393769558650880",
+      cjProductId: "1767393769474764800",
       costPrice: 0.69,
       shippingDays: "5-10",
       shippingFee: 1.35,
@@ -1129,6 +1225,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2066584",
+      cjVariantId: "2406230329031627500",
+      cjProductId: "2406230329031627300",
       costPrice: 0.7,
       shippingDays: "5-10",
       shippingFee: 1.35,
@@ -1151,6 +1249,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2069460",
+      cjVariantId: "2406260950221602100",
+      cjProductId: "2406260950221601900",
       costPrice: 0.7,
       shippingDays: "5-10",
       shippingFee: 1.35,
@@ -1173,6 +1273,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZBHLXN00308",
+      cjVariantId: "91910FA8-F9B6-4E02-B84B-C8C93355B476",
+      cjProductId: "6AF87AB4-5FA2-4CA3-A84D-E40C3196705F",
       costPrice: 0.7,
       shippingDays: "5-10",
       shippingFee: 1.35,
@@ -1196,6 +1298,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT1577062",
+      cjVariantId: "1576187876260458496",
+      cjProductId: "1576187876231098368",
       costPrice: 0.72,
       shippingDays: "5-10",
       shippingFee: 1.36,
@@ -1218,6 +1322,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPB1482707",
+      cjVariantId: "1525436830328565760",
+      cjProductId: "1525436830190153728",
       costPrice: 0.74,
       shippingDays: "5-10",
       shippingFee: 1.37,
@@ -1240,6 +1346,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHIP01190",
+      cjVariantId: "01370EA9-01C3-498E-90ED-0CD5044B4059",
+      cjProductId: "1CEFE504-52EA-4B11-A9D6-5F321AEED443",
       costPrice: 0.75,
       shippingDays: "5-10",
       shippingFee: 1.38,
@@ -1262,6 +1370,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJJJTCF00671",
+      cjVariantId: "668C741D-9B13-4C1A-9CA7-6C071E678FD4",
+      cjProductId: "A1FDB509-C03F-451B-AC08-365658D870F1",
       costPrice: 0.75,
       shippingDays: "5-10",
       shippingFee: 1.38,
@@ -1284,6 +1394,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHGA00163",
+      cjVariantId: "010E6049-2445-4E32-AC7D-5690CB88C8B5",
+      cjProductId: "B273110F-A2CF-4CB7-9B43-C003EC8B6700",
       costPrice: 0.76,
       shippingDays: "5-10",
       shippingFee: 1.38,
@@ -1313,6 +1425,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSL2008483",
+      cjVariantId: "1778317011496472576",
+      cjProductId: "1778317011420975104",
       costPrice: 0.77,
       shippingDays: "5-10",
       shippingFee: 1.39,
@@ -1335,6 +1449,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJJJTCF01196",
+      cjVariantId: "1473976374082539520",
+      cjProductId: "47B50478-62C2-4189-8110-0E00724809D2",
       costPrice: 0.78,
       shippingDays: "5-10",
       shippingFee: 1.39,
@@ -1359,6 +1475,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2072968",
+      cjVariantId: "2407010738091623500",
+      cjProductId: "2407010738091623300",
       costPrice: 0.78,
       shippingDays: "5-10",
       shippingFee: 1.39,
@@ -1383,6 +1501,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSL1961619",
+      cjVariantId: "1752974613019107328",
+      cjProductId: "1752974612914249728",
       costPrice: 0.79,
       shippingDays: "5-10",
       shippingFee: 1.4,
@@ -1405,6 +1525,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT1796745",
+      cjVariantId: "1677915077237809152",
+      cjProductId: "1677915077158117376",
       costPrice: 0.8,
       shippingDays: "5-10",
       shippingFee: 1.4,
@@ -1430,6 +1552,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2167590",
+      cjVariantId: "2410220643451620300",
+      cjProductId: "2410220643451620100",
       costPrice: 0.8,
       shippingDays: "5-10",
       shippingFee: 1.4,
@@ -1452,6 +1576,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJCF1777518",
+      cjVariantId: "1668453771808092160",
+      cjProductId: "1668453771552239616",
       costPrice: 0.8,
       shippingDays: "5-10",
       shippingFee: 1.4,
@@ -1474,6 +1600,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX2189288",
+      cjVariantId: "2411090939361614400",
+      cjProductId: "2411090939361614200",
       costPrice: 0.84,
       shippingDays: "5-10",
       shippingFee: 1.42,
@@ -1496,6 +1624,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZB1078673",
+      cjVariantId: "1381935770075533312",
+      cjProductId: "1381935767965798400",
       costPrice: 0.84,
       shippingDays: "5-10",
       shippingFee: 1.42,
@@ -1522,6 +1652,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX2017184",
+      cjVariantId: "1782310885566980096",
+      cjProductId: "1782310885487288320",
       costPrice: 0.85,
       shippingDays: "5-10",
       shippingFee: 1.43,
@@ -1544,6 +1676,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT1844908",
+      cjVariantId: "1701178994529406976",
+      cjProductId: "1701178994462298112",
       costPrice: 0.86,
       shippingDays: "5-10",
       shippingFee: 1.43,
@@ -1568,6 +1702,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJCF1836236",
+      cjVariantId: "1697562605050662912",
+      cjProductId: "1697562604991942656",
       costPrice: 0.86,
       shippingDays: "5-10",
       shippingFee: 1.43,
@@ -1590,6 +1726,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2069721",
+      cjVariantId: "2406270207271623100",
+      cjProductId: "2406270207271622900",
       costPrice: 0.86,
       shippingDays: "5-10",
       shippingFee: 1.43,
@@ -1612,6 +1750,8 @@ export const cheapProducts: Product[] = [
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJST2307851",
+      cjVariantId: "2502260157141607200",
+      cjProductId: "2502260157141607000",
       costPrice: 0.86,
       shippingDays: "5-10",
       shippingFee: 1.43,
@@ -1636,6 +1776,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2315890",
+      cjVariantId: "2503050330301600500",
+      cjProductId: "2503050330301600300",
       costPrice: 0.87,
       shippingDays: "5-10",
       shippingFee: 1.44,
@@ -1658,6 +1800,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHIP00836",
+      cjVariantId: "00B7A406-953C-4DD9-9158-82A6046BACEF",
+      cjProductId: "D584835E-F054-4B8A-A969-9D37F48017F9",
       costPrice: 0.89,
       shippingDays: "5-10",
       shippingFee: 1.45,
@@ -1680,6 +1824,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2071435",
+      cjVariantId: "2406290607191606400",
+      cjProductId: "2406290604131622800",
       costPrice: 0.9,
       shippingDays: "5-10",
       shippingFee: 1.45,
@@ -1706,6 +1852,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSL2018329",
+      cjVariantId: "1782696995732332544",
+      cjProductId: "1782696995656835072",
       costPrice: 0.9,
       shippingDays: "5-10",
       shippingFee: 1.45,
@@ -1728,6 +1876,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX2104746",
+      cjVariantId: "1821354306185351168",
+      cjProductId: "1821354306139213824",
       costPrice: 0.9,
       shippingDays: "5-10",
       shippingFee: 1.45,
@@ -1750,6 +1900,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHGA00143",
+      cjVariantId: "0396EEBA-01E5-44C7-B206-5A865EED0735",
+      cjProductId: "682D6BD3-E429-44CF-8483-92A6C585B963",
       costPrice: 0.91,
       shippingDays: "5-10",
       shippingFee: 1.46,
@@ -1772,6 +1924,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZB2074166",
+      cjVariantId: "2407030258201627700",
+      cjProductId: "2407030258201627500",
       costPrice: 0.93,
       shippingDays: "5-10",
       shippingFee: 1.47,
@@ -1794,6 +1948,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZBHLXN00064",
+      cjVariantId: "ABFFECE9-C97D-4377-B157-B6AD82303F48",
+      cjProductId: "A26E27FF-2F83-4CF8-95D0-5D8491717169",
       costPrice: 0.93,
       shippingDays: "5-10",
       shippingFee: 1.47,
@@ -1816,6 +1972,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2308580",
+      cjVariantId: "2502261014381626600",
+      cjProductId: "2502261014381626400",
       costPrice: 0.94,
       shippingDays: "5-10",
       shippingFee: 1.47,
@@ -1838,6 +1996,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJBHGA00135",
+      cjVariantId: "05C71FBD-D6A2-4525-BE27-0CEDF067D8C0",
+      cjProductId: "2610735F-B4B5-4984-8AC8-ECDE13C29001",
       costPrice: 0.95,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -1860,6 +2020,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJIP1963331",
+      cjVariantId: "1753957049366482944",
+      cjProductId: "1753957049257431040",
       costPrice: 0.95,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -1883,6 +2045,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT1976177",
+      cjVariantId: "1762027334602862592",
+      cjProductId: "1762027334305067008",
       costPrice: 0.96,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -1905,6 +2069,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2308036",
+      cjVariantId: "2502260411351625200",
+      cjProductId: "2502260411351625000",
       costPrice: 0.96,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -1927,6 +2093,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2329912",
+      cjVariantId: "2503171008381610900",
+      cjProductId: "2503171008381610700",
       costPrice: 0.96,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -1950,6 +2118,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJYDSJ00092",
+      cjVariantId: "008E5CF2-46A2-46EE-9A8D-E43878C875E3",
+      cjProductId: "AEF849F4-A2B3-42A9-A1C1-9C6D025EB821",
       costPrice: 0.96,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -1972,6 +2142,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJCF2037492",
+      cjVariantId: "1791377450962792448",
+      cjProductId: "1791377450887294976",
       costPrice: 0.96,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -1994,6 +2166,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZBGJBS00125",
+      cjVariantId: "5D3E044C-8C1F-46C4-BD0C-9FC0457840D7",
+      cjProductId: "50A4F2BD-A70F-4E2F-842F-DBC436C7AC21",
       costPrice: 0.96,
       shippingDays: "5-10",
       shippingFee: 1.48,
@@ -2016,6 +2190,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJIP1599164",
+      cjVariantId: "1585927165311463424",
+      cjProductId: "1585927165231771648",
       costPrice: 0.97,
       shippingDays: "5-10",
       shippingFee: 1.49,
@@ -2038,6 +2214,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJSJSJPB00007",
+      cjVariantId: "17D01EC0-C13E-4C75-A0B2-927DDAAEC675",
+      cjProductId: "12A932BF-1C40-46C8-A3B2-786A1271051D",
       costPrice: 0.98,
       shippingDays: "5-10",
       shippingFee: 1.49,
@@ -2061,6 +2239,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2034068",
+      cjVariantId: "1789859592944496640",
+      cjProductId: "1789859592868999168",
       costPrice: 0.98,
       shippingDays: "5-10",
       shippingFee: 1.49,
@@ -2083,6 +2263,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZBGJZB00142",
+      cjVariantId: "5CAAF18B-BE60-4CD9-BD56-D869C54E4463",
+      cjProductId: "A98A4CCE-5C4A-4778-B275-E8F038062612",
       costPrice: 0.98,
       shippingDays: "5-10",
       shippingFee: 1.49,
@@ -2109,6 +2291,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX2045976",
+      cjVariantId: "1794555647556587520",
+      cjProductId: "1794555647481090048",
       costPrice: 0.98,
       shippingDays: "5-10",
       shippingFee: 1.49,
@@ -2135,6 +2319,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJLX2056748",
+      cjVariantId: "2406090840231607000",
+      cjProductId: "2406090840231606800",
       costPrice: 0.98,
       shippingDays: "5-10",
       shippingFee: 1.49,
@@ -2157,6 +2343,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJPB2377299",
+      cjVariantId: "1922968184538644485",
+      cjProductId: "1922968184442175489",
       costPrice: 1,
       shippingDays: "5-10",
       shippingFee: 1.5,
@@ -2179,6 +2367,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZBGJZB00077",
+      cjVariantId: "3996BB9D-6380-475C-A820-A25730511F62",
+      cjProductId: "226ADD0C-28F1-4920-8CB6-2BAED7BEF59F",
       costPrice: 1.07,
       shippingDays: "5-10",
       shippingFee: 1.54,
@@ -2201,6 +2391,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJTA1576234",
+      cjVariantId: "1575805518353018880",
+      cjProductId: "1575805518285910016",
       costPrice: 1.08,
       shippingDays: "5-10",
       shippingFee: 1.54,
@@ -2224,6 +2416,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJJT2056675",
+      cjVariantId: "2406090727561625700",
+      cjProductId: "2406090727561625400",
       costPrice: 1.09,
       shippingDays: "5-10",
       shippingFee: 1.55,
@@ -2246,6 +2440,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJCF1412069",
+      cjVariantId: "1491682021183983616",
+      cjProductId: "1491682021112680448",
       costPrice: 1.09,
       shippingDays: "5-10",
       shippingFee: 1.55,
@@ -2268,6 +2464,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJYD2818646",
+      cjVariantId: "2604031026011617600",
+      cjProductId: "2604031026011617300",
       costPrice: 1.11,
       shippingDays: "5-10",
       shippingFee: 1.56,
@@ -2292,6 +2490,8 @@ Product information:Type: Bracelet Color: S1412-3,S1412-2,S1412 Style: Women's M
     supplier: {
       source: "cj-dropshipping" as const,
       sku: "CJZBHLXN00042",
+      cjVariantId: "0C8F5588-C824-4966-9D61-F829024BF97B",
+      cjProductId: "2F0F378C-903F-43BE-92D0-0CE3F675865A",
       costPrice: 1.11,
       shippingDays: "5-10",
       shippingFee: 1.56,

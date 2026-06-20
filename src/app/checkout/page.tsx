@@ -167,7 +167,7 @@ export default function CheckoutPage() {
     submittingRef.current = true;
     setSubmitError("");
 
-    const orderNumber = `ORD-${Date.now().toString(36).toUpperCase()}`;
+    const orderNumber = `ORD-${Date.now().toString(10).toString(36).toUpperCase()}`;
     const orderItems = items.map((i) => ({
       id: i.product.id,
       name: i.product.name,
@@ -176,14 +176,16 @@ export default function CheckoutPage() {
       image: i.product.image,
     }));
 
-    let cjResult: any = null;
-    try {
-      const cjProducts = items.map((i) => ({
-        sku: i.product.supplier?.sku || "",
-        quantity: i.quantity,
-        unitPrice: i.product.supplier?.costPrice || 0,
-      }));
+    // Create local order immediately (non-blocking)
+    const cjProducts = items.map((i) => ({
+      sku: i.product.supplier?.sku || "",
+      quantity: i.quantity,
+      unitPrice: i.product.supplier?.costPrice || 0,
+      vid: i.product.supplier?.cjVariantId || undefined,
+    }));
 
+    try {
+      // Create local order record first
       const res = await fetch("/api/orders/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -205,9 +207,26 @@ export default function CheckoutPage() {
         }),
       });
 
-      cjResult = await res.json();
+      const result = await res.json();
+      
+      // If order already processed (idempotent), use that result
+      if (result.alreadyProcessed) {
+        console.log("[Checkout] Order already processed:", orderNumber);
+      }
     } catch (err: any) {
-      cjResult = { success: false, message: err.message };
+      console.error("[Checkout] Failed to create local order:", err);
+      // Continue anyway - order will be picked up by cron
+    }
+
+    // Enqueue background job for CJ processing (fire and forget)
+    try {
+      await fetch("/api/orders/process-pending", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({}),
+      });
+    } catch {
+      // Best effort - cron will pick it up
     }
 
     const order = {
@@ -222,21 +241,17 @@ export default function CheckoutPage() {
       paymentMethod: "paypal",
       paypalCaptureId: paypalCaptureId || null,
       createdAt: new Date().toISOString(),
-      cjStatus: cjResult?.success ? "forwarded" : "failed",
-      cjOrderId: cjResult?.success ? (cjResult?.data?.cjOrderId || orderNumber) : null,
-      usedBalancePayment: cjResult?.data?.usedBalancePayment === true,
-      cjPayUrl: cjResult?.data?.cjPayUrl || null,
-      cjError: cjResult?.success ? null : (cjResult?.message || cjResult?.data?.message || "Order could not be forwarded to CJ"),
+      cjStatus: "pending",
+      cjOrderId: null,
+      usedBalancePayment: false,
+      cjPayUrl: null,
+      cjError: null,
     };
 
     const history = JSON.parse(localStorage.getItem("all-things-order-history") || "[]");
     history.unshift(order);
     localStorage.setItem("all-things-order-history", JSON.stringify(history.slice(0, 50)));
     localStorage.setItem("all-things-last-order", JSON.stringify(order));
-
-    if (!cjResult?.success) {
-      setSubmitError(cjResult?.message || "Order placed locally but CJ forwarding failed. We will process it manually.");
-    }
 
     // Send confirmation email (best-effort)
     try {

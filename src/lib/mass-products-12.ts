@@ -118,6 +118,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJST2532921",
+      "cjVariantId": "1968223870032199681",
+      "cjProductId": "1968223869935730689",
       "costPrice": 11.33,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -159,6 +161,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1087242",
+      "cjVariantId": "1384064793878597632",
+      "cjProductId": "1384064792456728576",
       "costPrice": 2.42,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -282,6 +286,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTCF01660",
+      "cjVariantId": "8878A574-546E-4192-B084-AAAD2C6BE890",
+      "cjProductId": "FE0684AF-7AEF-47B0-87C4-5C1353B8A01D",
       "costPrice": 3.51,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -405,6 +411,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYS1196316",
+      "cjVariantId": "1410056313483956224",
+      "cjProductId": "1410056312066281472",
       "costPrice": 24.78,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -528,6 +536,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJCC1213626",
+      "cjVariantId": "1415491048322502656",
+      "cjProductId": "1415226109141848064",
       "costPrice": 30.07,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -651,6 +661,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTJT18019",
+      "cjVariantId": "DAFD8ABC-0AC6-47AB-856F-C072661FEC34",
+      "cjProductId": "3B8BD443-125A-48F6-95F5-E850CD87A2DE",
       "costPrice": 1.37,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -774,6 +786,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJXFXJBX00019",
+      "cjVariantId": "B48B8F17-B8DE-429D-AF79-199CC97BD252",
+      "cjProductId": "1DF0BE56-3DFE-47A9-BE7C-D995551E263F",
       "costPrice": 5.24,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -938,6 +952,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTJT17820",
+      "cjVariantId": "61AE4927-3D14-440E-B2ED-107658C0D90C",
+      "cjProductId": "E9266EEA-5F96-4C79-8AB9-42A7E228E82B",
       "costPrice": 1.31,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1020,6 +1036,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJPF2594223",
+      "cjVariantId": "2511161156021633600",
+      "cjProductId": "2511161156021633300",
       "costPrice": 2.28,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1061,6 +1079,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1146242",
+      "cjVariantId": "1397760443027689472",
+      "cjProductId": "1397760441685512192",
       "costPrice": 0.88,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1143,6 +1163,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJST2817113",
+      "cjVariantId": "2039669270121594881",
+      "cjProductId": "2039669270046097410",
       "costPrice": 17.99,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1225,6 +1247,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJST2816951",
+      "cjVariantId": "2039652373344571393",
+      "cjProductId": "2039652373109690369",
       "costPrice": 18.99,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1348,6 +1372,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2648745",
+      "cjVariantId": "2512160917371628200",
+      "cjProductId": "2512160917371628000",
       "costPrice": 1.55,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1430,6 +1456,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJST2817445",
+      "cjVariantId": "2039892388228415490",
+      "cjProductId": "2039892388115169282",
       "costPrice": 34.99,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1553,6 +1581,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2268589",
+      "cjVariantId": "2501120635221629700",
+      "cjProductId": "2501120635221629500",
       "costPrice": 2.46,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1635,6 +1665,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2199325",
+      "cjVariantId": "2411180647471624200",
+      "cjProductId": "2411180647471624000",
       "costPrice": 2.63,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1717,6 +1749,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJST2132958",
+      "cjVariantId": "1833075540522586112",
+      "cjProductId": "1833075540493225984",
       "costPrice": 8.23,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1840,6 +1874,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJFU2843792",
+      "cjVariantId": "2046069524300193793",
+      "cjProductId": "2046069524174364674",
       "costPrice": 17.13,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -1922,6 +1958,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1611834",
+      "cjVariantId": "1591959038848413696",
+      "cjProductId": "1591959038772916224",
       "costPrice": 0.92,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2045,6 +2083,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2187897",
+      "cjVariantId": "2411081250571614700",
+      "cjProductId": "2411081250571614500",
       "costPrice": 2.09,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2128,6 +2168,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1850119",
+      "cjVariantId": "1703618798986727424",
+      "cjProductId": "1703618798919618560",
       "costPrice": 1.12,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2212,6 +2254,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1868817",
+      "cjVariantId": "1712345785297281024",
+      "cjProductId": "1712345785192423424",
       "costPrice": 0.99,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2380,6 +2424,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTJT38289",
+      "cjVariantId": "0556F0E5-11FD-4FC8-846C-5AD65E52E844",
+      "cjProductId": "EC0B4579-96D8-4DE8-827C-8091D77B9747",
       "costPrice": 0.88,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2506,6 +2552,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1625288",
+      "cjVariantId": "1598208971842793472",
+      "cjProductId": "1598208971767296000",
       "costPrice": 1.03,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2632,6 +2680,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE03030",
+      "cjVariantId": "096F3CC6-EEB7-49CD-9B6E-CEFE790923E8",
+      "cjProductId": "12C9D391-928B-440A-AC9D-574F5734E374",
       "costPrice": 2.05,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2716,6 +2766,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1574585",
+      "cjVariantId": "1575086055634776064",
+      "cjProductId": "1575086055567667200",
       "costPrice": 3.26,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2758,6 +2810,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2008466",
+      "cjVariantId": "1778314146480656384",
+      "cjProductId": "1778314146400964608",
       "costPrice": 6.86,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2800,6 +2854,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2258192",
+      "cjVariantId": "2412311256151614700",
+      "cjProductId": "2412311256151614500",
       "costPrice": 4.61,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2842,6 +2898,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2770308",
+      "cjVariantId": "2602280604091622000",
+      "cjProductId": "2602280604091621400",
       "costPrice": 2.55,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -2968,6 +3026,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2770303",
+      "cjVariantId": "2602280559421619300",
+      "cjProductId": "2602280559421618900",
       "costPrice": 2.9,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -3304,6 +3364,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2342818",
+      "cjVariantId": "2504010704311603000",
+      "cjProductId": "2504010704311602700",
       "costPrice": 4.7,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -3472,6 +3534,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2153146",
+      "cjVariantId": "2410060852211617600",
+      "cjProductId": "2410060852211617400",
       "costPrice": 4.83,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -3514,6 +3578,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE04789",
+      "cjVariantId": "0D34B75C-00F3-4A93-B8EC-CE6FFE75106F",
+      "cjProductId": "84E6250F-8223-43A4-97AD-E035EFFE133A",
       "costPrice": 3.23,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -3724,6 +3790,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJNT1186093",
+      "cjVariantId": "1407242638201065472",
+      "cjProductId": "1407242633906098176",
       "costPrice": 0.97,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -3850,6 +3918,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJMZ1578085",
+      "cjVariantId": "1576773486545219584",
+      "cjProductId": "1576773486457139200",
       "costPrice": 1.82,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -3934,6 +4004,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE05225",
+      "cjVariantId": "24DBB7D5-2573-4A6A-9E0A-B509E81AB9CB",
+      "cjProductId": "E200DC1E-E06C-4C12-8257-93E4FFFDE7A2",
       "costPrice": 1.7,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4060,6 +4132,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE05235",
+      "cjVariantId": "0751B6BA-0791-41AC-919E-F56A8CB5ACC1",
+      "cjProductId": "96F77362-7130-4D21-92FF-69F2A7D29472",
       "costPrice": 0.8,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4186,6 +4260,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE02652",
+      "cjVariantId": "1AE6F990-8FD3-4259-AA34-AA61804E2060",
+      "cjProductId": "250E9399-B7B4-4192-BA73-DCF804C59651",
       "costPrice": 0.98,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4312,6 +4388,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1786782",
+      "cjVariantId": "1672894569819676672",
+      "cjProductId": "1672894569790316544",
       "costPrice": 2.77,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4438,6 +4516,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1826579",
+      "cjVariantId": "1693108823134834688",
+      "cjProductId": "1693108823076114432",
       "costPrice": 2.07,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4564,6 +4644,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2469877",
+      "cjVariantId": "2508270811081609700",
+      "cjProductId": "2508270811081609500",
       "costPrice": 15.75,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4690,6 +4772,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE01802",
+      "cjVariantId": "081A640C-91EC-42DF-A2C1-F49E4CA35667",
+      "cjProductId": "F01D5D9B-8B9E-49A6-8640-ED27DC4A0B54",
       "costPrice": 5.28,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4858,6 +4942,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWZ1410838",
+      "cjVariantId": "1491292846236504064",
+      "cjProductId": "1491292846110674944",
       "costPrice": 23.29,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -4984,6 +5070,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWZ1397939",
+      "cjVariantId": "1480791424034279424",
+      "cjProductId": "1480791423740678144",
       "costPrice": 1.7,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5068,6 +5156,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1609664",
+      "cjVariantId": "1590701551033790464",
+      "cjProductId": "1590701550970875904",
       "costPrice": 2.18,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5278,6 +5368,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1995907",
+      "cjVariantId": "1772230861111435264",
+      "cjProductId": "1772225926466637824",
       "costPrice": 7.12,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5362,6 +5454,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1863875",
+      "cjVariantId": "1710218037770596352",
+      "cjProductId": "1710218037644767232",
       "costPrice": 2.54,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5530,6 +5624,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1655746",
+      "cjVariantId": "1610560861356175360",
+      "cjProductId": "1610560861268094976",
       "costPrice": 5.35,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5614,6 +5710,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2857348",
+      "cjVariantId": "2604280544481604000",
+      "cjProductId": "2604280544481603400",
       "costPrice": 1.72,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5740,6 +5838,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2857906",
+      "cjVariantId": "2604280806351631700",
+      "cjProductId": "2604280806351631200",
       "costPrice": 2.72,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5824,6 +5924,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2854572",
+      "cjVariantId": "2604250955511622700",
+      "cjProductId": "2604250955511622100",
       "costPrice": 5.61,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -5950,6 +6052,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2857064",
+      "cjVariantId": "2604280219551638000",
+      "cjProductId": "2604280219551637500",
       "costPrice": 4.19,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -6202,6 +6306,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJFMJ00088",
+      "cjVariantId": "0000EC69-F62E-4484-9685-B34E482F7827",
+      "cjProductId": "05F6C4E8-07DE-45EE-A316-883999E5D416",
       "costPrice": 4.78,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -6328,6 +6434,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1660585",
+      "cjVariantId": "1612791123481735168",
+      "cjProductId": "1612791123452375040",
       "costPrice": 13.4,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -6454,6 +6562,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1912760",
+      "cjVariantId": "1731603681969188864",
+      "cjProductId": "1731603681847554048",
       "costPrice": 2.63,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -6496,6 +6606,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1767761",
+      "cjVariantId": "1663510540632723456",
+      "cjProductId": "1663510540574003200",
       "costPrice": 5.61,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -6622,6 +6734,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1282969",
+      "cjVariantId": "1436549937553870848",
+      "cjProductId": "1436549937490956288",
       "costPrice": 10.37,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -6706,6 +6820,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2851287",
+      "cjVariantId": "2604230349111604000",
+      "cjProductId": "2604230349111603500",
       "costPrice": 3.86,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -6874,6 +6990,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJCFHS00992",
+      "cjVariantId": "1640188749151744000",
+      "cjProductId": "15388F94-BE52-4EA6-A511-015904DCDECC",
       "costPrice": 4.27,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -7252,6 +7370,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1298444",
+      "cjVariantId": "1441386130481221632",
+      "cjProductId": "1441386130388946944",
       "costPrice": 1.31,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -7378,6 +7498,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJCJ1256586",
+      "cjVariantId": "1428194858308341760",
+      "cjProductId": "1428194855607209984",
       "costPrice": 2.88,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -7462,6 +7584,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJHS1373376",
+      "cjVariantId": "1467816995272658944",
+      "cjProductId": "1467816995192967168",
       "costPrice": 3.42,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -7585,6 +7709,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSJBHIP01401",
+      "cjVariantId": "003F8789-9A05-4E96-878C-80A4B3FA5D20",
+      "cjProductId": "8A864781-38DB-4E41-AAF8-A0009072857F",
       "costPrice": 1.49,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -7667,6 +7793,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSJBHPG00144",
+      "cjVariantId": "168A05B2-6884-446F-AB0B-7AEDB234F6C2",
+      "cjProductId": "E5FB3842-EAE6-413A-9305-B434D1042DA3",
       "costPrice": 2.53,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -7790,6 +7918,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT2093021",
+      "cjVariantId": "2407250618371629400",
+      "cjProductId": "2407250618371629200",
       "costPrice": 0.97,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -7913,6 +8043,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJGJ1509123",
+      "cjVariantId": "1540309701060210688",
+      "cjProductId": "1540309700980518912",
       "costPrice": 2.44,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8036,6 +8168,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSJBHIP00423",
+      "cjVariantId": "00D0419E-2880-4037-9357-DED21E32FF96",
+      "cjProductId": "AB858124-7C38-46FC-9539-B4885E5A392D",
       "costPrice": 1.81,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8200,6 +8334,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSJBHPG00052",
+      "cjVariantId": "024A23BF-59B6-432D-B2F9-D20E0FD2D8CE",
+      "cjProductId": "392C4A58-5929-44F3-8C03-CB162A29C67A",
       "costPrice": 2.75,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8323,6 +8459,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2111241",
+      "cjVariantId": "2408150710181629000",
+      "cjProductId": "2408150710181628800",
       "costPrice": 0.9,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8364,6 +8502,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSL1290673",
+      "cjVariantId": "1438787097879252992",
+      "cjProductId": "1438787097824727040",
       "costPrice": 1.62,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8487,6 +8627,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1524260",
+      "cjVariantId": "1547111299010801664",
+      "cjProductId": "1547111298968858624",
       "costPrice": 3.62,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8651,6 +8793,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYZ1469071",
+      "cjVariantId": "1517408858925445120",
+      "cjProductId": "1517408858745090048",
       "costPrice": 8.89,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8774,6 +8918,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2287267",
+      "cjVariantId": "2502090755011614900",
+      "cjProductId": "2502090755011614700",
       "costPrice": 1.9,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -8897,6 +9043,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1079357",
+      "cjVariantId": "1382194487383691264",
+      "cjProductId": "1382194486033125376",
       "costPrice": 6.53,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9021,6 +9169,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJWJYZ03275",
+      "cjVariantId": "1ADB1B57-648F-49E7-9A7C-EC56A9F6A951",
+      "cjProductId": "BCE7A228-8B8E-4402-BE4D-2341D8B2003B",
       "costPrice": 4.47,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9189,6 +9339,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYZ1200911",
+      "cjVariantId": "1411510427321503744",
+      "cjProductId": "1411510425824137216",
       "costPrice": 2.75,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9231,6 +9383,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2312345",
+      "cjVariantId": "2503010326131624400",
+      "cjProductId": "2503010326131624200",
       "costPrice": 11.43,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9315,6 +9469,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE02779",
+      "cjVariantId": "1685566869069107200",
+      "cjProductId": "CFD39804-444E-4AC1-BF75-F1EF19D23ADC",
       "costPrice": 2.4,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9399,6 +9555,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJMR1195219",
+      "cjVariantId": "1409708949174882304",
+      "cjProductId": "1409708947757207552",
       "costPrice": 1.58,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9483,6 +9641,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYZ1175903",
+      "cjVariantId": "1405039856190623744",
+      "cjProductId": "1404985679825473536",
       "costPrice": 3.21,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9567,6 +9727,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1718013",
+      "cjVariantId": "1640535750066319360",
+      "cjProductId": "1640535750003404800",
       "costPrice": 8.11,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9693,6 +9855,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1779089",
+      "cjVariantId": "1669230385257000960",
+      "cjProductId": "1669230385194086400",
       "costPrice": 4.87,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9819,6 +9983,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTJT10690",
+      "cjVariantId": "3F4A19ED-FA35-4E88-86D1-AED218F3EF00",
+      "cjProductId": "742979F5-FF27-4980-B8E1-5F3AF9889740",
       "costPrice": 9.38,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -9903,6 +10069,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJFKD00693",
+      "cjVariantId": "74654386-AA45-4ADD-8E58-AA8883ABB59E",
+      "cjProductId": "D2BAF81A-A67C-4056-8ADE-134F88455C11",
       "costPrice": 4.54,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10113,6 +10281,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1695625",
+      "cjVariantId": "1630841602308583424",
+      "cjProductId": "1630841602107256832",
       "costPrice": 5.94,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10197,6 +10367,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1073924",
+      "cjVariantId": "1380857025008898048",
+      "cjProductId": "1380857023503142912",
       "costPrice": 3.62,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10281,6 +10453,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT2460799",
+      "cjVariantId": "1957619147683696641",
+      "cjProductId": "1957619146723201025",
       "costPrice": 33.07,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10449,6 +10623,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1224185",
+      "cjVariantId": "1418379211386785792",
+      "cjProductId": "1418379208652099584",
       "costPrice": 18.09,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10575,6 +10751,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1479293",
+      "cjVariantId": "1523546485110091776",
+      "cjProductId": "1523546484933931008",
       "costPrice": 4.33,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10701,6 +10879,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT2730402",
+      "cjVariantId": "2011695742836305921",
+      "cjProductId": "2011695742752419841",
       "costPrice": 19.59,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10785,6 +10965,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJHC2834380",
+      "cjVariantId": "2043986874977652738",
+      "cjProductId": "2043986873484480514",
       "costPrice": 13.99,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -10911,6 +11093,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJFU2839482",
+      "cjVariantId": "2045058300953071617",
+      "cjProductId": "2045058299057246210",
       "costPrice": 40.15,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11037,6 +11221,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJGJ2737370",
+      "cjVariantId": "2013830890458464257",
+      "cjProductId": "2013830890341023746",
       "costPrice": 137,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11079,6 +11265,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE00556",
+      "cjVariantId": "5C17A3B1-85E4-46AB-AB90-CC7B9C6B2857",
+      "cjProductId": "49C8223F-5C4C-418A-B0C7-5AD32C6E4052",
       "costPrice": 1.56,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11121,6 +11309,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSD2716569",
+      "cjVariantId": "2008788018109534210",
+      "cjProductId": "2008788018059202561",
       "costPrice": 15,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11163,6 +11353,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2816335",
+      "cjVariantId": "2604020722311600300",
+      "cjProductId": "2604020722301609900",
       "costPrice": 8.29,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11289,6 +11481,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJCJ2675391",
+      "cjVariantId": "2003351818840485890",
+      "cjProductId": "2003351818739822594",
       "costPrice": 41.17,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11373,6 +11567,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2453069",
+      "cjVariantId": "2508110731351609800",
+      "cjProductId": "2508110731351608800",
       "costPrice": 13.76,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11497,6 +11693,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1231397",
+      "cjVariantId": "1420594545007136768",
+      "cjProductId": "1420594543623016448",
       "costPrice": 3.25,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11620,6 +11818,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJCC1284172",
+      "cjVariantId": "1436972490768388096",
+      "cjProductId": "1436972490697084928",
       "costPrice": 5.23,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11661,6 +11861,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJCC1112253",
+      "cjVariantId": "1389484650459697152",
+      "cjProductId": "1389484649125908480",
       "costPrice": 5.06,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11784,6 +11986,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1745305",
+      "cjVariantId": "1651462168514142208",
+      "cjProductId": "1651462168447033344",
       "costPrice": 1.78,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11866,6 +12070,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2353322",
+      "cjVariantId": "2504140519281606300",
+      "cjProductId": "2504140519281606000",
       "costPrice": 9.95,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -11989,6 +12195,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJBHNSNS10519",
+      "cjVariantId": "451A3B68-A7DA-43FC-85A0-9329879E8EEC",
+      "cjProductId": "790C387B-6953-4F68-8795-8799FF749D4B",
       "costPrice": 10.28,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12112,6 +12320,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1743908",
+      "cjVariantId": "1650760780737945600",
+      "cjProductId": "1650760780675031040",
       "costPrice": 5.61,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12235,6 +12445,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJNS1110777",
+      "cjVariantId": "1389155603523440640",
+      "cjProductId": "1389108857900503040",
       "costPrice": 7.52,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12399,6 +12611,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1086286",
+      "cjVariantId": "1384013483045163008",
+      "cjProductId": "1383981260757667840",
       "costPrice": 3.33,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12522,6 +12736,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1769943",
+      "cjVariantId": "1664802050909151232",
+      "cjProductId": "1664802050883985408",
       "costPrice": 11.08,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12604,6 +12820,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1820980",
+      "cjVariantId": "1690554031975960576",
+      "cjProductId": "1690554031913046016",
       "costPrice": 4.63,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12730,6 +12948,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1588946",
+      "cjVariantId": "1581683699932999680",
+      "cjProductId": "1581683699530346496",
       "costPrice": 43.69,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12772,6 +12992,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2256181",
+      "cjVariantId": "2412290241091619800",
+      "cjProductId": "2412290241091619500",
       "costPrice": 34.83,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -12898,6 +13120,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTJT23081",
+      "cjVariantId": "1375293895658835968",
+      "cjProductId": "39EC571A-9394-4056-B168-5508801BB7B0",
       "costPrice": 16.39,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13066,6 +13290,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2014407",
+      "cjVariantId": "1780873092257026048",
+      "cjProductId": "1780873092185722880",
       "costPrice": 7.32,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13192,6 +13418,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1564730",
+      "cjVariantId": "1570343950991503360",
+      "cjProductId": "1570343950932783104",
       "costPrice": 8.06,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13276,6 +13504,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2583726",
+      "cjVariantId": "2511061117451603400",
+      "cjProductId": "2511061117451603100",
       "costPrice": 46.43,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13444,6 +13674,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSN1023211",
+      "cjVariantId": "1365928763027755008",
+      "cjProductId": "1365547097725734912",
       "costPrice": 2.92,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13654,6 +13886,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJTH1409638",
+      "cjVariantId": "1490611029443481600",
+      "cjProductId": "1490611029342818304",
       "costPrice": 4.13,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13738,6 +13972,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSN1681390",
+      "cjVariantId": "1624228409087897600",
+      "cjProductId": "1624228409020788736",
       "costPrice": 4.5,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13822,6 +14058,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT2738866",
+      "cjVariantId": "2601220607081620700",
+      "cjProductId": "2601220607081620300",
       "costPrice": 2.14,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -13990,6 +14228,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1336587",
+      "cjVariantId": "1454687273365934080",
+      "cjProductId": "1454687273307213824",
       "costPrice": 9.67,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -14116,6 +14356,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJSN1720858",
+      "cjVariantId": "1641663085360451584",
+      "cjProductId": "1641663085293342720",
       "costPrice": 4.9,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -14326,6 +14568,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1702759",
+      "cjVariantId": "1634029691889790976",
+      "cjProductId": "1634029691856236544",
       "costPrice": 29.66,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -14410,6 +14654,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD2922335",
+      "cjVariantId": "2606050115131634800",
+      "cjProductId": "2606050115131634000",
       "costPrice": 3.32,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -14704,6 +14950,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1464831",
+      "cjVariantId": "1515199493455753216",
+      "cjProductId": "1515199493346701312",
       "costPrice": 1.49,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -14830,6 +15078,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYS2600645",
+      "cjVariantId": "1990609693507772418",
+      "cjProductId": "1990609693176422401",
       "costPrice": 42.79,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -14914,6 +15164,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTYS00578",
+      "cjVariantId": "2490B804-D2B6-401C-8997-8173264D7255",
+      "cjProductId": "4A4B46FF-67FD-4740-93D5-FA5812368A22",
       "costPrice": 6.43,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -15040,6 +15292,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1250777",
+      "cjVariantId": "1426121272940695552",
+      "cjProductId": "1426121271594323968",
       "costPrice": 1.54,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -15124,6 +15378,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJJJTJT35462",
+      "cjVariantId": "3CA5CD4F-C59C-482B-8A3C-F83DE8F529B3",
+      "cjProductId": "F8AF5A49-95D0-4A75-84A9-62BB7335FB1B",
       "costPrice": 1.85,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -15460,6 +15716,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE01480",
+      "cjVariantId": "1776902166574280704",
+      "cjProductId": "BD4BCCD6-6375-49C0-BAA7-A58CE1070DD3",
       "costPrice": 2.35,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -15544,6 +15802,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1422503",
+      "cjVariantId": "1496376509508751360",
+      "cjProductId": "1496376509433253888",
       "costPrice": 10.02,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -15670,6 +15930,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYD1975030",
+      "cjVariantId": "1761289002205843456",
+      "cjProductId": "1761289002168094720",
       "costPrice": 3.07,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -15754,6 +16016,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJF1453621",
+      "cjVariantId": "1509540094611566592",
+      "cjProductId": "1509540094460571648",
       "costPrice": 1.02,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -15880,6 +16144,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJJT1484148",
+      "cjVariantId": "1526413450828853248",
+      "cjProductId": "1526413450640109568",
       "costPrice": 1.12,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -16006,6 +16272,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJBJMRTF00104",
+      "cjVariantId": "B03654B7-C789-4195-A93B-8B4DEBB97AC9",
+      "cjProductId": "467ED67E-2D6C-4A3C-A8BA-56B55BB976ED",
       "costPrice": 5.07,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -16090,6 +16358,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJPF1025629",
+      "cjVariantId": "1366597910187347968",
+      "cjProductId": "1366597908786450432",
       "costPrice": 12.67,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -16216,6 +16486,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1109311",
+      "cjVariantId": "1388695767128084480",
+      "cjProductId": "1388695765668466688",
       "costPrice": 6.5,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -16258,6 +16530,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE2672479",
+      "cjVariantId": "2512230209001634300",
+      "cjProductId": "2512230209001634100",
       "costPrice": 4.19,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -16384,6 +16658,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJWJYEYE02075",
+      "cjVariantId": "00B2B61C-1A4D-442C-824C-0524910A1FF8",
+      "cjProductId": "FDE0817B-91FC-42D2-A6FE-8AFF85E23A78",
       "costPrice": 11.5,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -16468,6 +16744,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1298951",
+      "cjVariantId": "1441646209096880128",
+      "cjProductId": "1441646209033965568",
       "costPrice": 3.06,
       "shippingDays": "7",
       "shippingFee": 2.5,
@@ -16594,6 +16872,8 @@ export const massProducts12: Product[] = [
     "supplier": {
       "source": "cj-dropshipping",
       "sku": "CJYE1065134",
+      "cjVariantId": "1378319713884573696",
+      "cjProductId": "1378319712366235648",
       "costPrice": 17.62,
       "shippingDays": "7",
       "shippingFee": 2.5,

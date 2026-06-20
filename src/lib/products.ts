@@ -123,6 +123,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ1601466",
+      cjVariantId: "1586990909827330048",
+      cjProductId: "1586990909747638272",
       costPrice: 11.29,
       shippingDays: "5-10",
       shippingFee: 4.32,
@@ -160,6 +162,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSN1852848",
+      cjVariantId: "1704739995744997376",
+      cjProductId: "1704739995317178368",
       costPrice: 12.11,
       shippingDays: "5-10",
       shippingFee: 5.14,
@@ -197,6 +201,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJX2389472",
+      cjVariantId: "2505300638201601700",
+      cjProductId: "2505300638201601400",
       costPrice: 16.83,
       shippingDays: "5-10",
       shippingFee: 4.89,
@@ -228,6 +234,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT1790763",
+      cjVariantId: "1674779378170990592",
+      cjProductId: "1674779378082910208",
       costPrice: 9.59,
       shippingDays: "5-10",
       shippingFee: 4.52,
@@ -262,6 +270,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJQB1028281",
+      cjVariantId: "1367354880976621568",
+      cjProductId: "1367354879680581632",
       costPrice: 10.80,
       shippingDays: "5-10",
       shippingFee: 3.87,
@@ -298,6 +308,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJNS1489386",
+      cjVariantId: "1529035974142078976",
+      cjProductId: "1529035974012055552",
       costPrice: 5.06,
       shippingDays: "5-10",
       shippingFee: 3.62,
@@ -334,6 +346,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT1926768",
+      cjVariantId: "1737828106792087552",
+      cjProductId: "1737828106674647040",
       costPrice: 7.00,
       shippingDays: "5-10",
       shippingFee: 4.18,
@@ -367,6 +381,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJD1123188",
+      cjVariantId: "1392009096881901568",
+      cjProductId: "1392009095543918592",
       costPrice: 10.00,
       shippingDays: "5-10",
       shippingFee: 4.76,
@@ -401,6 +417,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJCD1007159",
+      cjVariantId: "1357587010029752320",
+      cjProductId: "1357587009996197888",
       costPrice: 12.95,
       shippingDays: "5-10",
       shippingFee: 4.35,
@@ -434,6 +452,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ2467698",
+      cjVariantId: "1959882763194646529",
+      cjProductId: "1959882763077206018",
       costPrice: 4.07,
       shippingDays: "5-10",
       shippingFee: 5.89,
@@ -470,6 +490,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2187315",
+      cjVariantId: "2411080752081626400",
+      cjProductId: "2411080752081626200",
       costPrice: 7.13,
       shippingDays: "5-10",
       shippingFee: 4.62,
@@ -508,6 +530,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJBJ1157460",
+      cjVariantId: "1400332367729659904",
+      cjProductId: "1400332366370705408",
       costPrice: 16.77,
       shippingDays: "5-10",
       shippingFee: 6.95,
@@ -544,6 +568,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD1015665",
+      cjVariantId: "1362659299343601664",
+      cjProductId: "1362659297955287040",
       costPrice: 6.97,
       shippingDays: "5-10",
       shippingFee: 3.95,
@@ -578,6 +604,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJZBNSYD00435",
+      cjVariantId: "28CC7935-A432-4B98-805C-848CF4DA3D83",
+      cjProductId: "B72B3BC8-064A-4F40-A53E-0B2D07F17994",
       costPrice: 26.94,
       shippingDays: "5-10",
       shippingFee: 3.78,
@@ -615,6 +643,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2305306",
+      cjVariantId: "2502240343351621600",
+      cjProductId: "2502240343351621300",
       costPrice: 3.02,
       shippingDays: "5-10",
       shippingFee: 6.42,
@@ -648,6 +678,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYDQTJM00248",
+      cjVariantId: "06FFEDA5-D112-4AFE-9E71-8549810E92CD",
+      cjProductId: "C645D8ED-D7BD-492A-8218-A58BB649EB76",
       costPrice: 7.00,
       shippingDays: "5-10",
       shippingFee: 4.28,
@@ -681,6 +713,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD1978885",
+      cjVariantId: "1763402968285589504",
+      cjProductId: "1763402968205897728",
       costPrice: 5.00,
       shippingDays: "5-10",
       shippingFee: 2.84,
@@ -714,6 +748,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYL2550820",
+      cjVariantId: "2510070120341612300",
+      cjProductId: "2510070120341612000",
       costPrice: 4.70,
       shippingDays: "5-10",
       shippingFee: 7.35,
@@ -750,6 +786,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYP1841131",
+      cjVariantId: "1699631652001026048",
+      cjProductId: "1699631651921334272",
       costPrice: 2.50,
       shippingDays: "5-10",
       shippingFee: 3.45,
@@ -783,6 +821,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJSJSJ01018",
+      cjVariantId: "5650E9FC-27FA-457B-ACD2-A41208DCDAB5",
+      cjProductId: "166757A7-7890-4603-B39A-1FB23936757F",
       costPrice: 0.65,
       shippingDays: "5-10",
       shippingFee: 2.48,
@@ -816,6 +856,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSM1058128",
+      cjVariantId: "1376382806141308928",
+      cjProductId: "1376364754565730304",
       costPrice: 0.70,
       shippingDays: "5-10",
       shippingFee: 2.12,
@@ -853,6 +895,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2087178",
+      cjVariantId: "2407180832421610400",
+      cjProductId: "2407180832421610200",
       costPrice: 4.87,
       shippingDays: "5-10",
       shippingFee: 3.89,
@@ -886,6 +930,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJY1167766",
+      cjVariantId: "1402804873497546752",
+      cjProductId: "1402804872084066304",
       costPrice: 2.19,
       shippingDays: "5-10",
       shippingFee: 5.20,
@@ -919,6 +965,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSJ2052800",
+      cjVariantId: "1797809062332084224",
+      cjProductId: "1797809062244003840",
       costPrice: 4.89,
       shippingDays: "5-10",
       shippingFee: 5.45,
@@ -952,6 +1000,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJJT1178499",
+      cjVariantId: "1405431713160630272",
+      cjProductId: "1405431711059283968",
       costPrice: 2.50,
       shippingDays: "5-10",
       shippingFee: 4.85,
@@ -988,6 +1038,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD1067291",
+      cjVariantId: "1379257987474001920",
+      cjProductId: "1379257985368461312",
       costPrice: 1.07,
       shippingDays: "5-10",
       shippingFee: 2.65,
@@ -1024,6 +1076,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJSL2041539",
+      cjVariantId: "1792994907271995392",
+      cjProductId: "1792816058068373504",
       costPrice: 2.00,
       shippingDays: "5-10",
       shippingFee: 2.55,
@@ -1057,6 +1111,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJRN1868419",
+      cjVariantId: "1712088118939504640",
+      cjProductId: "1712088118884978688",
       costPrice: 6.42,
       shippingDays: "5-10",
       shippingFee: 3.15,
@@ -1093,6 +1149,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJYD2203154",
+      cjVariantId: "2411210733271608900",
+      cjProductId: "2411210733271608700",
       costPrice: 2.72,
       shippingDays: "5-10",
       shippingFee: 3.78,
@@ -1127,6 +1185,8 @@ export const products: Product[] = assignSubcategories(applyExistingImages([
     supplier: {
       source: "cj-dropshipping",
       sku: "CJAM1362673",
+      cjVariantId: "1463778127946846208",
+      cjProductId: "1463778127867154432",
       costPrice: 15.00,
       shippingDays: "5-10",
       shippingFee: 5.15,
